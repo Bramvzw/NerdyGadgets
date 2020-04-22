@@ -1,1 +1,1 @@
-Bram : cd mnt/c/Users/Bram\ van\ Zwolle/Windesheim\ Office365/Dylan\ Wilbrink\ \(student\)\ -\ KBS\ -\ NerdyGadgets/Git/NerdyGadgets/
+Bram : cd mnt/d/NerdyGadgets/
