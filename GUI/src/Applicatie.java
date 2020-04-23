@@ -1,23 +1,25 @@
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.JScrollBar;
 
 
-public class Applicatie {
+public class Applicatie implements ActionListener {
 
     // JFrame
-    private JFrame frame;
+    JFrame frame = new JFrame();
+    ComponentResizer cr = new ComponentResizer();
+
+
 
 
     public static void main(String[] args) {
@@ -40,32 +42,37 @@ public class Applicatie {
     private void initialize() {
 
 // Set properties JFrame
-        frame = new JFrame();
+        cr.registerComponent(frame);
+        MotionPanel mp = new MotionPanel(frame);
+
         frame.setBounds(100, 100, 856, 570);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(856, 570));
+        frame.setLocation(500, 250);
+        frame.setUndecorated(true);
+        cr.setSnapSize(new Dimension(10, 10));
+
+
 
 
 // Create JPanel Top
-        JPanel JPNL_Top = new JPanel();
+        JPanel JPNL_Top = new MotionPanel(frame);
         JPNL_Top.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
-
+        JPNL_Top.setBackground(new Color(169,169,169));
 
 // Create JPanel Left-side
         JPanel JPNL_Left = new JPanel();
         JPNL_Left.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-
+        JPNL_Left.setBackground(new Color(169,169,169));
 
 // Create JPanel Bottom
         JPanel JPNL_Bottom = new JPanel();
         JPNL_Bottom.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
-
-
-
-
+        JPNL_Bottom.setBackground(new Color(169,169,169));
 
 // Create JLabel in Jpanel Top
         JLabel JLBLTitle = new JLabel("Monitoring Tool");
-        JLBLTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        JLBLTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
 
         JLabel JLBLIO = new JLabel("Infrastructuur overzicht");
         JLBLIO.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -113,7 +120,6 @@ public class Applicatie {
 
         JLabel JLBL_Type2 = new JLabel("Type");
         JLabel JLBL_Naam2 = new JLabel("Naam");
-
 
 
 // Create JTextField in Jpanel Bottom
@@ -182,7 +188,6 @@ public class Applicatie {
         JTXTF_Type_Bottom.setColumns(10);
 
 
-
 // Create JButtons in JPanel Top
         /**
          * none
@@ -193,17 +198,26 @@ public class Applicatie {
         JButton JBTN_Optimaliseer = new JButton("Optimaliseer");
         JButton JBTN_Ontwerp = new JButton("Ontwerp");
         JButton JBTN_VerwiA = new JButton("Verwijder Alles");
+        JBTN_VerwiA.setFont(new Font("Tahoma", Font.BOLD, 10));
 
 
 // Create JButtons in JPanel Bottom
-        JButton JBTN_Comp1 = new JButton("New button");
-        JButton JBTN_Comp2 = new JButton("New button");
-        JButton JBTN_Comp3 = new JButton("New button");
+        JButton JBTN_Comp1 = new JButton();
+        JBTN_Comp1.setIcon(new ImageIcon("D:\\Nerdy Gadgets\\NerdyGadgets\\GUI\\Images\\Firewall-ico.png"));
+        JBTN_Comp1.setBackground(new Color(249,249,249));
+
+        JButton JBTN_Comp2 = new JButton();
+        JBTN_Comp2.setIcon(new ImageIcon("D:\\Nerdy Gadgets\\NerdyGadgets\\GUI\\Images\\Database-ico.png"));
+        JBTN_Comp2.setBackground(new Color(249,249,249));
+
+
+        JButton JBTN_Comp3 = new JButton("");
+        JBTN_Comp3.setIcon(new ImageIcon("D:\\Nerdy Gadgets\\NerdyGadgets\\GUI\\Images\\Webserver-ico.png"));
+        JBTN_Comp3.setBackground(new Color(249,249,249));
+
+
         JButton JBTN_Reset = new JButton("Reset");
         JButton JBTN_Voegtoe = new JButton("Voeg toe");
-
-
-
 
 
 // Create Separator in Jpanel Top
@@ -230,9 +244,6 @@ public class Applicatie {
         SEPA_Right.setOrientation(SwingConstants.VERTICAL);
 
 
-
-
-
 // Overig:
 
 // Create JButton Exit in JPanel Top
@@ -246,7 +257,8 @@ public class Applicatie {
         JBTNExit.setBorderPainted(false);
         JBTNExit.setInheritsPopupMenu(true);
         JBTNExit.setIgnoreRepaint(true);
-        JBTNExit.setMargin(new Insets(10, 10, 10 ,10));
+        JBTNExit.setMargin(new Insets(10, 10, 10, 10));
+        JBTNExit.addActionListener(new CloseListener());
 
 
 // Create Overig in Jpanel in Left
@@ -260,9 +272,6 @@ public class Applicatie {
 
         JScrollBar Scrollbar = new JScrollBar();
         Scrollbar.setOrientation(JScrollBar.HORIZONTAL);
-
-
-
 
 
 // Group Jpanel JPNL_Top
@@ -320,7 +329,7 @@ public class Applicatie {
         );
 
 
-// Group JPanel JPNL_Left
+// Group JPanel JPNL_Left Horizontaal
         GroupLayout gl_JPNL_Left = new GroupLayout(JPNL_Left);
         gl_JPNL_Left.setHorizontalGroup(
                 gl_JPNL_Left.createParallelGroup(Alignment.LEADING)
@@ -367,14 +376,14 @@ public class Applicatie {
                                 .addGap(45)
                                 .addComponent(JTXTF_GWBesch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                .addGap(49)
-                                .addComponent(JBTN_Optimaliseer, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
+                                .addGap(43)
+                                .addComponent(JBTN_Optimaliseer, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                .addGap(49)
-                                .addComponent(JBTN_Ontwerp, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
+                                .addGap(43)
+                                .addComponent(JBTN_Ontwerp, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                .addGap(49)
-                                .addComponent(JBTN_VerwiA, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE))
+                                .addGap(43)
+                                .addComponent(JBTN_VerwiA, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
                         .addComponent(SEPA_Left_Bottom, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                 .addGap(10)
@@ -447,6 +456,7 @@ public class Applicatie {
                                 .addComponent(JBTN_Optimaliseer, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                                 .addGap(1)
                                 .addComponent(JBTN_Ontwerp, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                                .addGap(1)
                                 .addComponent(JBTN_VerwiA, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                                 .addGap(21)
                                 .addComponent(SEPA_Left_Bottom, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
@@ -570,7 +580,7 @@ public class Applicatie {
                                 .addGap(3)
                                 .addComponent(JLBL_Type1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
                                 .addGap(1)
-                                .addComponent(ComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(ComboBox, GroupLayout.PREFERRED_SIZE,20, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
                                 .addGap(2)
                                 .addGroup(gl_JPNL_Bottom.createParallelGroup(Alignment.LEADING)
@@ -592,43 +602,52 @@ public class Applicatie {
                                 .addGap(1)
                                 .addComponent(JTXT_Prijs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
-                                .addGap(30)
+                                .addGap(33)
                                 .addComponent(JTXTF_Type_Mid, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
-                                .addGap(30)
+                                .addGap(33)
                                 .addComponent(JTXTF_Naam_Mid, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                         .addComponent(JLBL_Naam2)
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
-                                .addGap(48)
+                                .addGap(51)
                                 .addComponent(JTXTF_Naam_Bottom, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
-                                .addGap(12)
+                                .addGap(15)
                                 .addComponent(JTXTF_Type_Top, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
                                 .addGap(70)
                                 .addComponent(Scrollbar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
-                                .addGap(48)
+                                .addGap(51)
                                 .addComponent(JTXTF_Type_Bottom, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                         .addComponent(JLBL_Type2)
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
                                 .addGap(1)
                                 .addComponent(SEPA_Right, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
-                                .addGap(12)
+                                .addGap(15)
                                 .addComponent(JTXTF_Naam_Top, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
         );
         JPNL_Bottom.setLayout(gl_JPNL_Bottom);
         frame.getContentPane().setLayout(groupLayout);
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
-/**
- * TO DO:
- * Minimum size zetten
+/** TO DO:
  * verticaal schalen buttons veranderen?
  * Icons zetten bij new button (Standaard Componenten)
  * GUI veranderen naar undecorated
- * Kruisje werkend met maken met Actionlistener
  * Resize Type ComboBox
  * Type omhoog zetten
+ * OOV knoppen goed zetten
+ */
+
+/** DONE:
+ * Minimum size zetten
+ * Kruisje werkend met maken met Actionlistener
+ *
  */
