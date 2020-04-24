@@ -1,5 +1,7 @@
 package OptimalisatieFunctie;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     FW firewall1 = new FW(0.99998,4000,"FW1");
@@ -24,10 +26,26 @@ public class Main {
     ArrayList<Component> besteComponenten = new ArrayList<>();
 
     double besteBeschikbaarheid = 0;
-    double besteKosten = 50000;
+    double besteKosten = 0;
 
     public static void main(String[] args) {
         Main main = new Main();
+        main.consoleInput();
+
+    }
+
+    public void consoleInput(){
+        Main main = new Main();
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Gewenste beschikbaarheid:");
+        try{
+            main.optimaliseer(Double.parseDouble(scan.nextLine()));
+        }
+
+        catch(NumberFormatException NFE){
+            System.out.println("Gebruik getallen");
+        }
+        main.consoleInput();
     }
 
     public void optimaliseer(){
@@ -178,7 +196,7 @@ public class Main {
         Component laatsteComponent = null;
         ArrayList<Component> laatsteComponenten = new ArrayList<>();
 
-        while(beschikbaarheid < gewensteBeschikbaarheid && kosten < 50000){
+        while(beschikbaarheid < gewensteBeschikbaarheid && kosten < 100000){
             componenten.get(i).plusAantal();
 
             beschikbaarheid = 1;
@@ -208,7 +226,7 @@ public class Main {
             }
         }
 
-        if(beschikbaarheid > gewensteBeschikbaarheid && kosten < besteKosten){
+        if(beschikbaarheid > gewensteBeschikbaarheid && (kosten < besteKosten || besteKosten == 0)){
             besteComponenten.clear();
             for(Component component : componenten){
                 besteComponenten.add(new Component(component.getBeschikbaaheid() + 0,component.getKosten() + 0, component.getNaam() + "", component.getAantal() + 0));
