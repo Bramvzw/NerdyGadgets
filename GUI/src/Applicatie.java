@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -31,6 +32,21 @@ public class Applicatie {
                 }
             }
         });
+        component component1 = new component("hd server1 ", 99, 2100, 22, 55);
+        component component2 = new component("hd server1 ", 99, 2100, 22, 55);
+        component component3 = new component("hd server1 ", 99, 2100, 22, 55);
+        component component4 = new component("hd server1 ", 99, 2100, 22, 55);
+        System.out.println(component1);
+        System.out.println("--------------------------------");
+
+
+        ArrayList<Object> componentlijst = new ArrayList<>();
+        componentlijst.add(component1);
+        componentlijst.add(component2);
+        componentlijst.add(component3);
+        componentlijst.add(component4);
+        for (Object x : componentlijst)
+            System.out.println(x);
     }
 
     public Applicatie() {
@@ -622,7 +638,7 @@ public class Applicatie {
         frame.getContentPane().setLayout(groupLayout);
     }
 
-    
+
 }
 /**
  * TO DO:

@@ -3,11 +3,12 @@ import java.util.ArrayList;
 public  class  component {
 
     private String type;
-    private int beschikbaarheid;
-    private int prijs;
-    private int processorbelasting;
-    private int diskruimte;
-    static ArrayList<Object> componentlijst = new ArrayList<>();
+    private float beschikbaarheid;
+    private float prijs;
+    private float processorbelasting;
+    private float diskruimte;
+
+    ArrayList<Object> componentlijst = new ArrayList<>();
 
 
 
@@ -20,15 +21,24 @@ public  class  component {
         this.processorbelasting = processorbelasting;
         this.diskruimte = diskruimte;
     }
-
-
-
-
-    public static void adding(component comp1) {
-        componentlijst.add(comp1);
-
+    public component(String type, int beschikbaarheid, int prijs, int processorbelasting )
+    {
+        this.type = type;
+        this.beschikbaarheid = beschikbaarheid;
+        this.prijs = prijs;
+        this.processorbelasting = processorbelasting;
+    }
+    public component(String type, int beschikbaarheid, int prijs   )
+    {
+        this.type = type;
+        this.beschikbaarheid = beschikbaarheid;
+        this.prijs = prijs;
     }
 
+
+    public   void printarray() {
+
+    }
 
 
 
@@ -46,56 +56,56 @@ public  class  component {
 
 
 
-    public int getBeschikbaarheid() {
+    public float getBeschikbaarheid() {
         return beschikbaarheid;
     }
 
 
 
 
-    public void setBeschikbaarheid(int beschikbaarheid) {
+    public void setBeschikbaarheid(float beschikbaarheid) {
         this.beschikbaarheid = beschikbaarheid;
     }
 
 
 
 
-    public int getPrijs() {
+    public float getPrijs() {
         return prijs;
     }
 
 
 
 
-    public void setPrijs(int prijs) {
+    public void setPrijs(float prijs) {
         this.prijs = prijs;
     }
 
 
 
 
-    public int getProcessorbelasting() {
+    public float getProcessorbelasting() {
         return processorbelasting;
     }
 
 
 
 
-    public void setProcessorbelasting(int processorbelasting) {
+    public void setProcessorbelasting(float processorbelasting) {
         this.processorbelasting = processorbelasting;
     }
 
 
 
 
-    public int getDiskruimte() {
+    public float getDiskruimte() {
         return diskruimte;
     }
 
 
 
 
-    public void setDiskruimte(int diskruimte) {
+    public void setDiskruimte(float diskruimte) {
         this.diskruimte = diskruimte;
     }
 
@@ -104,8 +114,7 @@ public  class  component {
     @Override
     public String toString() {
         return "component [type=" + type + ", beschikbaarheid=" + beschikbaarheid + ", prijs=" + prijs
-                + ", processorbelasting=" + processorbelasting + ", diskruimte=" + diskruimte + ", componentlijst="
-                + componentlijst + "]";
+                + ", processorbelasting=" + processorbelasting + ", diskruimte=" + diskruimte + "]";
     }
 
 
