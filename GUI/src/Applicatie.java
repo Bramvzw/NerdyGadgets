@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 
 public class Applicatie implements ActionListener {
@@ -52,6 +54,7 @@ public class Applicatie implements ActionListener {
         frame.setUndecorated(true);
         cr.setSnapSize(new Dimension(10, 10));
 
+        Border border1 = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.black, null, null, null);
 
 
 
@@ -79,6 +82,31 @@ public class Applicatie implements ActionListener {
 
 
 // Create JLabels in JPanel_Left
+        JLabel JLBL_A_Firewall = new JLabel();
+        JLBL_A_Firewall.setBorder(border1);
+
+        JLabel JLBL_K_Firewall = new JLabel();
+        JLBL_K_Firewall.setBorder(border1);
+
+        JLabel JLBL_A_Databases = new JLabel();
+        JLBL_A_Databases.setBorder(border1);
+
+        JLabel JLBL_K_Databases = new JLabel();
+        JLBL_K_Databases.setBorder(border1);
+
+        JLabel JLBL_A_Webs = new JLabel();
+        JLBL_A_Webs.setBorder(border1);
+
+        JLabel JLBL_K_Webs = new JLabel();
+        JLBL_K_Webs.setBorder(border1);
+
+        JLabel JLBL_TotKosten = new JLabel();
+        JLBL_TotKosten.setBorder(border1);
+
+        JLabel JTXTF_Beschikbaarheid = new JLabel();
+        JTXTF_Beschikbaarheid.setBorder(border1);
+
+
         JLabel JLBLStat = new JLabel("Statistieken");
         JLBLStat.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
@@ -121,41 +149,34 @@ public class Applicatie implements ActionListener {
         JLabel JLBL_Type2 = new JLabel("Type");
         JLabel JLBL_Naam2 = new JLabel("Naam");
 
+        JLabel JTXTF_Naam_Top = new JLabel();
+        JTXTF_Naam_Top.setBorder(border1);
 
-// Create JTextField in Jpanel Bottom
+        JLabel JTXTF_Naam_Mid = new JLabel();
+        JTXTF_Naam_Mid.setBorder(border1);
+
+        JLabel JTXTF_Naam_Bottom = new JLabel();
+        JTXTF_Naam_Bottom.setBorder(border1);
+
+        JLabel JTXTF_Type_Top = new JLabel();
+        JTXTF_Type_Top.setBorder(border1);
+
+        JLabel JTXTF_Type_Mid = new JLabel();
+        JTXTF_Type_Mid.setBorder(border1);
+
+        JLabel JTXTF_Type_Bottom = new JLabel();
+        JTXTF_Type_Bottom.setBorder(border1);
+
+
+// Create JTextField in Jpanel Top
         /**
          * None
          */
 
 
 // Create JTextFields in JPanel_Left
-        JTextField JTXTF_A_Firewall = new JTextField();
-        JTXTF_A_Firewall.setColumns(10);
-
-        JTextField JTXTF_K_Firewall = new JTextField();
-        JTXTF_K_Firewall.setColumns(10);
-
-        //JTextFields
-        JTextField JTXTF_A_Databases = new JTextField();
-        JTXTF_A_Databases.setColumns(10);
-
-        JTextField JTXTF_K_Databases = new JTextField();
-        JTXTF_K_Databases.setColumns(10);
-
-        JTextField JTXTF_A_Webs = new JTextField();
-        JTXTF_A_Webs.setColumns(10);
-
-        JTextField JTXTF_K_Webs = new JTextField();
-        JTXTF_K_Webs.setColumns(10);
-
         JTextField JTXTF_GWBesch = new JTextField();
         JTXTF_GWBesch.setColumns(10);
-
-        JTextField JTXTF_TotKosten = new JTextField();
-        JTXTF_TotKosten.setColumns(10);
-
-        JTextField JTXTF_Beschikbaarheid = new JTextField();
-        JTXTF_Beschikbaarheid.setColumns(10);
 
 
 // Create JTextFields in JPanel Bottom
@@ -169,23 +190,8 @@ public class Applicatie implements ActionListener {
         JTXT_Prijs.setColumns(10);
 
 
-        JTextField JTXTF_Naam_Top = new JTextField();
-        JTXTF_Naam_Top.setColumns(10);
 
-        JTextField JTXTF_Naam_Mid = new JTextField();
-        JTXTF_Naam_Mid.setColumns(10);
 
-        JTextField JTXTF_Naam_Bottom = new JTextField();
-        JTXTF_Naam_Bottom.setColumns(10);
-
-        JTextField JTXTF_Type_Top = new JTextField();
-        JTXTF_Type_Top.setColumns(10);
-
-        JTextField JTXTF_Type_Mid = new JTextField();
-        JTXTF_Type_Mid.setColumns(10);
-
-        JTextField JTXTF_Type_Bottom = new JTextField();
-        JTXTF_Type_Bottom.setColumns(10);
 
 
 // Create JButtons in JPanel Top
@@ -203,16 +209,16 @@ public class Applicatie implements ActionListener {
 
 // Create JButtons in JPanel Bottom
         JButton JBTN_Comp1 = new JButton();
-        JBTN_Comp1.setIcon(new ImageIcon("D:\\Nerdy Gadgets\\NerdyGadgets\\GUI\\Images\\Firewall-ico.png"));
+        JBTN_Comp1.setIcon(new ImageIcon("Images/Firewall-ico.png"));
         JBTN_Comp1.setBackground(new Color(249,249,249));
 
         JButton JBTN_Comp2 = new JButton();
-        JBTN_Comp2.setIcon(new ImageIcon("D:\\Nerdy Gadgets\\NerdyGadgets\\GUI\\Images\\Database-ico.png"));
+        JBTN_Comp2.setIcon(new ImageIcon("Images/Database-ico.png"));
         JBTN_Comp2.setBackground(new Color(249,249,249));
 
 
         JButton JBTN_Comp3 = new JButton("");
-        JBTN_Comp3.setIcon(new ImageIcon("D:\\Nerdy Gadgets\\NerdyGadgets\\GUI\\Images\\Webserver-ico.png"));
+        JBTN_Comp3.setIcon(new ImageIcon("Images/Webserver-ico.png"));
         JBTN_Comp3.setBackground(new Color(249,249,249));
 
 
@@ -343,15 +349,15 @@ public class Applicatie implements ActionListener {
                                                         .addComponent(SEPA_Stat1, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
                                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                                 .addGap(110)
-                                                                .addComponent(JTXTF_A_Webs, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+                                                                .addComponent(JLBL_A_Webs, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
                                                 .addGap(13)
                                                 .addGroup(gl_JPNL_Left.createParallelGroup(Alignment.LEADING)
                                                         .addComponent(JLBLKosten, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(JTXTF_K_Firewall, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(JTXTF_K_Webs, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(JLBL_K_Firewall, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(JLBL_K_Webs, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                 .addGap(110)
-                                                .addComponent(JTXTF_A_Firewall, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(JLBL_A_Firewall, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                 .addGap(20)
                                                 .addComponent(JLBLStat, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE))
@@ -363,11 +369,11 @@ public class Applicatie implements ActionListener {
                                 .addGroup(gl_JPNL_Left.createParallelGroup(Alignment.LEADING)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                 .addGap(110)
-                                                .addComponent(JTXTF_A_Databases, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(JLBL_A_Databases, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(SEPA_Stat2, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(JLBLDatabases, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))
                                 .addGap(13)
-                                .addComponent(JTXTF_K_Databases, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(JLBL_K_Databases, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
                         .addComponent(SEPA_Left_Top, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                 .addGap(11)
@@ -392,7 +398,7 @@ public class Applicatie implements ActionListener {
                                 .addGroup(gl_JPNL_Left.createParallelGroup(Alignment.LEADING)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                 .addGap(11)
-                                                .addComponent(JTXTF_TotKosten, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(JLBL_TotKosten, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(JLBL_Euro, GroupLayout.PREFERRED_SIZE, 13, GroupLayout.PREFERRED_SIZE)))
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                 .addGap(10)
@@ -420,30 +426,30 @@ public class Applicatie implements ActionListener {
                                                                 .addComponent(SEPA_Stat1, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                                 .addGap(27)
-                                                                .addComponent(JTXTF_A_Webs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+                                                                .addComponent(JLBL_A_Webs, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                 .addGap(10)
                                                 .addComponent(JLBLKosten)
                                                 .addGap(1)
-                                                .addComponent(JTXTF_K_Firewall, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(JLBL_K_Firewall, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(5)
-                                                .addComponent(JTXTF_K_Webs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(JLBL_K_Webs, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                                .addGap(25)
-                                                .addComponent(JTXTF_A_Firewall, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                .addGap(27)
+                                                .addComponent(JLBL_A_Firewall, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(JLBLStat, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                 .addGap(10)
                                                 .addComponent(JLBLAantal)))
                                 .addGroup(gl_JPNL_Left.createParallelGroup(Alignment.LEADING)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                                .addGap(2)
-                                                .addComponent(JTXTF_A_Databases, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                                .addGap(4)
+                                                .addComponent(JLBL_A_Databases, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(SEPA_Stat2, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(JLBLDatabases, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                                .addGap(2)
-                                                .addComponent(JTXTF_K_Databases, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(4)
+                                                .addComponent(JLBL_K_Databases, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(11)
                                 .addGroup(gl_JPNL_Left.createParallelGroup(Alignment.LEADING)
                                         .addComponent(SEPA_Left_Top, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
@@ -463,20 +469,16 @@ public class Applicatie implements ActionListener {
                                 .addGap(1)
                                 .addGroup(gl_JPNL_Left.createParallelGroup(Alignment.LEADING)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                                .addGap(2)
                                                 .addComponent(JLBL_TotK, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(JTXTF_TotKosten, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(JLBL_TotKosten, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                                .addGap(3)
                                                 .addComponent(JLBL_Euro)))
                                 .addGap(4)
                                 .addGroup(gl_JPNL_Left.createParallelGroup(Alignment.LEADING, false)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                                .addGap(2)
                                                 .addComponent(JLBL_Beschi, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(JTXTF_Beschikbaarheid, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(JTXTF_Beschikbaarheid, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                                .addGap(3)
                                                 .addComponent(JLBL_Procent)))
                                 .addGap(16))
         );
@@ -555,7 +557,7 @@ public class Applicatie implements ActionListener {
                                                 .addGap(7)
                                                 .addComponent(JTXTF_Type_Bottom, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
-                                                .addGap(16)
+                                                .addGap(7)
                                                 .addComponent(JLBL_Type2, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
                                         .addComponent(SEPA_Right, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
                                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
@@ -639,15 +641,18 @@ public class Applicatie implements ActionListener {
 }
 /** TO DO:
  * verticaal schalen buttons veranderen?
- * Icons zetten bij new button (Standaard Componenten)
- * GUI veranderen naar undecorated
- * Resize Type ComboBox
- * Type omhoog zetten
- * OOV knoppen goed zetten
- */
+ * Exit-button highlight
+ * Infrastructuur overzicht kunnen selecteren
+ * Webserver icon goed zetten
+
+
 
 /** DONE:
  * Minimum size zetten
  * Kruisje werkend met maken met Actionlistener
- *
+ * Type omhoog zetten
+ *Resize Type ComboBox
+ * OOV knoppen goed zetten
+ * GUI veranderen naar undecorated
+ * Icons zetten bij new button (Standaard Componenten)
  */
