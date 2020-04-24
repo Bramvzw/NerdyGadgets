@@ -621,6 +621,8 @@ public class Applicatie {
         JPNL_Bottom.setLayout(gl_JPNL_Bottom);
         frame.getContentPane().setLayout(groupLayout);
     }
+
+    
 }
 /**
  * TO DO:
