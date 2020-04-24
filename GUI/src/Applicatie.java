@@ -49,7 +49,7 @@ public class Applicatie implements ActionListener {
 
         frame.setBounds(100, 100, 856, 570);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(856, 570));
+        frame.setMinimumSize(new Dimension(900, 570));
         frame.setLocation(500, 250);
         frame.setUndecorated(true);
         cr.setSnapSize(new Dimension(10, 10));
@@ -108,43 +108,54 @@ public class Applicatie implements ActionListener {
 
 
         JLabel JLBLStat = new JLabel("Statistieken");
-        JLBLStat.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        JLBLStat.setFont(new Font("Tahoma", Font.BOLD, 13));
 
         JLabel JLBLFirewall = new JLabel("Firewall");
+        JLBLFirewall.setFont(new Font("Plain", Font.PLAIN, 13));
+
         JLabel JLBLWebs = new JLabel("Websever(s)");
+        JLBLWebs.setFont(new Font("Plain", Font.PLAIN, 13));
+
+
         JLabel JLBLDatabases = new JLabel("Database server(s)");
+        JLBLDatabases.setFont(new Font("Tahoma", Font.PLAIN, 13));
+
         JLabel JLBLAantal = new JLabel("Aantal");
+
         JLabel JLBLKosten = new JLabel("Kosten");
 
         JLabel JLBL_GWBesch = new JLabel("Gewenste beschikbaarheid in %");
-        JLBL_GWBesch.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        JLBL_GWBesch.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         JLabel JLBL_TotK = new JLabel("Totale kosten");
-        JLBL_TotK.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        JLBL_TotK.setFont(new Font("Tahoma", Font.BOLD, 13));
 
         JLabel JLBL_Beschi = new JLabel("Beschikbaarheid");
         JLBL_Beschi.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        JLBL_Beschi.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        JLBL_Beschi.setFont(new Font("Tahoma", Font.BOLD, 13));
 
         JLabel JLBL_Euro = new JLabel("\u20AC");
+        JLBL_Euro.setFont(new Font("Tahoma", Font.BOLD, 13));
+
         JLabel JLBL_Procent = new JLabel("%");
+        JLBL_Procent.setFont(new Font("Tahoma", Font.BOLD, 13));
 
 
 // Create JLabel in JPanel Bottom
         JLabel JLBL_BeschC = new JLabel("Beschikbare componenten");
-        JLBL_BeschC.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        JLBL_BeschC.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         JLabel JLBL_Type1 = new JLabel("Type");
-        JLBL_Type1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        JLBL_Type1.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         JLabel JLBL_Naam2_1 = new JLabel("Naam");
-        JLBL_Naam2_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        JLBL_Naam2_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         JLabel JLBL_Beschik = new JLabel("Beschikbaarheid in %");
-        JLBL_Beschik.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        JLBL_Beschik.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         JLabel JLBL_Prijs = new JLabel("Prijs in \u20AC");
-        JLBL_Prijs.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        JLBL_Prijs.setFont(new Font("Tahoma", Font.BOLD, 12));
 
         JLabel JLBL_Type2 = new JLabel("Type");
         JLabel JLBL_Naam2 = new JLabel("Naam");
@@ -376,8 +387,8 @@ public class Applicatie implements ActionListener {
                                 .addComponent(JLBL_K_Databases, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
                         .addComponent(SEPA_Left_Top, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
-                                .addGap(11)
-                                .addComponent(JLBL_GWBesch, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE))
+                                .addGap(4)
+                                .addComponent(JLBL_GWBesch, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                 .addGap(45)
                                 .addComponent(JTXTF_GWBesch, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -407,7 +418,6 @@ public class Applicatie implements ActionListener {
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                                 .addGap(110)
                                                 .addComponent(JTXTF_Beschikbaarheid, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)))
-                                .addGap(7)
                                 .addComponent(JLBL_Procent, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
         );
         gl_JPNL_Left.setVerticalGroup(
@@ -493,7 +503,7 @@ public class Applicatie implements ActionListener {
                                 .addGroup(gl_JPNL_Bottom.createParallelGroup(Alignment.LEADING)
                                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
                                                 .addGap(16)
-                                                .addComponent(JLBL_BeschC, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(JLBL_BeschC, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
                                                 .addComponent(JBTN_Comp1, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(6)
@@ -514,7 +524,7 @@ public class Applicatie implements ActionListener {
                                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
                                                 .addGap(2)
                                                 .addComponent(JLBL_Naam2_1, GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                                                .addGap(50)
+                                                .addGap(80)
                                                 .addComponent(JLBL_Beschik, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                                                 .addGap(8))
                                         .addGroup(gl_JPNL_Bottom.createSequentialGroup()
