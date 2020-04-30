@@ -10,7 +10,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
     ComponentResizer cr = new ComponentResizer();
     private JPanel JPNL_Top, JPNL_Left, JPNL_Bottom;
-    private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
+    private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_GWBesch_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBLAantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, JLBL_BeschC, JLBL_Type1, JLBL_Naam2_1, JLBL_Beschik, JLBL_Prijs, JLBL_Type2, JLBL_Naam2, JLBL_Naam_Top, JLBL_Naam_Mid, JLBL_Naam_Bottom,
             JLBL_Type_Top, JLBL_Type_Mid, JLBL_Type_Bottom;
     private JTextField JTXTF_GWBesch, JTXTF_Naam, JTXTF_Beschik, JTXT_Prijs;
@@ -93,6 +93,10 @@ public class Applicatie extends JFrame implements ActionListener {
         JLBL_Beschikbaarheid = new JLabel();
         JLBL_Beschikbaarheid.setBorder(border1);
         add(JLBL_Beschikbaarheid);
+
+        JLBL_GWBesch_Error = new JLabel("testje");
+        JLBL_GWBesch_Error.setForeground(Color.red);
+        add(JLBL_GWBesch_Error);
 
         JLBLStat = new JLabel("Statistieken");
         JLBLStat.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -224,6 +228,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
 // Create JButtons in JPanel Left
         JBTN_Optimaliseer = new JButton("Optimaliseer");
+        JBTN_Optimaliseer.addActionListener(this);
         add(JBTN_Optimaliseer);
 
         JBTN_Ontwerp = new JButton("Ontwerp");
@@ -680,6 +685,19 @@ public class Applicatie extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        try {
+            if (e.getSource() == JBTN_Optimaliseer) {
+                double GewBeschik = Double.parseDouble(JTXTF_GWBesch.getText());
+                if (GewBeschik >= 0.1 && GewBeschik < 100.0) {
+                    String str = JTXTF_GWBesch.getText();
+                    JLBL_Beschikbaarheid.setText(" " + str);
+                } else {
+                    JLBL_GWBesch_Error.setText("De gewenste beschikbaarheid moet tussen 0.1% en 99.99% liggen");
+                }
+            }
+        } catch (NumberFormatException nfe) {
+            JLBL_GWBesch_Error.setText("Alleen getallen kunnen worden ingevoerd!");
+        }
         
     }
 }
