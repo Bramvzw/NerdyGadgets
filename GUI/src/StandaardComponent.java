@@ -1,13 +1,19 @@
-public class EenComponent {
+public class StandaardComponent {
     private int Index;
     private String Naam;
     private double Beschikbaarheid;
     private double Prijs;
 
 
-    public EenComponent(int Index, String Naam, double Beschikbaarheid, double Prijs) {
+    public StandaardComponent(int Index, double Beschikbaarheid, double Prijs) {
         this.Index = Index;
-        this.Naam = Naam;
+        if(Index == 1) {
+            this.Naam = "Firewall";
+        } else if (Index == 2) {
+            this.Naam = "Database Server";
+        } else if (Index == 3) {
+            this.Naam = "Webserver";
+        }
         this.Beschikbaarheid = Beschikbaarheid;
         this.Prijs = Prijs;
     }
@@ -16,5 +22,3 @@ public class EenComponent {
         return Index + " " + Naam + " " + Beschikbaarheid + " " + Prijs;
     }
 }
-
-
