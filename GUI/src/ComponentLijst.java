@@ -177,7 +177,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
     }
 
     public String[] getgegevens(int ID) throws SQLException {
-        String[] gegevens = new String[8];
+        String[] gegevens = new String[10];
         try {
             con = Connectie.getConnection();
             pstmt = con.prepareStatement("Select * FROM componenten.component WHERE ID=?;");
@@ -193,6 +193,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
                 gegevens[5] = "€ " + Integer.toString(rs.getInt("Prijs"));
                 gegevens[6] = Double.toString(rs.getDouble("Processorbelasting"));
                 gegevens[7] = Double.toString(rs.getDouble("Diskruimte"));
+
+
             }
             rs.close();
         } catch (Exception e) {

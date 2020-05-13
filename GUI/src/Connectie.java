@@ -4,7 +4,7 @@ public class Connectie {
     private static String url = "jdbc:mysql://localhost:3306";
     private static String driverName = "mysql-connector-java-8.0.20.jar";
     private static String username = "root";
-    private static String password = "bramvz";
+    private static String password = "";
     private static Connection con;
     private static String urlstring;
 
