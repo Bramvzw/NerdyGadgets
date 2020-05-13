@@ -1,0 +1,7 @@
+INSERT INTO componenten.component (ID, Type_key, Type, Naam, Beschikbaarheid, Prijs, Processorbelasting, Diskruimte) VALUES (1, 1, 'Firewall', 'pfSense', 99.998, 4000, null, null);
+INSERT INTO componenten.component (ID, Type_key, Type, Naam, Beschikbaarheid, Prijs, Processorbelasting, Diskruimte) VALUES (2, 2, 'DBserver', 'HAL9001DB', 90, 5100, null, null);
+INSERT INTO componenten.component (ID, Type_key, Type, Naam, Beschikbaarheid, Prijs, Processorbelasting, Diskruimte) VALUES (3, 2, 'DBserver', 'HAL9002DB', 95, 7700, null, null);
+INSERT INTO componenten.component (ID, Type_key, Type, Naam, Beschikbaarheid, Prijs, Processorbelasting, Diskruimte) VALUES (4, 2, 'DBserver', 'HAL9003DB', 98, 12200, null, null);
+INSERT INTO componenten.component (ID, Type_key, Type, Naam, Beschikbaarheid, Prijs, Processorbelasting, Diskruimte) VALUES (5, 3, 'Webserver', 'HAL9001W', 80, 2200, null, null);
+INSERT INTO componenten.component (ID, Type_key, Type, Naam, Beschikbaarheid, Prijs, Processorbelasting, Diskruimte) VALUES (6, 3, 'Webserver', 'HAL9002W', 90, 3200, null, null);
+INSERT INTO componenten.component (ID, Type_key, Type, Naam, Beschikbaarheid, Prijs, Processorbelasting, Diskruimte) VALUES (7, 3, 'Webserver', 'HAL9003W', 95, 5100, null, null);

@@ -1,32 +1,47 @@
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
-import javax.swing.plaf.nimbus.State;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 
-public class ComponentLijst extends JPanel {
+public class ComponentLijst extends JPanel implements ActionListener {
 
-    private JButton JBTN_Select, JBTN_Unselect;
+    private static int key = 0;
+    Border border1 = BorderFactory.createLineBorder(Color.black);
+    Border border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.black, null, null, null);
+    private JButton JBTN_Select, JBTN_Unselect, JBTN_ID;
     private JLabel JLBL_Naam, JLBL_Type, JLBL_Beschikbaarheid, JLBL_Prijs, JLBL_Processorb, JLBL_Diskruimte, JLBL_I_Type, JLBL_I_Beschikbaarheid, JLBL_I_Prijs, JLBL_I_Proccesb, JLBL_I_Diskruimte, JLBL_Placeholder;
     private JSeparator SEPA_Top, SEPA_Midt, SEPA_Midb, SEPA_Bottom;
     private JPanel Component;
+    private Lijst lijst;
+
+    private PreparedStatement pstmt;
+    private Statement stmt;
     private Connection con;
 
 
-    Border border1 = BorderFactory.createLineBorder(Color.black);
-    Border border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.black, null, null, null);
-
 
     public ComponentLijst() throws SQLException {
-
-
         for (int i = 0; i < CountRows(); i++) {
             AddComponent();
         }
+
+    }
+
+    public void setID() {
+        JBTN_ID = new JButton("+");
+        for (int i = 0; i < 8; i++) {
+            String j = Integer.toString(i);
+            JBTN_ID.setName(String.valueOf(j));
+        }
+        JBTN_ID.addActionListener(this);
     }
 
     public void AddComponent() throws SQLException {
+        key++;
+
         Component = new JPanel();
         Component.setLayout(new BoxLayout(Component, BoxLayout.Y_AXIS));
         Component.setPreferredSize(new Dimension(200, 160));
@@ -34,7 +49,7 @@ public class ComponentLijst extends JPanel {
         Component.setLayout(new FlowLayout());
         add(Component);
 
-        JLBL_Naam = new JLabel(setNaam());
+        JLBL_Naam = new JLabel(getgegevens(key)[3]);
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -51,10 +66,14 @@ public class ComponentLijst extends JPanel {
         JBTN_Unselect.setFocusable(false);
         Component.add(JBTN_Unselect);
 
+        setID();
+
         JBTN_Select = new JButton("+");
+        JBTN_Select.setName("ID");
         JBTN_Select.setFont(new Font("", Font.BOLD, 14));
         JBTN_Select.setPreferredSize(new Dimension(20, 20));
         JBTN_Select.setMargin(new Insets(0, 0, 1, 0));
+        JBTN_Select.addActionListener(this);
         JBTN_Select.setFocusable(false);
         Component.add(JBTN_Select);
 
@@ -65,7 +84,7 @@ public class ComponentLijst extends JPanel {
         JLBL_Placeholder = new JLabel("                            ");
         Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel("");
+        JLBL_I_Type = new JLabel(getgegevens(key)[2]);
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         Component.add(JLBL_I_Type);
@@ -81,7 +100,7 @@ public class ComponentLijst extends JPanel {
         JLBL_Placeholder = new JLabel("     ");
         Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel("");
+        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(key)[4]);
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         Component.add(JLBL_I_Beschikbaarheid);
@@ -97,7 +116,7 @@ public class ComponentLijst extends JPanel {
         JLBL_Placeholder = new JLabel("                            ");
         Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel("");
+        JLBL_I_Prijs = new JLabel(getgegevens(key)[5]);
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         Component.add(JLBL_I_Prijs);
@@ -110,7 +129,7 @@ public class ComponentLijst extends JPanel {
         JLBL_Processorb = new JLabel("Processorbelasting ");
         Component.add(JLBL_Processorb);
 
-        JLBL_I_Proccesb = new JLabel("");
+        JLBL_I_Proccesb = new JLabel(getgegevens(key)[6]);
         JLBL_I_Proccesb.setBorder(border1);
         JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
         Component.add(JLBL_I_Proccesb);
@@ -126,62 +145,72 @@ public class ComponentLijst extends JPanel {
         JLBL_Placeholder = new JLabel("                ");
         Component.add(JLBL_Placeholder);
 
-        JLBL_I_Diskruimte = new JLabel("");
+        JLBL_I_Diskruimte = new JLabel(getgegevens(key)[7]);
         JLBL_I_Diskruimte.setBorder(border1);
         JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
         Component.add(JLBL_I_Diskruimte);
     }
 
+
+
     public int CountRows() throws SQLException {
-        String Rows;
         int rows = 0;
-        Statement myStmt = null;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "bramvz");
-            myStmt = con.createStatement();
+            con = Connectie.getConnection();
+            stmt = con.createStatement();
             String sql = "SELECT COUNT(*) FROM componenten.component;";
-            ResultSet rs = myStmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-
                 rows = rs.getInt(1);
-
             }
+            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally
-        {
-            if (myStmt !=
-                    null) { myStmt.close(); }
+        } finally {
+            if (stmt !=
+                    null) {
+                stmt.close();
+            }
         }
         return rows;
     }
 
-
-
-    public String setNaam() throws SQLException {
-        String value = null;
-        Statement myStmt = null;
+    public String[] getgegevens(int ID) throws SQLException {
+        String[] gegevens = new String[8];
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "bramvz");
-            myStmt = con.createStatement();
-            String query = "Select * FROM componenten.component WHERE ID = 1";
-            ResultSet rs = myStmt.executeQuery("Select * FROM componenten.component WHERE ID = 1");
+            con = Connectie.getConnection();
+            pstmt = con.prepareStatement("Select * FROM componenten.component WHERE ID=?;");
+            pstmt.setInt(1, ID);
+            ResultSet rs = pstmt.executeQuery();
 
-                while (rs.next()) {
-
-                    value = rs.getString("Naam");
-
+            while (rs.next()) {
+                gegevens[0] = Integer.toString(rs.getInt("ID"));
+                gegevens[1] = Integer.toString(rs.getInt("Type_key"));
+                gegevens[2] = rs.getString("Type");
+                gegevens[3] = rs.getString("Naam");
+                gegevens[4] = Double.toString(rs.getDouble("Beschikbaarheid")) + "%";
+                gegevens[5] = "€ " + Integer.toString(rs.getInt("Prijs"));
+                gegevens[6] = Double.toString(rs.getDouble("Processorbelasting"));
+                gegevens[7] = Double.toString(rs.getDouble("Diskruimte"));
             }
+            rs.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            if (pstmt !=
+                    null) {
+                pstmt.close();
+            }
         }
-        finally
-        {
-            if (myStmt !=
-                    null) { myStmt.close(); }
-        }
-        return value;
+        return gegevens;
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      if (JBTN_ID.getName().equals("2"))
+            System.out.println("test");
+
+    }
+
 }
+
