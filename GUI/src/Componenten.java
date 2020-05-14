@@ -1,36 +1,45 @@
 public class Componenten {
-    private int Index;
+    private int ID;
+    private int Type_key;
+    private String Type;
     private String Naam;
     private double Beschikbaarheid;
-    private double Prijs;
+    private int Prijs;
+    private double Processorbelasting;
+    private double Diskruimte;
 
-
-    public Componenten(int Index, double Beschikbaarheid, double Prijs) {
-        this.Index = Index;
-        if (this.Index == 1) {
-            this.Naam = "Firewall";
-        } else if (this.Index == 2) {
-            this.Naam = "Webserver";
-        } else if (this.Index == 3) {
-            this.Naam = "Database server";
-        }
-        this.Beschikbaarheid = Beschikbaarheid;
-        this.Prijs = Prijs;
-    }
-
-    public Componenten(int Index, String Naam, double Beschikbaarheid, double Prijs) {
-        this.Index = Index;
+    public Componenten(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
+        this.ID = ID;
+        this.Type_key = Type_key;
+        this.Type = Type;
         this.Naam = Naam;
         this.Beschikbaarheid = Beschikbaarheid;
         this.Prijs = Prijs;
+        this.Processorbelasting = Proccesorbelasting;
+        this.Diskruimte = Diskruimte;
     }
 
-    public double getPrijs() {
-        return Prijs;
+    public void NewComponent(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
+
+
+
+        this.ID = ID;
+        this.Type_key = Type_key;
+        this.Type = Type;
+        this.Naam = Naam;
+        this.Beschikbaarheid = Beschikbaarheid;
+        this.Prijs = Prijs;
+        this.Processorbelasting = Proccesorbelasting;
+        this.Diskruimte = Diskruimte;
+
+
     }
+
+
+
 
     public String toString() {
-        return Index + " " + Naam + " " + Beschikbaarheid + " " + Prijs;
+        return Type + " " + Naam + " " + Beschikbaarheid + " " + Prijs;
     }
 }
 

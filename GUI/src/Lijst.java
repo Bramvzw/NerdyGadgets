@@ -1,21 +1,26 @@
 import java.util.ArrayList;
 
 public class Lijst {
-    private int Index;
+    private int ID;
+    private int Type_key;
+    private String Type;
     private String Naam;
     private double Beschikbaarheid;
-    private double Prijs;
-
-    private ArrayList<Componenten> Componentlijst = new ArrayList<>();
-
-
+    private int Prijs;
+    private Double Processorbelasting;
+    private Double Diskruimte;
 
 
-    public void Voegtoe(Componenten cp) {
+    private ArrayList<String> Componentlijst = new ArrayList<>();
+
+
+
+
+    public void Voegtoe(String cp) {
         Componentlijst.add(cp);
     }
 
-    public ArrayList<Componenten> getLijst() {
+    public ArrayList<String> getLijst() {
         System.out.println(Componentlijst);
         return Componentlijst;
     }

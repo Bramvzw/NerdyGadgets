@@ -5,29 +5,34 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.Arrays;
 
 public class ComponentLijst extends JPanel implements ActionListener {
 
     private static int key = 0;
+    private static int lock = 1;
+    private static int door = 0;
     Border border1 = BorderFactory.createLineBorder(Color.black);
     Border border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.black, null, null, null);
     private JButton JBTN_Select, JBTN_Unselect, JBTN_ID;
     private JLabel JLBL_Naam, JLBL_Type, JLBL_Beschikbaarheid, JLBL_Prijs, JLBL_Processorb, JLBL_Diskruimte, JLBL_I_Type, JLBL_I_Beschikbaarheid, JLBL_I_Prijs, JLBL_I_Proccesb, JLBL_I_Diskruimte, JLBL_Placeholder;
     private JSeparator SEPA_Top, SEPA_Midt, SEPA_Midb, SEPA_Bottom;
-    private JPanel Component;
-    private Lijst lijst;
+    private JPanel PNL_Component;
 
     private PreparedStatement pstmt;
     private Statement stmt;
     private Connection con;
 
+    private Lijst lijst;
+    private String[] Component = new String[8];
+    String[][] ComponentLijst = new String[CountRows()][];
 
 
     public ComponentLijst() throws SQLException {
         for (int i = 0; i < CountRows(); i++) {
             AddComponent();
-        }
 
+        }
     }
 
     public void setID() {
@@ -42,21 +47,21 @@ public class ComponentLijst extends JPanel implements ActionListener {
     public void AddComponent() throws SQLException {
         key++;
 
-        Component = new JPanel();
-        Component.setLayout(new BoxLayout(Component, BoxLayout.Y_AXIS));
-        Component.setPreferredSize(new Dimension(200, 160));
-        Component.setBackground(Color.lightGray);
-        Component.setLayout(new FlowLayout());
-        add(Component);
+        PNL_Component = new JPanel();
+        PNL_Component.setLayout(new BoxLayout(PNL_Component, BoxLayout.Y_AXIS));
+        PNL_Component.setPreferredSize(new Dimension(200, 160));
+        PNL_Component.setBackground(Color.lightGray);
+        PNL_Component.setLayout(new FlowLayout());
+        add(PNL_Component);
 
         JLBL_Naam = new JLabel(getgegevens(key)[3]);
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
-        Component.add(JLBL_Naam);
+        PNL_Component.add(JLBL_Naam);
 
         JLBL_Placeholder = new JLabel("  ");
-        Component.add(JLBL_Placeholder);
+        PNL_Component.add(JLBL_Placeholder);
 
 
         JBTN_Unselect = new JButton("-");
@@ -64,9 +69,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect.setMargin(new Insets(0, 0, 1, 1));
         JBTN_Unselect.setFocusable(false);
-        Component.add(JBTN_Unselect);
-
-        setID();
+        PNL_Component.add(JBTN_Unselect);
 
         JBTN_Select = new JButton("+");
         JBTN_Select.setName("ID");
@@ -75,82 +78,81 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Select.setMargin(new Insets(0, 0, 1, 0));
         JBTN_Select.addActionListener(this);
         JBTN_Select.setFocusable(false);
-        Component.add(JBTN_Select);
+        PNL_Component.add(JBTN_Select);
 
 
         JLBL_Type = new JLabel("Type");
-        Component.add(JLBL_Type);
+        PNL_Component.add(JLBL_Type);
 
         JLBL_Placeholder = new JLabel("                            ");
-        Component.add(JLBL_Placeholder);
+        PNL_Component.add(JLBL_Placeholder);
 
         JLBL_I_Type = new JLabel(getgegevens(key)[2]);
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
-        Component.add(JLBL_I_Type);
+        PNL_Component.add(JLBL_I_Type);
 
         SEPA_Top = new JSeparator();
         SEPA_Top.setPreferredSize(new Dimension(190, 1));
         SEPA_Top.setForeground(Color.darkGray);
-        Component.add(SEPA_Top);
+        PNL_Component.add(SEPA_Top);
 
         JLBL_Beschikbaarheid = new JLabel("Beschikbaarheid");
-        Component.add(JLBL_Beschikbaarheid);
+        PNL_Component.add(JLBL_Beschikbaarheid);
 
         JLBL_Placeholder = new JLabel("     ");
-        Component.add(JLBL_Placeholder);
+        PNL_Component.add(JLBL_Placeholder);
 
         JLBL_I_Beschikbaarheid = new JLabel(getgegevens(key)[4]);
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
-        Component.add(JLBL_I_Beschikbaarheid);
+        PNL_Component.add(JLBL_I_Beschikbaarheid);
 
         SEPA_Midt = new JSeparator();
         SEPA_Midt.setPreferredSize(new Dimension(190, 1));
         SEPA_Midt.setForeground(Color.darkGray);
-        Component.add(SEPA_Midt);
+        PNL_Component.add(SEPA_Midt);
 
         JLBL_Prijs = new JLabel("Prijs");
-        Component.add(JLBL_Prijs);
+        PNL_Component.add(JLBL_Prijs);
 
         JLBL_Placeholder = new JLabel("                            ");
-        Component.add(JLBL_Placeholder);
+        PNL_Component.add(JLBL_Placeholder);
 
         JLBL_I_Prijs = new JLabel(getgegevens(key)[5]);
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
-        Component.add(JLBL_I_Prijs);
+        PNL_Component.add(JLBL_I_Prijs);
 
         SEPA_Midb = new JSeparator();
         SEPA_Midb.setPreferredSize(new Dimension(190, 1));
         SEPA_Midb.setForeground(Color.darkGray);
-        Component.add(SEPA_Midb);
+        PNL_Component.add(SEPA_Midb);
 
         JLBL_Processorb = new JLabel("Processorbelasting ");
-        Component.add(JLBL_Processorb);
+        PNL_Component.add(JLBL_Processorb);
 
         JLBL_I_Proccesb = new JLabel(getgegevens(key)[6]);
         JLBL_I_Proccesb.setBorder(border1);
         JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        Component.add(JLBL_I_Proccesb);
+        PNL_Component.add(JLBL_I_Proccesb);
 
         SEPA_Bottom = new JSeparator();
         SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
         SEPA_Bottom.setForeground(Color.darkGray);
-        Component.add(SEPA_Bottom);
+        PNL_Component.add(SEPA_Bottom);
 
         JLBL_Diskruimte = new JLabel("Diskruimte");
-        Component.add(JLBL_Diskruimte);
+        PNL_Component.add(JLBL_Diskruimte);
 
         JLBL_Placeholder = new JLabel("                ");
-        Component.add(JLBL_Placeholder);
+        PNL_Component.add(JLBL_Placeholder);
 
         JLBL_I_Diskruimte = new JLabel(getgegevens(key)[7]);
         JLBL_I_Diskruimte.setBorder(border1);
         JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        Component.add(JLBL_I_Diskruimte);
+        PNL_Component.add(JLBL_I_Diskruimte);
     }
-
 
 
     public int CountRows() throws SQLException {
@@ -193,6 +195,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
                 gegevens[5] = "€ " + Integer.toString(rs.getInt("Prijs"));
                 gegevens[6] = Double.toString(rs.getDouble("Processorbelasting"));
                 gegevens[7] = Double.toString(rs.getDouble("Diskruimte"));
+
+
             }
             rs.close();
         } catch (Exception e) {
@@ -205,12 +209,37 @@ public class ComponentLijst extends JPanel implements ActionListener {
         }
         return gegevens;
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-      if (JBTN_ID.getName().equals("2"))
-            System.out.println("test");
 
+    public String[][] getComponentLijst1() throws SQLException {
+        for (int j = 0; j < CountRows(); j++) {
+            for (int i = 0; i <= 7; i++) {
+                Component[i] = getgegevens(lock)[i];
+            }
+            System.out.println(Arrays.toString(Component));
+            System.out.println(j);
+            ComponentLijst[j] = Component;
+            lock++;
+            System.out.println(Arrays.deepToString(ComponentLijst));
+        }
+        return ComponentLijst;
     }
 
+
+
+
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (JBTN_Select.getText().equals("+")){
+            try {
+                getComponentLijst1();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 }
 
