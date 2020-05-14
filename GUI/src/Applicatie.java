@@ -18,7 +18,7 @@ public class Applicatie extends JFrame implements ActionListener {
     private JSeparator SEPA_Top, SEPA_Stat1, SEPA_Stat2, SEPA_Mid1, SEPA_Mid2, SEPA_Bottom;
     private JScrollPane StandaardC, CustomC;
 
-    private Lijst lijst;
+    public Lijst lijst;
     private static int AantalFirewalls = 0;
     private static int AantalDBs = 0;
     private static int AantalWSs = 0;
@@ -27,8 +27,8 @@ public class Applicatie extends JFrame implements ActionListener {
     private int KostenWSs = 0;
 
 
-    public Applicatie(Lijst lijst) throws SQLException {
-        this.lijst = lijst;
+    public Applicatie(Lijst l) throws SQLException {
+        this.lijst=l;
         cr.registerComponent(this);
         MotionPanel mp = new MotionPanel(this);
 
