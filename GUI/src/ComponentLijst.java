@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.Arrays;
 
 public class ComponentLijst extends JPanel implements ActionListener {
-
     private static int key = 0;
     private static int lock = 1;
     private static int door = 0;
@@ -21,18 +20,17 @@ public class ComponentLijst extends JPanel implements ActionListener {
 
     private PreparedStatement pstmt;
     private Statement stmt;
-    private Connection con;
+    private Connection con = Connectie.getConnection();
 
     private Lijst lijst;
     private String[] Component = new String[8];
-    String[][] ComponentLijst = new String[CountRows()][];
-
+    String[][] ComponentLijst = new String[CountRows(con)][];
 
     public ComponentLijst() throws SQLException {
-        for (int i = 0; i < CountRows(); i++) {
+        for (int i = 0; i < CountRows(con); i++) {
             AddComponent();
-
         }
+        con.close();
     }
 
     public void setID() {
@@ -46,6 +44,9 @@ public class ComponentLijst extends JPanel implements ActionListener {
 
     public void AddComponent() throws SQLException {
         key++;
+        System.out.println(key);
+
+        String[] gegevens = getgegevens(con,key);
 
         PNL_Component = new JPanel();
         PNL_Component.setLayout(new BoxLayout(PNL_Component, BoxLayout.Y_AXIS));
@@ -54,7 +55,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         PNL_Component.setLayout(new FlowLayout());
         add(PNL_Component);
 
-        JLBL_Naam = new JLabel(getgegevens(key)[3]);
+        JLBL_Naam = new JLabel(gegevens[6]);
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -87,7 +88,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(getgegevens(key)[2]);
+        JLBL_I_Type = new JLabel(gegevens[5]);
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -103,7 +104,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(key)[4]);
+        JLBL_I_Beschikbaarheid = new JLabel(gegevens[2]);
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -119,7 +120,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(key)[5]);
+        JLBL_I_Prijs = new JLabel(gegevens[3]);
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -132,7 +133,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Processorb = new JLabel("Processorbelasting ");
         PNL_Component.add(JLBL_Processorb);
 
-        JLBL_I_Proccesb = new JLabel(getgegevens(key)[6]);
+        JLBL_I_Proccesb = new JLabel(gegevens[7]);
         JLBL_I_Proccesb.setBorder(border1);
         JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Proccesb);
@@ -142,25 +143,24 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Bottom.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Bottom);
 
-        JLBL_Diskruimte = new JLabel("Diskruimte");
+        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
         PNL_Component.add(JLBL_Diskruimte);
 
-        JLBL_Placeholder = new JLabel("                ");
+        JLBL_Placeholder = new JLabel("");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Diskruimte = new JLabel(getgegevens(key)[7]);
+        JLBL_I_Diskruimte = new JLabel(gegevens[8]);
         JLBL_I_Diskruimte.setBorder(border1);
         JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Diskruimte);
     }
 
 
-    public int CountRows() throws SQLException {
+    public int CountRows(Connection con) throws SQLException {
         int rows = 0;
         try {
-            con = Connectie.getConnection();
             stmt = con.createStatement();
-            String sql = "SELECT COUNT(*) FROM componenten.component;";
+            String sql = "SELECT COUNT(*) FROM component;";
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -178,30 +178,35 @@ public class ComponentLijst extends JPanel implements ActionListener {
         return rows;
     }
 
-    public String[] getgegevens(int ID) throws SQLException {
-        String[] gegevens = new String[8];
+
+    public String[] getgegevens(Connection con, int ID) throws SQLException {
+        String[] gegevens = new String[9];
         try {
-            con = Connectie.getConnection();
-            pstmt = con.prepareStatement("Select * FROM componenten.component WHERE ID=?;");
+            pstmt = con.prepareStatement("Select * FROM component WHERE componentID=?;");
             pstmt.setInt(1, ID);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                gegevens[0] = Integer.toString(rs.getInt("ID"));
-                gegevens[1] = Integer.toString(rs.getInt("Type_key"));
-                gegevens[2] = rs.getString("Type");
-                gegevens[3] = rs.getString("Naam");
-                gegevens[4] = Double.toString(rs.getDouble("Beschikbaarheid")) + "%";
-                gegevens[5] = "€ " + Integer.toString(rs.getInt("Prijs"));
-                gegevens[6] = Double.toString(rs.getDouble("Processorbelasting"));
-                gegevens[7] = Double.toString(rs.getDouble("Diskruimte"));
+                gegevens[0] = Integer.toString(rs.getInt("componentID"));
+                gegevens[1] = Integer.toString(rs.getInt("apparaatID"));
+                gegevens[2] = rs.getString("beschikbaarheidspercentage");
+                gegevens[3] = "€ " + Integer.toString(rs.getInt("prijs"));
+                gegevens[4] = rs.getString("ipadres");
+                gegevens[5] = typeOphalen(ID,gegevens[1], con);
+                gegevens[6] = naamOphalen(ID,gegevens[1], con);
 
+                String[] cpudisk = GegevensOphalen.start(gegevens[4]);
+                gegevens[7] = cpudisk[0];
+                gegevens[8] = cpudisk[1];
 
             }
             rs.close();
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
+        }
+
+
+        finally {
             if (pstmt !=
                     null) {
                 pstmt.close();
@@ -211,9 +216,9 @@ public class ComponentLijst extends JPanel implements ActionListener {
     }
 
     public String[][] getComponentLijst1() throws SQLException {
-        for (int j = 0; j < CountRows(); j++) {
+        for (int j = 0; j < CountRows(con); j++) {
             for (int i = 0; i <= 7; i++) {
-                Component[i] = getgegevens(lock)[i];
+                Component[i] = getgegevens(con,lock)[i];
             }
             System.out.println(Arrays.toString(Component));
             System.out.println(j);
@@ -224,6 +229,72 @@ public class ComponentLijst extends JPanel implements ActionListener {
         return ComponentLijst;
     }
 
+
+    public String typeOphalen(int ID, String apparaatID, Connection con) throws SQLException {
+        String string = "";
+        try {
+            pstmt = con.prepareStatement("Select * FROM firewall WHERE apparaatID=?;");
+            pstmt.setInt(1, Integer.parseInt(apparaatID));
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                string = rs.getString("soort");
+            }
+            rs.close();
+
+            pstmt = con.prepareStatement("Select * FROM DBserver WHERE apparaatID=?;");
+            pstmt.setInt(1, Integer.parseInt(apparaatID));
+            ResultSet rs2 = pstmt.executeQuery();
+            if(rs2.next()) {
+                string = rs2.getString("soort");
+            }
+            rs2.close();
+
+            pstmt = con.prepareStatement("Select * FROM webserver WHERE apparaatID=?;");
+            pstmt.setInt(1, Integer.parseInt(apparaatID));
+            ResultSet rs3 = pstmt.executeQuery();
+            if(rs3.next()) {
+                string = rs3.getString("soort");
+            }
+            rs3.close();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+//        finally {
+//            if (pstmt !=
+//                    null) {
+//                pstmt.close();
+//            }
+//        }
+
+        return string;
+    }
+
+    public String naamOphalen(int ID, String apparaatID, Connection con) throws SQLException {
+        String string = "";
+        try {
+            pstmt = con.prepareStatement("Select * FROM hardware WHERE apparaatID=?;");
+            pstmt.setInt(1, Integer.parseInt(apparaatID));
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                string = rs.getString("modelnaam");
+            }
+            rs.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+//        finally {
+//            if (pstmt !=
+//                    null) {
+//                pstmt.close();
+//            }
+//        }
+
+        return string;
+    }
 
 
 
