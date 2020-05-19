@@ -35,6 +35,7 @@ public class Connectie {
             Properties config = new Properties();
             config.put("StrictHostKeyChecking", "no");
             session.setConfig(config);
+            session.setTimeout(1000);
 
             session.connect();
             assigned_port = session.setPortForwardingL(3306, RemoteHost, 3306);
