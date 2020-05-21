@@ -559,6 +559,7 @@ public class Applicatie extends JFrame implements ActionListener {
             CustomC.setVisible(true);
             JLBLIO.setText("Componentenlijst");
 
+
         }
 
         if(e.getSource() == JBTN_VCT) {

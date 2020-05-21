@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ComponentLijst extends JPanel implements ActionListener {
@@ -24,6 +25,12 @@ public class ComponentLijst extends JPanel implements ActionListener {
     private PreparedStatement pstmt;
     private Statement stmt;
     private Connection con = Connectie.getConnection();
+
+
+
+    private ArrayList<String> serverslijst = new ArrayList<String>(100);
+    private ArrayList<String> databaseslijst = new ArrayList<String>(100);
+    private ArrayList<String> firewalllijst = new ArrayList<String>(100);
 
 
     public ComponentLijst() throws SQLException {
@@ -50,6 +57,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect.addActionListener(this);
         JBTN_Unselect.setFocusable(false);
         PNL_Component.add(JBTN_Unselect);
 
@@ -173,6 +181,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect1.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect1.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect1.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect1.addActionListener(this);
+
         JBTN_Unselect1.setFocusable(false);
         PNL_Component.add(JBTN_Unselect1);
 
@@ -296,6 +306,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect2.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect2.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect2.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect2.addActionListener(this);
+
         JBTN_Unselect2.setFocusable(false);
         PNL_Component.add(JBTN_Unselect2);
 
@@ -419,6 +431,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect3.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect3.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect3.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect3.addActionListener(this);
+
         JBTN_Unselect3.setFocusable(false);
         PNL_Component.add(JBTN_Unselect3);
 
@@ -542,6 +556,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect4.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect4.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect4.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect4.addActionListener(this);
+
         JBTN_Unselect4.setFocusable(false);
         PNL_Component.add(JBTN_Unselect4);
 
@@ -665,6 +681,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect5.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect5.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect5.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect5.addActionListener(this);
+
         JBTN_Unselect5.setFocusable(false);
         PNL_Component.add(JBTN_Unselect5);
 
@@ -788,6 +806,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect6.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect6.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect6.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect6.addActionListener(this);
+
         JBTN_Unselect6.setFocusable(false);
         PNL_Component.add(JBTN_Unselect6);
 
@@ -1011,14 +1031,117 @@ public class ComponentLijst extends JPanel implements ActionListener {
         return string;
     }
 
+    public ArrayList<String> getDatabaseslijst() {
+        this.databaseslijst=databaseslijst;
+        return databaseslijst;
+    }
+
+    public void setDatabaseslijst(ArrayList<String> databaseslijst) {
+        this.databaseslijst = databaseslijst;
+    }
+
+    public ArrayList<String> getServerslijst() {
+        return serverslijst;
+    }
+
+    public ArrayList<String> getFirewalllijst() {
+        return firewalllijst;
+    }
+
+    public void setServerslijst(ArrayList<String> serverslijst) {
+        this.serverslijst = serverslijst;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object command1 = e.getSource();
         if (command1.equals(JBTN_Select)) {
-            System.out.println(JBTN_Select.getFont());
-            System.out.println("1");
-            System.out.println(JBTN_Select.getName());
+            firewalllijst.add("pfsense");
+            System.out.println("firewall is added");
+            System.out.println("webservers : "+serverslijst);
+            System.out.println("databases : "+databaseslijst);
         }
+        if (command1.equals(JBTN_Select1)){
+            System.out.println("+1 database added van type HAL9001DB");
+            databaseslijst.add("HAL9001DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Select2)){
+            System.out.println("+1 database added van type HAL9002DB");
+            databaseslijst.add("HAL9002DB");
+            System.out.println("aantaldatabases : "+ databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Select3)){
+            System.out.println("+1 database added va type HAL9003DB");
+            databaseslijst.add("HAL9003DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Select4)){
+            System.out.println("+1 WB added van type HAL9001WB");
+            serverslijst.add("HAL9001WB ");
+
+            System.out.println( "aantalwebservers : " + serverslijst.size());
+        }
+        if (command1.equals(JBTN_Select5)){
+            System.out.println("+1 WB added van type HAL9002WB");
+            serverslijst.add("HAL9002WB ");
+            System.out.println( "aantalwebservers : " + serverslijst.size());
+        }
+        if (command1.equals(JBTN_Select6)){
+            System.out.println("+1 WB added van type HAL9003WB ");
+            serverslijst.add("HAL9003WB ");
+            System.out.println( "aantalwebservers : " + serverslijst.size());
+        }
+        if (e.getSource().equals( JBTN_Unselect)){
+
+            System.out.println("firewall is verwijderd");
+            firewalllijst.remove("firewall");
+        }
+        if (e.getSource().equals( JBTN_Unselect1)){
+
+            System.out.println("-1 (een database is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9001DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+
+        }
+        if (command1.equals(JBTN_Unselect2)){
+            System.out.println("-1 (een database is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9002DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Unselect3)){
+            System.out.println("-1 (een database is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9003DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Unselect4)){
+
+            System.out.println("-1 (een webserver is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9001WB");
+            System.out.println("aantaldatabases : " + serverslijst.size());
+
+
+
+
+        }
+        if (command1.equals(JBTN_Unselect5)){
+
+
+            System.out.println("-1 (een webserver is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9002WB");
+            System.out.println("aantaldatabases : " + serverslijst.size());
+
+        }
+        if (command1.equals(JBTN_Unselect6)){
+
+
+            System.out.println("-1 (een webserver is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9003WB");
+            System.out.println("aantaldatabases : " + serverslijst.size());
+
+
+        }
+
     }
 }
 
