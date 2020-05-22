@@ -58,7 +58,7 @@ public class ComponentArray {
                 gegevens[0] = Integer.toString(rs.getInt("componentID"));
                 gegevens[1] = Integer.toString(rs.getInt("apparaatID"));
                 gegevens[2] = rs.getString("beschikbaarheidspercentage");
-                gegevens[3] = "€ " + Integer.toString(rs.getInt("prijs"));
+                gegevens[3] = Integer.toString(rs.getInt("prijs"));
                 gegevens[4] = rs.getString("ipadres");
                 gegevens[5] = typeOphalen(ID, con);
                 gegevens[6] = naamOphalen(ID, con);

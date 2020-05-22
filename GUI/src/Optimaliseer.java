@@ -11,7 +11,6 @@ public class Optimaliseer {
 //    Componenten webserver3 = new Componenten(7,"Webserver","WS3",0.95, 5100);
     ArrayList<Componenten> componenten = new ArrayList<>();
 
-
     ComponentArray momenteleComponenten = new ComponentArray();
     ArrayList<Componenten> keuzeComponenten = momenteleComponenten.getComponentenArray();
     ArrayList<Componenten> besteComponenten = new ArrayList<>();
@@ -26,31 +25,40 @@ public class Optimaliseer {
     }
 
     public void consoleInput(){
-        Optimaliseer optimaliseer = new Optimaliseer();
         Scanner scan = new Scanner(System.in);
         System.out.println("Gewenste beschikbaarheid:");
         try{
-            optimaliseer.optimaliseer(Double.parseDouble(scan.nextLine()));
+            this.optimaliseer(Double.parseDouble(scan.nextLine()));
         }
 
         catch(NumberFormatException NFE){
             System.out.println("Gebruik getallen");
         }
-        optimaliseer.consoleInput();
+        this.consoleInput();
+    }
+
+    public int aantalComponenten(ArrayList<Componenten> componenten, String type){
+        int i = 0;
+        for(Componenten component : componenten){
+            if(component.getType().equals(type)){
+                i ++;
+            }
+        }
+        return i;
     }
 
     public void optimaliseer(double gewensteBeschikbaarheid){
         newFW(0, gewensteBeschikbaarheid);
         System.out.print("Beste oplossing:\nComponenten:");
-        for(Component component : besteComponenten){
-            System.out.print(" " + component.getNaam() + "(" + component.getAantal() + ")");
+        for(Componenten component : besteComponenten){
+//            System.out.print(" " + component.getNaam() + "(" + component.getAantal() + ")");
         }
         System.out.println("\nBeschikbaarheid: " + besteBeschikbaarheid);
         System.out.println("Kosten: " + besteKosten);
     }
 
     public void newFW(int i, double gewensteBeschikbaarheid){
-        while(i < 1){
+        while(i < aantalComponenten(keuzeComponenten,"firewall")){ //Dynamisch maken
             i ++;
             componenten.add(keuzeComponenten.get(i - 1));
             newDB(0, gewensteBeschikbaarheid);
@@ -62,7 +70,7 @@ public class Optimaliseer {
     }
 
     public void newDB(int i, double gewensteBeschikbaarheid){
-        while(i < 3){
+        while(i < aantalComponenten(keuzeComponenten,"DBserver")){ //Dynamisch maken
             i ++;
             componenten.add(keuzeComponenten.get(i));
             newWS(0, gewensteBeschikbaarheid);
@@ -74,7 +82,7 @@ public class Optimaliseer {
     }
 
     public void newWS(int i, double gewensteBeschikbaarheid){
-        while(i < 3) {
+        while(i < aantalComponenten(keuzeComponenten,"webserver")) { //Dynamisch maken
             i ++;
             componenten.add(keuzeComponenten.get(i + 3));
             berekenGegevens(componenten,0, gewensteBeschikbaarheid);
@@ -85,31 +93,32 @@ public class Optimaliseer {
         }
     }
 
-    public void berekenGegevens(ArrayList<Component> componenten, int i, double gewensteBeschikbaarheid){
+    public void berekenGegevens(ArrayList<Componenten> componenten, int i, double gewensteBeschikbaarheid){
         double beschikbaarheid = 0;
         double kosten = 0;
         double laatsteBeschikbaarheid;
-        Component laatsteComponent = null;
-        ArrayList<Component> laatsteComponenten = new ArrayList<>();
+        Componenten laatsteComponent = null;
+        ArrayList<Componenten> laatsteComponenten = new ArrayList<>();
 
         while(beschikbaarheid < gewensteBeschikbaarheid && kosten < 100000){
-            componenten.get(i).plusAantal();
+//            componenten.get(i).plusAantal();
+            
 
             beschikbaarheid = 1;
             laatsteBeschikbaarheid = 1;
             kosten = 0;
 
-            for (Component component : componenten) {
+            for (Componenten component : componenten) {
                 if(laatsteComponent == null || component.getClass() != laatsteComponent.getClass()){
                     laatsteComponent = component;
-                    for(Component component2 : componenten){
+                    for(Componenten component2 : componenten){
                         if(component2.getClass() == laatsteComponent.getClass()){
                             laatsteComponenten.add(component2);
                         }
                     }
-                    for(Component component3 : laatsteComponenten){
-                        laatsteBeschikbaarheid *= (Math.pow((1 - component3.getBeschikbaaheid()), component3.getAantal()));
-                        kosten += (component3.getKosten() * component3.getAantal());
+                    for(Componenten component3 : laatsteComponenten){
+//                        laatsteBeschikbaarheid *= (Math.pow((1 - component3.getBeschikbaaheid()), component3.getAantal()));
+//                        kosten += (component3.getKosten() * component3.getAantal());
                     }
                     beschikbaarheid *= (1 - laatsteBeschikbaarheid);
                     laatsteBeschikbaarheid = 1;
@@ -124,13 +133,13 @@ public class Optimaliseer {
 
         if(beschikbaarheid > gewensteBeschikbaarheid && (kosten < besteKosten || besteKosten == 0)){
             besteComponenten.clear();
-            for(Component component : componenten){
-                besteComponenten.add(new Component(component.getBeschikbaaheid() + 0,component.getKosten() + 0, component.getNaam() + "", component.getAantal() + 0));
+            for(Componenten component : componenten){
+//                besteComponenten.add(new Componenten(component.getBeschikbaaheid() + 0,component.getKosten() + 0, component.getNaam() + "", component.getAantal() + 0));
             }
             besteBeschikbaarheid = beschikbaarheid;
             besteKosten = kosten;
 
         }
-        componenten.get(i).setAantal(0);
+//        componenten.get(i).setAantal(0);
     }
 }
