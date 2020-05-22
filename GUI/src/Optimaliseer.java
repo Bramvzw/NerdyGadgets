@@ -63,9 +63,9 @@ public class Optimaliseer {
         }
 
         newFW(0, gewensteBeschikbaarheid);
-        System.out.print("Beste oplossing:\nComponenten:");
+        System.out.println("Beste oplossing\nComponenten:");
         for(Componenten component : besteComponenten){
-//            System.out.print(" " + component.getNaam() + "(" + component.getAantal() + ")");
+            System.out.println(component.getType() + " (" + component.getNaam() + ")");
         }
         System.out.println("\nBeschikbaarheid: " + besteBeschikbaarheid);
         System.out.println("Kosten: " + besteKosten);
@@ -86,7 +86,7 @@ public class Optimaliseer {
     public void newDB(int i, double gewensteBeschikbaarheid){
         while(i < aantalComponentenType(keuzeComponenten,"DBserver")){
             i ++;
-            componenten.add(keuzeComponenten.get(i));
+            componenten.add(keuzeComponenten.get(i - 1+ aantalComponentenType(keuzeComponenten,"firewall")));
             newWS(0, gewensteBeschikbaarheid);
             newDB(i, gewensteBeschikbaarheid);
         }
@@ -98,9 +98,9 @@ public class Optimaliseer {
     public void newWS(int i, double gewensteBeschikbaarheid){
         while(i < aantalComponentenType(keuzeComponenten,"webserver")) {
             i ++;
-            componenten.add(keuzeComponenten.get(i + 3));
-            componenten.add(keuzeComponenten.get(i+ 4));
-            berekenGegevens(componenten,0, gewensteBeschikbaarheid);
+            componenten.add(keuzeComponenten.get(i - 1 + aantalComponentenType(keuzeComponenten,"firewall") + aantalComponentenType(keuzeComponenten,"DBserver")));
+            componenten.add(keuzeComponenten.get(i  + aantalComponentenType(keuzeComponenten,"firewall") + aantalComponentenType(keuzeComponenten,"DBserver")));
+            berekenGegevens(componenten,0, gewensteBeschikbaarheid, componenten.size());
             newWS(i, gewensteBeschikbaarheid);
         }
         if(!(componenten.size() == 2)) {
@@ -108,12 +108,13 @@ public class Optimaliseer {
         }
     }
 
-    public void berekenGegevens(ArrayList<Componenten> componenten, int i, double gewensteBeschikbaarheid){
+    public void berekenGegevens(ArrayList<Componenten> componenten, int i, double gewensteBeschikbaarheid, int grootte){
         double beschikbaarheid = 0;
         double kosten = 0;
         double laatsteBeschikbaarheid;
         Componenten laatsteComponent = null;
-        ArrayList<Componenten> laatsteComponenten = new ArrayList<>();
+        ArrayList<Componenten> componenten1 = new ArrayList<>();
+        ArrayList<Componenten> componenten2 = new ArrayList<>();
         boolean overgeslagen = false;
 
         while(beschikbaarheid < gewensteBeschikbaarheid && kosten < 100000){
@@ -123,49 +124,82 @@ public class Optimaliseer {
             else {
                 componenten.add(componenten.get(i));
             }
-//            componenten.get(i).plusAantal();  //Veranderen
-            
 
             beschikbaarheid = 1;
             laatsteBeschikbaarheid = 1;
             kosten = 0;
             laatsteComponent = null;
 
-            for (Componenten component : componenten) {
-                if(laatsteComponent == null || !(component.getType().equals(laatsteComponent.getType()))){ //Veranderen Klaar?
-                    laatsteComponent = component;
-                    for(Componenten component2 : componenten){
-                        if(component2.getNaam().equals(laatsteComponent.getNaam())){
-//                            laatsteBeschikbaarheid *= (Math.pow((1 - component2.getBeschikbaarheid()), aantalComponentenNaam(componenten,component2.getNaam())));
-//                            kosten += (component2.getPrijs() * aantalComponentenNaam(componenten,component2.getNaam()));
-                            laatsteComponenten.add(component2);
-                        }
-                    }
-                    for(Componenten component3 : laatsteComponenten){
-                        laatsteBeschikbaarheid *= (1 - component3.getBeschikbaarheid());
-//                        laatsteBeschikbaarheid *= (Math.pow((1 - component3.getBeschikbaaheid()), component3.getAantal()));
-                        kosten += component3.getPrijs();
-//                        kosten += (component3.getKosten() * component3.getAantal());
-                    }
-                    beschikbaarheid *= (1 - laatsteBeschikbaarheid);
-                    laatsteBeschikbaarheid = 1;
-                    laatsteComponenten.clear();
-                }
+            for(Componenten component : componenten){ //Herschrijven
+
             }
 
+//            for (Componenten component : componenten) {
+//                if (laatsteComponent == null || !(component.getType().equals(laatsteComponent.getType()))) {
+//                    laatsteComponent = component;
+//                    for (Componenten component2 : componenten) {
+//                        if (component2.getType().equals(laatsteComponent.getType())) {
+//                            laatsteComponenten.add(component2);
+//                        }
+//                    }
+//                    for(Componenten component3 : laatsteComponenten){
+//
+//                    }
+//
+//
+//                        if (component2.getType().equals(laatsteComponent.getType())) {
+//                            //for(Componenten component3 : componenten){
+//                                if(component2.getNaam().equals(laatsteComponent.getNaam())){
+//                                    laatsteBeschikbaarheid *= (1 - component2.getBeschikbaarheid());
+//                                    kosten += component2.getPrijs();
+//                                }
+//                            //}
+//                        }
+//                    beschikbaarheid *= (1 - laatsteBeschikbaarheid);
+//                    laatsteBeschikbaarheid = 1;
+//                    laatsteComponenten.clear();
+//                }
+//            }
+
+
+//            for (Componenten component : componenten) {
+//                if(laatsteComponent == null || !(component.getType().equals(laatsteComponent.getType()))){ //Veranderen Klaar?
+//                    laatsteComponent = component;
+//                    for(Componenten component2 : componenten){
+//                        if(component2.getType().equals(laatsteComponent.getType())){
+////                            laatsteBeschikbaarheid *= (Math.pow((1 - component2.getBeschikbaarheid()), aantalComponentenNaam(componenten,component2.getNaam())));
+////                            kosten += (component2.getPrijs() * aantalComponentenNaam(componenten,component2.getNaam()));
+//                            laatsteComponenten.add(component2);
+//                        }
+//                    }
+//                    for(Componenten component3 : laatsteComponenten){
+//                        laatsteBeschikbaarheid *= (1 - component3.getBeschikbaarheid());
+////                        laatsteBeschikbaarheid *= (Math.pow((1 - component3.getBeschikbaaheid()), component3.getAantal()));
+//                        kosten += component3.getPrijs();
+////                        kosten += (component3.getKosten() * component3.getAantal());
+//                    }
+//                    beschikbaarheid *= (1 - laatsteBeschikbaarheid);
+//                    laatsteBeschikbaarheid = 1;
+//                    laatsteComponenten.clear();
+//                }
+//            }
+
             if(!(componenten.get(i).getNaam().equals(componenten.get(componenten.size() - 1).getNaam()))) {
-                berekenGegevens(componenten, i + aantalComponentenNaam(componenten, componenten.get(i).getNaam()), gewensteBeschikbaarheid); //Veranderen o.b.v. naam
+                berekenGegevens(componenten, i + aantalComponentenNaam(componenten, componenten.get(i).getNaam()), gewensteBeschikbaarheid, componenten.size()); //Veranderen o.b.v. naam
             }
         }
 
         if(beschikbaarheid > gewensteBeschikbaarheid && (kosten < besteKosten || besteKosten == 0)){
             besteComponenten.clear();
             for(Componenten component : componenten){
-//                besteComponenten.add(new Componenten(component.getBeschikbaaheid() + 0,component.getKosten() + 0, component.getNaam() + "", component.getAantal() + 0));
+                besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", component.getBeschikbaarheid() + 0, component.getPrijs() + 0));
             }
             besteBeschikbaarheid = beschikbaarheid;
             besteKosten = kosten;
 
+        }
+        while(componenten.size() > grootte){
+            componenten.remove(componenten.size() - 1);
         }
 //        componenten.get(i).setAantal(0);
     }

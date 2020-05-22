@@ -1,5 +1,6 @@
 public class Componenten {
     private int ID;
+    private static int teller;
     private int Type_key;
     private String Type;
     private String Naam;
@@ -15,6 +16,15 @@ public class Componenten {
         this.Beschikbaarheid = Beschikbaarheid;
         this.Prijs = Prijs;
     }
+
+    public Componenten(String Type, String Naam, double Beschikbaarheid, int Prijs){
+        this.Type = Type;
+        this.Naam = Naam;
+        this.Beschikbaarheid = Beschikbaarheid;
+        this.Prijs = Prijs;
+    }
+
+
 
     public Componenten(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
         this.ID = ID;
