@@ -46,6 +46,18 @@ public class Componenten {
         return Type;
     }
 
+    public double getBeschikbaarheid() {
+        return Beschikbaarheid;
+    }
+
+    public int getPrijs() {
+        return Prijs;
+    }
+
+    public void setBeschikbaarheidFactor(){
+        Beschikbaarheid = Beschikbaarheid / 100;
+    }
+
     public String toString() {
         return Type + " " + Naam + " " + Beschikbaarheid + " " + Prijs;
     }
