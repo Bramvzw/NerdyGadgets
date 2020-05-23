@@ -70,7 +70,7 @@ public class Optimaliseer {
         boolean overgeslagen = false;
         String[] componentTypes = {"firewall", "DBserver","webserver"};
 
-        while(beschikbaarheid < gewensteBeschikbaarheid && kosten < 50000){
+        while(beschikbaarheid < gewensteBeschikbaarheid && kosten < 100000){
             if((aantalComponentenNaam(componenten, componenten.get(i).getNaam()) == 1) && !overgeslagen){
                 overgeslagen = true;
             }
