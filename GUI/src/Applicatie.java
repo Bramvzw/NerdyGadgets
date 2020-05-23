@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Applicatie extends JFrame implements ActionListener {
 
@@ -526,6 +527,10 @@ public class Applicatie extends JFrame implements ActionListener {
                     String str = JTXTF_GWBesch.getText();
                     JLBL_Beschikbaarheid.setText(" " + str);
                     JLBL_Error.setText("");
+                    ArrayList<Componenten> componenten = new Optimaliseer().optimaliseer(GewBeschik);
+                    for(Componenten componente : componenten){
+                        System.out.println(componente.getType() + " " + componente.getNaam());
+                    }
                 } else {
                     JLBL_Error.setText("De gewenste beschikbaarheid moet tussen 0.1% en 99.99% liggen");
                 }
