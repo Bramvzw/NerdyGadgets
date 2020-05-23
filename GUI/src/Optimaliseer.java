@@ -118,7 +118,7 @@ public class Optimaliseer {
         String[] componentTypes = {"firewall", "DBserver","webserver"};
 
         while(beschikbaarheid < gewensteBeschikbaarheid && kosten < 50000){
-            if((aantalComponentenType(componenten, componenten.get(i).getType()) == 1) && !overgeslagen){
+            if((aantalComponentenNaam(componenten, componenten.get(i).getNaam()) == 1) && !overgeslagen){
                 overgeslagen = true;
             }
             else {
