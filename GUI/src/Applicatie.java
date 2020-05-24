@@ -186,7 +186,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_OpenCL.addActionListener(this);
         JBTN_OpenCL.setFocusable(false);
 
-        JBTN_VCT = new JButton("Voeg component toe");
+        JBTN_VCT = new JButton("Componenten overzicht");
         JBTN_VCT.addActionListener(this);
         JBTN_VCT.setFocusable(false);
 
