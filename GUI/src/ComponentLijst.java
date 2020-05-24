@@ -28,7 +28,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
 
 
 
-    private ArrayList<String> serverslijst = new ArrayList<String>(100);
+    public ArrayList<String> serverslijst = new ArrayList<String>();
     private ArrayList<String> databaseslijst = new ArrayList<String>(100);
     private ArrayList<String> firewalllijst = new ArrayList<String>(100);
 
