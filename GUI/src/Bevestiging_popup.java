@@ -51,6 +51,7 @@ public class Bevestiging_popup extends JDialog implements ActionListener {
         if(e.getSource() == ok) {
             this.setVisible(false);
             // Verwijder alles
+            
         }
         if (e.getSource() == cancel) {
             this.setVisible(false);
