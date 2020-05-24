@@ -27,6 +27,9 @@ public class Applicatie extends JFrame implements ActionListener {
     private int KostenDBs = 0;
     private int KostenWSs = 0;
 
+    private ArrayList<Componenten> keuzeComponenten =  new ComponentArray().getComponentenArray();
+    private ArrayList<Componenten> momenteleComponenten = new ArrayList<>();
+
 
     public Applicatie(Lijst lijst) throws SQLException {
         this.lijst = lijst;
@@ -58,10 +61,10 @@ public class Applicatie extends JFrame implements ActionListener {
         IO = new Infrastructuur_Overzicht(lijst);
 
 
-        StandaardC = new JScrollPane(new ComponentLijst());
+        StandaardC = new JScrollPane(new ComponentLijst(keuzeComponenten));
         StandaardC.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        CustomC = new JScrollPane(new ComponentLijst());
+        CustomC = new JScrollPane(new ComponentLijst(keuzeComponenten));
         CustomC.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
 
@@ -527,10 +530,8 @@ public class Applicatie extends JFrame implements ActionListener {
                     String str = JTXTF_GWBesch.getText();
                     JLBL_Beschikbaarheid.setText(" " + str);
                     JLBL_Error.setText("");
-                    ArrayList<Componenten> componenten = new Optimaliseer().optimaliseer(GewBeschik);
-                    for(Componenten componente : componenten){
-                        System.out.println(componente.getType() + " " + componente.getNaam());
-                    }
+                    GewBeschik /= 100;
+                    ArrayList<Componenten> componenten = new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten);
                 } else {
                     JLBL_Error.setText("De gewenste beschikbaarheid moet tussen 0.1% en 99.99% liggen");
                 }

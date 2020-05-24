@@ -2,28 +2,22 @@ import java.util.*;
 
 public class Optimaliseer {
     ArrayList<Componenten> componenten = new ArrayList<>();
-    ArrayList<Componenten> keuzeComponenten = new ComponentArray().getComponentenArray();
+    ArrayList<Componenten> keuzeComponenten;
     ArrayList<Componenten> besteComponenten = new ArrayList<>();
 
     double besteBeschikbaarheid = 0;
     double besteKosten = 0;
 
 
-    public ArrayList optimaliseer(double gewensteBeschikbaarheid){
+    public ArrayList optimaliseer(double gewensteBeschikbaarheid, ArrayList<Componenten> keuzeComponenten){
+        this.keuzeComponenten = keuzeComponenten;
         for(Componenten component : keuzeComponenten){
             component.setBeschikbaarheidFactor();
         }
 
         newFW(0, gewensteBeschikbaarheid);
-        System.out.println("Beste oplossing\nComponenten:");
 
         besteComponenten = sorteer(besteComponenten);
-        for(Componenten component : besteComponenten){
-            System.out.println(component.getType() + " (" + component.getNaam() + ")");
-        }
-        System.out.println("\nBeschikbaarheid: " + besteBeschikbaarheid);
-        System.out.println("Kosten: " + besteKosten);
-
         return besteComponenten;
     }
 

@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ComponentLijst extends JPanel implements ActionListener {
@@ -26,7 +27,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
     private Connection con = Connectie.getConnection();
 
 
-    public ComponentLijst() throws SQLException {
+    public ComponentLijst(ArrayList<Componenten> keuzeComponenten) throws SQLException {
 
         // Panel 1
          PNL_Component = new JPanel();
@@ -36,7 +37,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         PNL_Component.setLayout(new FlowLayout());
         this.add(PNL_Component);
 
-        JLBL_Naam = new JLabel((naamOphalen( 1, con)));
+        JLBL_Naam = new JLabel(keuzeComponenten.get(0).getNaam());
+//        JLBL_Naam = new JLabel((naamOphalen( 1, con)));
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -69,7 +71,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(typeOphalen(1, con));
+        JLBL_I_Type = new JLabel(keuzeComponenten.get(0).getType());
+//        JLBL_I_Type = new JLabel(typeOphalen(1, con));
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -85,7 +88,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 1)[2]);
+        JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(0).getBeschikbaarheid()));
+//        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 1)[2]);
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -101,7 +105,8 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(con, 1)[3]);
+        JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(0).getPrijs()));
+        //JLBL_I_Prijs = new JLabel(getgegevens(con, 1)[3]);
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -111,55 +116,55 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Midb.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Midb);
 
-        JLBL_Processorb = new JLabel("Processorbelasting ");
-        PNL_Component.add(JLBL_Processorb);
+//        JLBL_Processorb = new JLabel("Processorbelasting ");
+//        PNL_Component.add(JLBL_Processorb);
 
-        JLBL_I_Proccesb = new JLabel();
-        JLBL_I_Proccesb.setBorder(border1);
-        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Proccesb);
+//        JLBL_I_Proccesb = new JLabel();
+//        JLBL_I_Proccesb.setBorder(border1);
+//        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Proccesb);
 
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
 
-        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
-        PNL_Component.add(JLBL_Diskruimte);
+//        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
+//        PNL_Component.add(JLBL_Diskruimte);
 
-        JLBL_Placeholder = new JLabel("");
-        PNL_Component.add(JLBL_Placeholder);
+//        JLBL_Placeholder = new JLabel("");
+//        PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Diskruimte = new JLabel();
-        JLBL_I_Diskruimte.setBorder(border1);
-        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Diskruimte);
+//        JLBL_I_Diskruimte = new JLabel();
+//        JLBL_I_Diskruimte.setBorder(border1);
+//        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Diskruimte);
 
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
 
-        JLBL_NetworkLoad = new JLabel("Networkload");
-        PNL_Component.add(JLBL_NetworkLoad);
+//        JLBL_NetworkLoad = new JLabel("Networkload");
+//        PNL_Component.add(JLBL_NetworkLoad);
 
-        JLBL_Placeholder = new JLabel("             ");
-        PNL_Component.add(JLBL_Placeholder);
+//        JLBL_Placeholder = new JLabel("             ");
+//        PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_NetworkLoad = new JLabel();
-        JLBL_I_NetworkLoad.setBorder(border1);
-        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_NetworkLoad);
+//        JLBL_I_NetworkLoad = new JLabel();
+//        JLBL_I_NetworkLoad.setBorder(border1);
+//        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_NetworkLoad);
 
         // Panel 2
-         PNL_Component = new JPanel();
+        PNL_Component = new JPanel();
         PNL_Component.setLayout(new BoxLayout(PNL_Component, BoxLayout.Y_AXIS));
         PNL_Component.setPreferredSize(new Dimension(200, 185));
         PNL_Component.setBackground(Color.lightGray);
         PNL_Component.setLayout(new FlowLayout());
         this.add(PNL_Component);
 
-        JLBL_Naam = new JLabel((naamOphalen( 2, con)));
+        JLBL_Naam = new JLabel(keuzeComponenten.get(1).getNaam());
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -192,7 +197,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(typeOphalen(2, con));
+        JLBL_I_Type = new JLabel(keuzeComponenten.get(1).getType());
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -208,7 +213,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 2)[2]);
+        JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(1).getBeschikbaarheid()));
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -224,7 +229,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(con, 2)[3]);
+        JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(1).getPrijs()));
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -234,55 +239,55 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Midb.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Midb);
 
-        JLBL_Processorb = new JLabel("Processorbelasting ");
-        PNL_Component.add(JLBL_Processorb);
-
-        JLBL_I_Proccesb = new JLabel();
-        JLBL_I_Proccesb.setBorder(border1);
-        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Proccesb);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
-        PNL_Component.add(JLBL_Diskruimte);
-
-        JLBL_Placeholder = new JLabel("");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_Diskruimte = new JLabel();
-        JLBL_I_Diskruimte.setBorder(border1);
-        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Diskruimte);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_NetworkLoad = new JLabel("Networkload");
-        PNL_Component.add(JLBL_NetworkLoad);
-
-        JLBL_Placeholder = new JLabel("             ");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_NetworkLoad = new JLabel();
-        JLBL_I_NetworkLoad.setBorder(border1);
-        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_NetworkLoad);
+//        JLBL_Processorb = new JLabel("Processorbelasting ");
+//        PNL_Component.add(JLBL_Processorb);
+//
+//        JLBL_I_Proccesb = new JLabel();
+//        JLBL_I_Proccesb.setBorder(border1);
+//        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Proccesb);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
+//        PNL_Component.add(JLBL_Diskruimte);
+//
+//        JLBL_Placeholder = new JLabel("");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_Diskruimte = new JLabel();
+//        JLBL_I_Diskruimte.setBorder(border1);
+//        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Diskruimte);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_NetworkLoad = new JLabel("Networkload");
+//        PNL_Component.add(JLBL_NetworkLoad);
+//
+//        JLBL_Placeholder = new JLabel("             ");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_NetworkLoad = new JLabel();
+//        JLBL_I_NetworkLoad.setBorder(border1);
+//        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_NetworkLoad);
 
         // Panel 3
-         PNL_Component = new JPanel();
+        PNL_Component = new JPanel();
         PNL_Component.setLayout(new BoxLayout(PNL_Component, BoxLayout.Y_AXIS));
         PNL_Component.setPreferredSize(new Dimension(200, 185));
         PNL_Component.setBackground(Color.lightGray);
         PNL_Component.setLayout(new FlowLayout());
         this.add(PNL_Component);
 
-        JLBL_Naam = new JLabel((naamOphalen( 3, con)));
+        JLBL_Naam = new JLabel(keuzeComponenten.get(2).getNaam());
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -315,7 +320,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(typeOphalen(3, con));
+        JLBL_I_Type = new JLabel(keuzeComponenten.get(2).getType());
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -331,7 +336,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 3)[2]);
+        JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(2).getBeschikbaarheid()));
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -347,7 +352,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(con, 3)[3]);
+        JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(2).getPrijs()));
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -357,45 +362,45 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Midb.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Midb);
 
-        JLBL_Processorb = new JLabel("Processorbelasting ");
-        PNL_Component.add(JLBL_Processorb);
-
-        JLBL_I_Proccesb = new JLabel();
-        JLBL_I_Proccesb.setBorder(border1);
-        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Proccesb);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
-        PNL_Component.add(JLBL_Diskruimte);
-
-        JLBL_Placeholder = new JLabel("");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_Diskruimte = new JLabel();
-        JLBL_I_Diskruimte.setBorder(border1);
-        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Diskruimte);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_NetworkLoad = new JLabel("Networkload");
-        PNL_Component.add(JLBL_NetworkLoad);
-
-        JLBL_Placeholder = new JLabel("             ");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_NetworkLoad = new JLabel();
-        JLBL_I_NetworkLoad.setBorder(border1);
-        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_NetworkLoad);
+//        JLBL_Processorb = new JLabel("Processorbelasting ");
+//        PNL_Component.add(JLBL_Processorb);
+//
+//        JLBL_I_Proccesb = new JLabel();
+//        JLBL_I_Proccesb.setBorder(border1);
+//        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Proccesb);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
+//        PNL_Component.add(JLBL_Diskruimte);
+//
+//        JLBL_Placeholder = new JLabel("");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_Diskruimte = new JLabel();
+//        JLBL_I_Diskruimte.setBorder(border1);
+//        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Diskruimte);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_NetworkLoad = new JLabel("Networkload");
+//        PNL_Component.add(JLBL_NetworkLoad);
+//
+//        JLBL_Placeholder = new JLabel("             ");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_NetworkLoad = new JLabel();
+//        JLBL_I_NetworkLoad.setBorder(border1);
+//        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_NetworkLoad);
 
         // Panel 4
         PNL_Component = new JPanel();
@@ -405,7 +410,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         PNL_Component.setLayout(new FlowLayout());
         this.add(PNL_Component);
 
-        JLBL_Naam = new JLabel((naamOphalen( 4, con)));
+        JLBL_Naam = new JLabel(keuzeComponenten.get(3).getNaam());
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -438,7 +443,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(typeOphalen(4, con));
+        JLBL_I_Type = new JLabel(keuzeComponenten.get(3).getType());
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -454,7 +459,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 4)[2]);
+        JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(3).getBeschikbaarheid()));
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -470,7 +475,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(con, 4)[3]);
+        JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(3).getPrijs()));
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -480,45 +485,45 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Midb.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Midb);
 
-        JLBL_Processorb = new JLabel("Processorbelasting ");
-        PNL_Component.add(JLBL_Processorb);
-
-        JLBL_I_Proccesb = new JLabel();
-        JLBL_I_Proccesb.setBorder(border1);
-        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Proccesb);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
-        PNL_Component.add(JLBL_Diskruimte);
-
-        JLBL_Placeholder = new JLabel("");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_Diskruimte = new JLabel();
-        JLBL_I_Diskruimte.setBorder(border1);
-        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Diskruimte);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_NetworkLoad = new JLabel("Networkload");
-        PNL_Component.add(JLBL_NetworkLoad);
-
-        JLBL_Placeholder = new JLabel("             ");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_NetworkLoad = new JLabel();
-        JLBL_I_NetworkLoad.setBorder(border1);
-        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_NetworkLoad);
+//        JLBL_Processorb = new JLabel("Processorbelasting ");
+//        PNL_Component.add(JLBL_Processorb);
+//
+//        JLBL_I_Proccesb = new JLabel();
+//        JLBL_I_Proccesb.setBorder(border1);
+//        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Proccesb);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
+//        PNL_Component.add(JLBL_Diskruimte);
+//
+//        JLBL_Placeholder = new JLabel("");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_Diskruimte = new JLabel();
+//        JLBL_I_Diskruimte.setBorder(border1);
+//        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Diskruimte);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_NetworkLoad = new JLabel("Networkload");
+//        PNL_Component.add(JLBL_NetworkLoad);
+//
+//        JLBL_Placeholder = new JLabel("             ");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_NetworkLoad = new JLabel();
+//        JLBL_I_NetworkLoad.setBorder(border1);
+//        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_NetworkLoad);
 
         // Panel 5
           PNL_Component = new JPanel();
@@ -528,7 +533,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         PNL_Component.setLayout(new FlowLayout());
         this.add(PNL_Component);
 
-        JLBL_Naam = new JLabel((naamOphalen( 5, con)));
+        JLBL_Naam = new JLabel(keuzeComponenten.get(4).getNaam());
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -561,7 +566,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(typeOphalen(5, con));
+        JLBL_I_Type = new JLabel(keuzeComponenten.get(4).getType());
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -577,7 +582,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 5)[2]);
+        JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(4).getBeschikbaarheid()));
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -593,7 +598,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(con, 5)[3]);
+        JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(4).getPrijs()));
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -603,55 +608,55 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Midb.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Midb);
 
-        JLBL_Processorb = new JLabel("Processorbelasting ");
-        PNL_Component.add(JLBL_Processorb);
-
-        JLBL_I_Proccesb = new JLabel();
-        JLBL_I_Proccesb.setBorder(border1);
-        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Proccesb);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
-        PNL_Component.add(JLBL_Diskruimte);
-
-        JLBL_Placeholder = new JLabel("");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_Diskruimte = new JLabel();
-        JLBL_I_Diskruimte.setBorder(border1);
-        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Diskruimte);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_NetworkLoad = new JLabel("Networkload");
-        PNL_Component.add(JLBL_NetworkLoad);
-
-        JLBL_Placeholder = new JLabel("             ");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_NetworkLoad = new JLabel();
-        JLBL_I_NetworkLoad.setBorder(border1);
-        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_NetworkLoad);
+//        JLBL_Processorb = new JLabel("Processorbelasting ");
+//        PNL_Component.add(JLBL_Processorb);
+//
+//        JLBL_I_Proccesb = new JLabel();
+//        JLBL_I_Proccesb.setBorder(border1);
+//        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Proccesb);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
+//        PNL_Component.add(JLBL_Diskruimte);
+//
+//        JLBL_Placeholder = new JLabel("");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_Diskruimte = new JLabel();
+//        JLBL_I_Diskruimte.setBorder(border1);
+//        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Diskruimte);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_NetworkLoad = new JLabel("Networkload");
+//        PNL_Component.add(JLBL_NetworkLoad);
+//
+//        JLBL_Placeholder = new JLabel("             ");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_NetworkLoad = new JLabel();
+//        JLBL_I_NetworkLoad.setBorder(border1);
+//        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_NetworkLoad);
 
         // Panel 6
-          PNL_Component = new JPanel();
+        PNL_Component = new JPanel();
         PNL_Component.setLayout(new BoxLayout(PNL_Component, BoxLayout.Y_AXIS));
         PNL_Component.setPreferredSize(new Dimension(200, 185));
         PNL_Component.setBackground(Color.lightGray);
         PNL_Component.setLayout(new FlowLayout());
         this.add(PNL_Component);
 
-        JLBL_Naam = new JLabel((naamOphalen( 6, con)));
+        JLBL_Naam = new JLabel(keuzeComponenten.get(5).getNaam());
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -684,7 +689,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(typeOphalen(6, con));
+        JLBL_I_Type = new JLabel(keuzeComponenten.get(5).getType());
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -700,7 +705,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 6)[2]);
+        JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(5).getBeschikbaarheid()));
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -716,7 +721,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(con, 6)[3]);
+        JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(5).getPrijs()));
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -726,55 +731,55 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Midb.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Midb);
 
-        JLBL_Processorb = new JLabel("Processorbelasting ");
-        PNL_Component.add(JLBL_Processorb);
-
-        JLBL_I_Proccesb = new JLabel();
-        JLBL_I_Proccesb.setBorder(border1);
-        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Proccesb);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
-        PNL_Component.add(JLBL_Diskruimte);
-
-        JLBL_Placeholder = new JLabel("");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_Diskruimte = new JLabel();
-        JLBL_I_Diskruimte.setBorder(border1);
-        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Diskruimte);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_NetworkLoad = new JLabel("Networkload");
-        PNL_Component.add(JLBL_NetworkLoad);
-
-        JLBL_Placeholder = new JLabel("             ");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_NetworkLoad = new JLabel();
-        JLBL_I_NetworkLoad.setBorder(border1);
-        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_NetworkLoad);
+//        JLBL_Processorb = new JLabel("Processorbelasting ");
+//        PNL_Component.add(JLBL_Processorb);
+//
+//        JLBL_I_Proccesb = new JLabel();
+//        JLBL_I_Proccesb.setBorder(border1);
+//        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Proccesb);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
+//        PNL_Component.add(JLBL_Diskruimte);
+//
+//        JLBL_Placeholder = new JLabel("");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_Diskruimte = new JLabel();
+//        JLBL_I_Diskruimte.setBorder(border1);
+//        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Diskruimte);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_NetworkLoad = new JLabel("Networkload");
+//        PNL_Component.add(JLBL_NetworkLoad);
+//
+//        JLBL_Placeholder = new JLabel("             ");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_NetworkLoad = new JLabel();
+//        JLBL_I_NetworkLoad.setBorder(border1);
+//        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_NetworkLoad);
 
         // Panel 7
-            PNL_Component = new JPanel();
+        PNL_Component = new JPanel();
         PNL_Component.setLayout(new BoxLayout(PNL_Component, BoxLayout.Y_AXIS));
         PNL_Component.setPreferredSize(new Dimension(200, 185));
         PNL_Component.setBackground(Color.lightGray);
         PNL_Component.setLayout(new FlowLayout());
         this.add(PNL_Component);
 
-        JLBL_Naam = new JLabel((naamOphalen( 7, con)));
+        JLBL_Naam = new JLabel(keuzeComponenten.get(6).getNaam());
         JLBL_Naam.setBorder(border2);
         JLBL_Naam.setPreferredSize(new Dimension(130, 20));
         JLBL_Naam.setHorizontalAlignment(SwingConstants.CENTER);
@@ -807,7 +812,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Type = new JLabel(typeOphalen(7, con));
+        JLBL_I_Type = new JLabel(keuzeComponenten.get(6).getType());
         JLBL_I_Type.setBorder(border1);
         JLBL_I_Type.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Type);
@@ -823,7 +828,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("     ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Beschikbaarheid = new JLabel(getgegevens(con, 7)[2]);
+        JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(6).getBeschikbaarheid()));
         JLBL_I_Beschikbaarheid.setBorder(border1);
         JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -839,7 +844,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JLBL_Placeholder = new JLabel("                            ");
         PNL_Component.add(JLBL_Placeholder);
 
-        JLBL_I_Prijs = new JLabel(getgegevens(con, 7)[3]);
+        JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(6).getPrijs()));
         JLBL_I_Prijs.setBorder(border1);
         JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
         PNL_Component.add(JLBL_I_Prijs);
@@ -849,45 +854,45 @@ public class ComponentLijst extends JPanel implements ActionListener {
         SEPA_Midb.setForeground(Color.darkGray);
         PNL_Component.add(SEPA_Midb);
 
-        JLBL_Processorb = new JLabel("Processorbelasting ");
-        PNL_Component.add(JLBL_Processorb);
-
-        JLBL_I_Proccesb = new JLabel();
-        JLBL_I_Proccesb.setBorder(border1);
-        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Proccesb);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
-        PNL_Component.add(JLBL_Diskruimte);
-
-        JLBL_Placeholder = new JLabel("");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_Diskruimte = new JLabel();
-        JLBL_I_Diskruimte.setBorder(border1);
-        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_Diskruimte);
-
-        SEPA_Bottom = new JSeparator();
-        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
-        SEPA_Bottom.setForeground(Color.darkGray);
-        PNL_Component.add(SEPA_Bottom);
-
-        JLBL_NetworkLoad = new JLabel("Networkload");
-        PNL_Component.add(JLBL_NetworkLoad);
-
-        JLBL_Placeholder = new JLabel("             ");
-        PNL_Component.add(JLBL_Placeholder);
-
-        JLBL_I_NetworkLoad = new JLabel();
-        JLBL_I_NetworkLoad.setBorder(border1);
-        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
-        PNL_Component.add(JLBL_I_NetworkLoad);
+//        JLBL_Processorb = new JLabel("Processorbelasting ");
+//        PNL_Component.add(JLBL_Processorb);
+//
+//        JLBL_I_Proccesb = new JLabel();
+//        JLBL_I_Proccesb.setBorder(border1);
+//        JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Proccesb);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_Diskruimte = new JLabel("Beschikbare ruimte");
+//        PNL_Component.add(JLBL_Diskruimte);
+//
+//        JLBL_Placeholder = new JLabel("");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_Diskruimte = new JLabel();
+//        JLBL_I_Diskruimte.setBorder(border1);
+//        JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_Diskruimte);
+//
+//        SEPA_Bottom = new JSeparator();
+//        SEPA_Bottom.setPreferredSize(new Dimension(190, 1));
+//        SEPA_Bottom.setForeground(Color.darkGray);
+//        PNL_Component.add(SEPA_Bottom);
+//
+//        JLBL_NetworkLoad = new JLabel("Networkload");
+//        PNL_Component.add(JLBL_NetworkLoad);
+//
+//        JLBL_Placeholder = new JLabel("             ");
+//        PNL_Component.add(JLBL_Placeholder);
+//
+//        JLBL_I_NetworkLoad = new JLabel();
+//        JLBL_I_NetworkLoad.setBorder(border1);
+//        JLBL_I_NetworkLoad.setPreferredSize(new Dimension(70, 15));
+//        PNL_Component.add(JLBL_I_NetworkLoad);
     }
 
     public int CountRows(Connection con) throws SQLException {
