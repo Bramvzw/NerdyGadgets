@@ -30,6 +30,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
     private ArrayList<Componenten> keuzeComponenten =  new ComponentArray().getComponentenArray();
     private ArrayList<Componenten> momenteleComponenten = new ArrayList<>();
+    private ArrayList<Componenten> oudeMomenteleComponenten = new ArrayList<>();
 
 
     public Applicatie(Lijst lijst) throws SQLException {
@@ -524,7 +525,6 @@ public class Applicatie extends JFrame implements ActionListener {
         this.repaint();
 
 
-
         if (e.getSource() == JBTN_Optimaliseer) {
             try {
                 double GewBeschik = Double.parseDouble(JTXTF_GWBesch.getText());
@@ -543,11 +543,11 @@ public class Applicatie extends JFrame implements ActionListener {
         }
 
 
-        if(e.getSource() == JBTN_VerwiA) {
+        if (e.getSource() == JBTN_VerwiA) {
 
         }
 
-        if(e.getSource() == JBTN_IO) {
+        if (e.getSource() == JBTN_IO) {
             JBTN_IO.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
             JBTN_VCT.setBackground(Color.white);
@@ -558,7 +558,7 @@ public class Applicatie extends JFrame implements ActionListener {
             JLBLIO.setText("Infrastructuur overzicht");
         }
 
-        if(e.getSource() == JBTN_OpenCL) {
+        if (e.getSource() == JBTN_OpenCL) {
             JBTN_OpenCL.setBackground(Color.gray);
             JBTN_IO.setBackground(Color.white);
             JBTN_VCT.setBackground(Color.white);
@@ -570,7 +570,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
         }
 
-        if(e.getSource() == JBTN_VCT) {
+        if (e.getSource() == JBTN_VCT) {
             JBTN_VCT.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
             JBTN_IO.setBackground(Color.white);
@@ -586,50 +586,54 @@ public class Applicatie extends JFrame implements ActionListener {
             BP.setVisible(true);
         }
 
-        String[] componentTypes = {"firewall", "DBserver", "webserver"};
-        double beschikbaarheid = 1;
-        double laatsteBeschikbaarheid = 1;
-        double kosten = 0;
-        int aantalFirewalls = 0;
-        int aantalDatabases = 0;
-        int aantalWebservers = 0;
-        double kostenFirewalls = 0;
-        double kostenDatabases = 0;
-        double kostenWebservers = 0;
+        if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
+            oudeMomenteleComponenten = momenteleComponenten;
 
-        for (String type : componentTypes) {
-            for (Componenten component : momenteleComponenten) {
-                if (component.getType().equals(type)) {
-                    laatsteBeschikbaarheid *= (1 - component.getBeschikbaarheid());
-                    kosten += component.getPrijs();
-                    if(type.equals("firewall")){
-                        aantalFirewalls ++;
-                        kostenFirewalls += component.getPrijs();
-                    }
-                    if(type.equals("DBserver")){
-                        aantalDatabases ++;
-                        kostenDatabases += component.getPrijs();
-                    }
-                    if(type.equals("webserver")){
-                        aantalWebservers ++;
-                        kostenWebservers += component.getPrijs();
+            String[] componentTypes = {"firewall", "DBserver", "webserver"};
+            double beschikbaarheid = 1;
+            double laatsteBeschikbaarheid = 1;
+            double kosten = 0;
+            int aantalFirewalls = 0;
+            int aantalDatabases = 0;
+            int aantalWebservers = 0;
+            double kostenFirewalls = 0;
+            double kostenDatabases = 0;
+            double kostenWebservers = 0;
+
+            for (String type : componentTypes) {
+                for (Componenten component : momenteleComponenten) {
+                    if (component.getType().equals(type)) {
+                        laatsteBeschikbaarheid *= (1 - component.getBeschikbaarheid());
+                        kosten += component.getPrijs();
+                        if (type.equals("firewall")) {
+                            aantalFirewalls++;
+                            kostenFirewalls += component.getPrijs();
+                        }
+                        if (type.equals("DBserver")) {
+                            aantalDatabases++;
+                            kostenDatabases += component.getPrijs();
+                        }
+                        if (type.equals("webserver")) {
+                            aantalWebservers++;
+                            kostenWebservers += component.getPrijs();
+                        }
                     }
                 }
+                beschikbaarheid *= (1 - laatsteBeschikbaarheid);
+                laatsteBeschikbaarheid = 1;
             }
-            beschikbaarheid *= (1 - laatsteBeschikbaarheid);
-            laatsteBeschikbaarheid = 1;
-        }
-        beschikbaarheid *= 100;
-        DecimalFormat df = new DecimalFormat("0.000");
-        JLBL_Beschikbaarheid.setText(df.format(beschikbaarheid));
-        JLBL_TotKosten.setText(Double.toString(kosten));
-        JLBL_A_Firewall.setText(Integer.toString(aantalFirewalls));
-        JLBL_A_Databases.setText(Integer.toString(aantalDatabases));
-        JLBL_A_Webs.setText(Integer.toString(aantalWebservers));
-        JLBL_K_Firewall.setText(Double.toString(kostenFirewalls));
-        JLBL_K_Databases.setText(Double.toString(kostenDatabases));
-        JLBL_K_Webs.setText(Double.toString(kostenWebservers));
+            beschikbaarheid *= 100;
+            DecimalFormat df = new DecimalFormat("0.000");
+            JLBL_Beschikbaarheid.setText(df.format(beschikbaarheid));
+            JLBL_TotKosten.setText(Double.toString(kosten));
+            JLBL_A_Firewall.setText(Integer.toString(aantalFirewalls));
+            JLBL_A_Databases.setText(Integer.toString(aantalDatabases));
+            JLBL_A_Webs.setText(Integer.toString(aantalWebservers));
+            JLBL_K_Firewall.setText(Double.toString(kostenFirewalls));
+            JLBL_K_Databases.setText(Double.toString(kostenDatabases));
+            JLBL_K_Webs.setText(Double.toString(kostenWebservers));
 //            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
+        }
     }
 }
 

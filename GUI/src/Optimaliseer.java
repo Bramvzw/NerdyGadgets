@@ -11,9 +11,6 @@ public class Optimaliseer {
 
     public ArrayList optimaliseer(double gewensteBeschikbaarheid, ArrayList<Componenten> keuzeComponenten){
         this.keuzeComponenten = keuzeComponenten;
-        for(Componenten component : keuzeComponenten){
-            component.setBeschikbaarheidFactor();
-        }
 
         newFW(0, gewensteBeschikbaarheid);
 
@@ -79,7 +76,7 @@ public class Optimaliseer {
             for(String type : componentTypes){
                 for(Componenten component : componenten){
                     if(component.getType().equals(type)){
-                        laatsteBeschikbaarheid *= (1 - component.getBeschikbaarheid());
+                        laatsteBeschikbaarheid *= (1 - (component.getBeschikbaarheid() / 100));
                         kosten += component.getPrijs();
                     }
                 }
@@ -95,7 +92,7 @@ public class Optimaliseer {
         if(beschikbaarheid > gewensteBeschikbaarheid && (kosten < besteKosten || besteKosten == 0)){
             besteComponenten.clear();
             for(Componenten component : componenten){
-                besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", component.getBeschikbaarheid() + 0, component.getPrijs() + 0));
+                besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid() / 100) + 0, component.getPrijs() + 0));
             }
             besteBeschikbaarheid = beschikbaarheid;
             besteKosten = kosten;
