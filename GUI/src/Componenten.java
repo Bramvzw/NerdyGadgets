@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 public class Componenten {
     private int ID;
     private static int teller;
@@ -66,27 +64,10 @@ public class Componenten {
         return Prijs;
     }
 
-    public void setBeschikbaarheidFactor(){
-        Beschikbaarheid = Beschikbaarheid / 100;
-    }
-
     public String toString() {
         return Type + " " + Naam + " " + Beschikbaarheid + " " + Prijs;
     }
 
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Componenten that = (Componenten) o;
-        return  ID == that.ID &&
-                Type_key == that.Type_key &&
-                Double.compare(that.Beschikbaarheid, Beschikbaarheid) == 0 &&
-                Prijs == that.Prijs &&
-                Double.compare(that.Processorbelasting, Processorbelasting) == 0 &&
-                Double.compare(that.Diskruimte, Diskruimte) == 0 &&
-                Objects.equals(Type, that.Type) &&
-                Objects.equals(Naam, that.Naam);
-    }
 }
 
 
