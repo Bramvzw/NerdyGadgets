@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Applicatie extends JFrame implements ActionListener {
@@ -519,19 +520,20 @@ public class Applicatie extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         this.repaint();
+
+
 
         if (e.getSource() == JBTN_Optimaliseer) {
             try {
                 double GewBeschik = Double.parseDouble(JTXTF_GWBesch.getText());
                 if (GewBeschik > 0.1 && GewBeschik < 100.0) {
                     String str = JTXTF_GWBesch.getText();
-                    JLBL_Beschikbaarheid.setText(" " + str);
+//                    JLBL_Beschikbaarheid.setText(" " + str);
                     JLBL_Error.setText("");
                     GewBeschik /= 100;
-                    ArrayList<Componenten> componenten = new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten);
+                    momenteleComponenten = new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten);
                 } else {
                     JLBL_Error.setText("De gewenste beschikbaarheid moet tussen 0.1% en 99.99% liggen");
                 }
@@ -539,6 +541,7 @@ public class Applicatie extends JFrame implements ActionListener {
                 JLBL_Error.setText("Alleen getallen kunnen worden ingevoerd!");
             }
         }
+
 
         if(e.getSource() == JBTN_VerwiA) {
 
@@ -582,6 +585,51 @@ public class Applicatie extends JFrame implements ActionListener {
             Bevestiging_popup BP = new Bevestiging_popup();
             BP.setVisible(true);
         }
+
+        String[] componentTypes = {"firewall", "DBserver", "webserver"};
+        double beschikbaarheid = 1;
+        double laatsteBeschikbaarheid = 1;
+        double kosten = 0;
+        int aantalFirewalls = 0;
+        int aantalDatabases = 0;
+        int aantalWebservers = 0;
+        double kostenFirewalls = 0;
+        double kostenDatabases = 0;
+        double kostenWebservers = 0;
+
+        for (String type : componentTypes) {
+            for (Componenten component : momenteleComponenten) {
+                if (component.getType().equals(type)) {
+                    laatsteBeschikbaarheid *= (1 - component.getBeschikbaarheid());
+                    kosten += component.getPrijs();
+                    if(type.equals("firewall")){
+                        aantalFirewalls ++;
+                        kostenFirewalls += component.getPrijs();
+                    }
+                    if(type.equals("DBserver")){
+                        aantalDatabases ++;
+                        kostenDatabases += component.getPrijs();
+                    }
+                    if(type.equals("webserver")){
+                        aantalWebservers ++;
+                        kostenWebservers += component.getPrijs();
+                    }
+                }
+            }
+            beschikbaarheid *= (1 - laatsteBeschikbaarheid);
+            laatsteBeschikbaarheid = 1;
+        }
+        beschikbaarheid *= 100;
+        DecimalFormat df = new DecimalFormat("0.000");
+        JLBL_Beschikbaarheid.setText(df.format(beschikbaarheid));
+        JLBL_TotKosten.setText(Double.toString(kosten));
+        JLBL_A_Firewall.setText(Integer.toString(aantalFirewalls));
+        JLBL_A_Databases.setText(Integer.toString(aantalDatabases));
+        JLBL_A_Webs.setText(Integer.toString(aantalWebservers));
+        JLBL_K_Firewall.setText(Double.toString(kostenFirewalls));
+        JLBL_K_Databases.setText(Double.toString(kostenDatabases));
+        JLBL_K_Webs.setText(Double.toString(kostenWebservers));
+//            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
     }
 }
 
