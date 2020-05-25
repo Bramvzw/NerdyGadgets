@@ -56,6 +56,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect.setMargin(new Insets(0, 0, 1, 1));
         JBTN_Unselect.setFocusable(false);
+        JBTN_Unselect.addActionListener(this);
         PNL_Component.add(JBTN_Unselect);
 
 
@@ -181,6 +182,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect1.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect1.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect1.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect1.addActionListener(this);
         JBTN_Unselect1.setFocusable(false);
         PNL_Component.add(JBTN_Unselect1);
 
@@ -304,6 +306,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect2.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect2.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect2.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect2.addActionListener(this);
         JBTN_Unselect2.setFocusable(false);
         PNL_Component.add(JBTN_Unselect2);
 
@@ -427,6 +430,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect3.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect3.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect3.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect3.addActionListener(this);
         JBTN_Unselect3.setFocusable(false);
         PNL_Component.add(JBTN_Unselect3);
 
@@ -550,6 +554,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect4.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect4.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect4.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect4.addActionListener(this);
         JBTN_Unselect4.setFocusable(false);
         PNL_Component.add(JBTN_Unselect4);
 
@@ -673,6 +678,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect5.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect5.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect5.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect5.addActionListener(this);
         JBTN_Unselect5.setFocusable(false);
         PNL_Component.add(JBTN_Unselect5);
 
@@ -796,6 +802,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect6.setFont(new Font("", Font.BOLD, 14));
         JBTN_Unselect6.setPreferredSize(new Dimension(20, 20));
         JBTN_Unselect6.setMargin(new Insets(0, 0, 1, 1));
+        JBTN_Unselect6.addActionListener(this);
         JBTN_Unselect6.setFocusable(false);
         PNL_Component.add(JBTN_Unselect6);
 

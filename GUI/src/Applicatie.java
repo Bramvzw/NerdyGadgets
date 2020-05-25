@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Applicatie extends JFrame implements ActionListener {
 
 
+    private  ComponentOverzicht CO ;
     ComponentResizer cr = new ComponentResizer();
     private Infrastructuur_Overzicht IO;
     private JPanel JPNL_Top, JPNL_Left, VCT;
@@ -41,7 +42,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
         setBounds(100, 100, 900, 570);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(1040, 570));
+        setMinimumSize(new Dimension(1500, 1080));
         setLocation(500, 250);
         setUndecorated(true);
         cr.setSnapSize(new Dimension(10, 10));
@@ -193,6 +194,7 @@ public class Applicatie extends JFrame implements ActionListener {
         add(JBTN_IO);
 
 
+
 // Create Separator in Jpanel Top
         SEPA_Top = new JSeparator();
         SEPA_Top.setForeground(Color.BLACK);
@@ -285,7 +287,7 @@ public class Applicatie extends JFrame implements ActionListener {
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(10)
                                                 .addComponent(IO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                                                .addGap(120)
+
                                                 .addComponent(StandaardC, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                                 .addGap(15)
                                                 .addComponent(CO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
@@ -548,6 +550,12 @@ public class Applicatie extends JFrame implements ActionListener {
             CO.setVisible(false);
             StandaardC.setVisible(false);
             JLBLIO.setText("Infrastructuur overzicht");
+
+
+
+
+
+
 
         }
 
