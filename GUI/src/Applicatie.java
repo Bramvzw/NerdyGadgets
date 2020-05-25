@@ -12,7 +12,8 @@ public class Applicatie extends JFrame implements ActionListener {
 
 
     ComponentResizer cr = new ComponentResizer();
-    private JPanel JPNL_Top, JPNL_Left, IO, VCT;
+    private Infrastructuur_Overzicht IO;
+    private JPanel JPNL_Top, JPNL_Left, VCT;
     private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBL_Aantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, CustomTitle, StandaardTitle;
     private JTextField JTXTF_GWBesch;
@@ -60,8 +61,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JPNL_Left.setBackground(new Color(169, 169, 169));
         add(JPNL_Left);
 
-        IO = new Infrastructuur_Overzicht(lijst);
-
+        IO = new Infrastructuur_Overzicht(momenteleComponenten , this);
 
         StandaardC = new JScrollPane(new ComponentLijst(keuzeComponenten));
         StandaardC.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -556,6 +556,7 @@ public class Applicatie extends JFrame implements ActionListener {
             StandaardC.setVisible(false);
             CustomC.setVisible(false);
             JLBLIO.setText("Infrastructuur overzicht");
+
         }
 
         if (e.getSource() == JBTN_OpenCL) {
@@ -588,7 +589,8 @@ public class Applicatie extends JFrame implements ActionListener {
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
             oudeMomenteleComponenten = momenteleComponenten;
-
+            System.out.println(momenteleComponenten);
+            IO.setcomponenten(momenteleComponenten);
             String[] componentTypes = {"firewall", "DBserver", "webserver"};
             double beschikbaarheid = 1;
             double laatsteBeschikbaarheid = 1;
@@ -633,7 +635,13 @@ public class Applicatie extends JFrame implements ActionListener {
             JLBL_K_Databases.setText(Double.toString(kostenDatabases));
             JLBL_K_Webs.setText(Double.toString(kostenWebservers));
 //            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
+
+
+
         }
+
+
+
     }
 
     public ArrayList<Componenten> getMomenteleComponenten() {

@@ -8,21 +8,26 @@ import java.util.ArrayList;
 
 
 
+
 public class Infrastructuur_Overzicht extends JPanel {
 
     int servers = 5;
     int databases=5;
     int firwalls=1;
 
+    private ArrayList<Componenten> compo1 = new ArrayList<>();
 
 
 
-    public Infrastructuur_Overzicht(Lijst lijst)  {
+    public Infrastructuur_Overzicht(ArrayList<Componenten> component , Applicatie app)  {
 
+       compo1= app.getMomenteleComponenten();
 
-        setBackground(Color.lightGray);
+        System.out.println(compo1.size());
+        System.out.println(compo1);
+        System.out.println(compo1);
 
-
+ //compo1.add(new Componenten("firewall", "firewall",99.998,1000));
 
 
 
@@ -30,13 +35,22 @@ public class Infrastructuur_Overzicht extends JPanel {
 
 
     }
+    public void setcomponenten(ArrayList<Componenten> a){
+        this.compo1= a;
+        System.out.println(compo1.size());
 
+
+
+              repaint();
+    }
 
 
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+
+        compo1.size();
       //  int xDatabases = 100;
      //   int yDatabases = 100;
       //  int xWebserver = 200;
@@ -286,6 +300,7 @@ public class Infrastructuur_Overzicht extends JPanel {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            repaint();
         }
     }
 
