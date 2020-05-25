@@ -9,10 +9,18 @@ import java.text.DecimalFormat;
 public class GegevensOphalen {
     public static String[] start(String host){
         String[] string = new String[2];
-        String user = "root";
-        String password = "ictm2m2";
+        int[] substring = new int[]{170, 175, 310, 317};
+        String user, password;
+        if(host.equals("192.168.1.11") || host.equals("192.168.1.12")){
+            user = "student";
+            password = "Welkom01!";
+        }
+        else{
+            user = "root";
+            password = "ictm2m2";
+        }
         int port = 22;
-        String output = "Als je dit ziet is er iets misgegaan";
+        String output = "";
 
         try{
             java.util.Properties config = new java.util.Properties();
@@ -54,14 +62,19 @@ public class GegevensOphalen {
             }
             channel.disconnect();
             session.disconnect();
-            string[0] = output.substring(170,175);
+            if(host.equals("192.168.1.106")){for(int i = 0; i < substring.length; i ++){substring[i] += 7;}}
+            if(host.equals("192.168.1.11") || host.equals("192.168.1.12")){for(int i = 0; i < substring.length; i ++){substring[i] += 3;}}
+
+            string[0] = output.substring(substring[0],substring[1]);
             DecimalFormat df = new DecimalFormat("##.##");
-            string[1] =df.format((Double.parseDouble(output.substring(310,317)) / 2097152));
+            string[1] =df.format((Double.parseDouble(output.substring(substring[2],substring[3])) / 2097152));
 //            System.out.println("KLAAR");
         }
         catch(Exception e){
+            //e.printStackTrace();
             return new String[]{"",""};
         }
+
 
         return string;
     }

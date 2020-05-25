@@ -8,15 +8,26 @@ public class Componenten {
     private int Prijs;
     private double Processorbelasting;
     private double Diskruimte;
+    private String host;
 
-
-
-    public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs){
+    public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, double Processorbelasting, double Diskruimte, String host){
         this.ID = ID;
         this.Type = Type;
         this.Naam = Naam;
         this.Beschikbaarheid = Beschikbaarheid;
         this.Prijs = Prijs;
+        this.Processorbelasting = Processorbelasting;
+        this.Diskruimte = Diskruimte;
+        this.host = host;
+    }
+
+    public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, String host){
+        this.ID = ID;
+        this.Type = Type;
+        this.Naam = Naam;
+        this.Beschikbaarheid = Beschikbaarheid;
+        this.Prijs = Prijs;
+        this.host = host;
     }
 
     public Componenten(String Type, String Naam, double Beschikbaarheid, int Prijs){
@@ -68,6 +79,19 @@ public class Componenten {
     public int getPrijs() {
         return Prijs;
     }
+
+    public void updateGegevens(){
+        if(host != null) {
+            String[] gegevens = new String[2];
+            String[] cpudisk;
+
+                cpudisk = GegevensOphalen.start(host);
+                if(!cpudisk[0].equals("") && !cpudisk[1].equals("")) {
+                    Diskruimte = Double.parseDouble(cpudisk[1].replace(",", "."));
+                    Processorbelasting = 100 - Double.parseDouble(cpudisk[0]);
+                }
+            }
+        }
 
     public String toString() {
         return Type + " " + Naam + " " + Beschikbaarheid + " " + Prijs;

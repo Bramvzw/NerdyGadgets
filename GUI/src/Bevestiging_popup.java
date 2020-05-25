@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,9 +7,11 @@ public class Bevestiging_popup extends JDialog implements ActionListener {
     private JLabel label, Placeholder;
     private JButton ok, cancel;
     private JPanel panel, panel1, panel2;
+    private boolean boolOk = false;
 
 
-    public Bevestiging_popup() {
+    public Bevestiging_popup(JFrame frame) {
+        super(frame,true);
         setSize(400, 200);
         setLocation(900,420);
         setLayout(new BorderLayout());
@@ -50,11 +51,16 @@ public class Bevestiging_popup extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == ok) {
             this.setVisible(false);
+            boolOk = true;
             // Verwijder alles
             
         }
         if (e.getSource() == cancel) {
             this.setVisible(false);
         }
+    }
+
+    public boolean isBoolOk() {
+        return boolOk;
     }
 }
