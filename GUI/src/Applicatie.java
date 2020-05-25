@@ -12,14 +12,12 @@ public class Applicatie extends JFrame implements ActionListener {
 
 
     private  ComponentOverzicht CO ;
-    ComponentResizer cr = new ComponentResizer();
     private Infrastructuur_Overzicht IO;
-    private ComponentOverzicht CO;
     private JPanel JPNL_Top, JPNL_Left, VCT;
     private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBL_Aantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, CustomTitle, StandaardTitle;
     private JTextField JTXTF_GWBesch;
-    private JButton JBTN_Optimaliseer, JBTN_VerwiA, JBTN_OpenCL, JBTN_CO, JBTN_Opslaan, JBTN_Open, JBTN_IO, JBTNExit;
+    private JButton JBTN_Optimaliseer, JBTN_VerwiA, JBTN_OpenCL, JBTN_CO, JBTN_Opslaan, JBTN_Open, JBTN_IO;
     private JSeparator SEPA_Top, SEPA_Stat1, SEPA_Stat2, SEPA_Mid1, SEPA_Mid2, SEPA_Bottom;
     private JScrollPane StandaardC;
 
@@ -38,22 +36,17 @@ public class Applicatie extends JFrame implements ActionListener {
 
     public Applicatie(Lijst lijst) throws SQLException {
         this.lijst = lijst;
-        cr.registerComponent(this);
-        MotionPanel mp = new MotionPanel(this);
         new Thread(this::timerUpdate).start();
 
         setBounds(100, 100, 900, 570);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(1500, 1080));
-        setLocation(500, 250);
-        setUndecorated(true);
-        cr.setSnapSize(new Dimension(10, 10));
+        setMinimumSize(new Dimension(1160, 750));
 
 // Create Border
         Border border1 = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.black, null, null, null);
 
 // Create JPanels
-        JPNL_Top = new MotionPanel(this);
+        JPNL_Top = new JPanel();
         JPNL_Top.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
         JPNL_Top.setBackground(new Color(169, 169, 169));
         add(JPNL_Top);
@@ -222,19 +215,7 @@ public class Applicatie extends JFrame implements ActionListener {
 // Overig:
 
 // Create JButton Exit in JPanel Top
-        JBTNExit = new JButton("X");
-        JBTNExit.setFocusable(false);
-        JBTNExit.setFocusTraversalKeysEnabled(false);
-        JBTNExit.setFocusPainted(false);
-        JBTNExit.setRolloverEnabled(false);
-        JBTNExit.setRequestFocusEnabled(false);
-        JBTNExit.setFont(new Font("Tahoma", Font.BOLD, 12));
-        JBTNExit.setMargin(new Insets(0, 0, 0, 0));
-        JBTNExit.setBorderPainted(false);
-        JBTNExit.setOpaque(false);
-        JBTNExit.addActionListener(new CloseListener());
-        JBTNExit.setBackground(Color.red);
-        add(JBTNExit);
+
 
         JBTN_Opslaan = new JButton("");
         JBTN_Opslaan.setFocusable(false);
@@ -288,9 +269,10 @@ public class Applicatie extends JFrame implements ActionListener {
                                 .addGroup(groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(10)
-                                                .addComponent(IO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-
-                                                .addComponent(StandaardC, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                                                .addComponent(IO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))
+                                                .addGroup(groupLayout.createSequentialGroup()
+                                                        .addGap(200)
+                                                        .addComponent(StandaardC, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                                 .addGap(15)
                                                 .addComponent(CO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                                                 .addGap(1))
@@ -472,17 +454,18 @@ public class Applicatie extends JFrame implements ActionListener {
                                 .addComponent(JBTN_Opslaan, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
                                 .addGap(10)
                                 .addComponent(JBTN_Open, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-                                .addGap(440)
+                                .addGap(200)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                                 .addComponent(JLBLTitle, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
-                                .addComponent(JBTNExit, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE))
+
                         .addComponent(SEPA_Top, GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
                         .addGroup(gl_JPNL_Top.createSequentialGroup()
                                 .addGap(10)
                                 .addComponent(JLBL_Error, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                                 .addComponent(JLBLIO, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
-                                .addGap(181))
+                                .addGap(300))
         );
         gl_JPNL_Top.setVerticalGroup(
                 gl_JPNL_Top.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -496,8 +479,7 @@ public class Applicatie extends JFrame implements ActionListener {
                                                 .addComponent(JBTN_Open, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
                                         .addGroup(gl_JPNL_Top.createSequentialGroup()
                                                 .addGap(5)
-                                                .addComponent(JLBLTitle, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(JBTNExit, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(JLBLTitle, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)))
                                 .addGap(6)
                                 .addComponent(SEPA_Top, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
                                 .addGap(6)
