@@ -17,9 +17,9 @@ public class Applicatie extends JFrame implements ActionListener {
     private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBL_Aantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, CustomTitle, StandaardTitle;
     private JTextField JTXTF_GWBesch;
-    private JButton JBTN_Optimaliseer, JBTN_VerwiA, JBTN_OpenCL, JBTN_VCT, JBTN_Opslaan, JBTN_Open, JBTN_IO, JBTNExit;
+    private JButton JBTN_Optimaliseer, JBTN_VerwiA, JBTN_OpenCL, JBTN_CO, JBTN_Opslaan, JBTN_Open, JBTN_IO, JBTNExit;
     private JSeparator SEPA_Top, SEPA_Stat1, SEPA_Stat2, SEPA_Mid1, SEPA_Mid2, SEPA_Bottom;
-    private JScrollPane StandaardC, CustomC;
+    private JScrollPane StandaardC;
 
     private Lijst lijst;
     private static int AantalFirewalls = 0;
@@ -48,7 +48,6 @@ public class Applicatie extends JFrame implements ActionListener {
 
 // Create Border
         Border border1 = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.black, null, null, null);
-        Border border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.black, null, null, null);
 
 // Create JPanels
         JPNL_Top = new MotionPanel(this);
@@ -64,13 +63,10 @@ public class Applicatie extends JFrame implements ActionListener {
         IO = new Infrastructuur_Overzicht(momenteleComponenten , this);
 
         StandaardC = new JScrollPane(new ComponentLijst(keuzeComponenten));
-        StandaardC.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-
-        CustomC = new JScrollPane(new ComponentLijst(keuzeComponenten));
-        CustomC.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
 
-        VCT = new VoegComponentToe();
+
+        CO = new ComponentOverzicht();
 
 
 
@@ -82,7 +78,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JLBLIO = new JLabel("Infrastructuur overzicht");
         JLBLIO.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
-        CustomTitle = new JLabel("Custom Componenten");
+        CustomTitle = new JLabel("Componenten overzicht");
         CustomTitle.setFont(new Font("", Font.BOLD, 16));
 
         StandaardTitle = new JLabel("Standaard Componenten");
@@ -187,9 +183,9 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_OpenCL.addActionListener(this);
         JBTN_OpenCL.setFocusable(false);
 
-        JBTN_VCT = new JButton("Componenten overzicht");
-        JBTN_VCT.addActionListener(this);
-        JBTN_VCT.setFocusable(false);
+        JBTN_CO = new JButton("Componenten overzicht");
+        JBTN_CO.addActionListener(this);
+        JBTN_CO.setFocusable(false);
 
         JBTN_IO = new JButton("Infrastructuur overzicht");
         JBTN_IO.setFocusable(false);
@@ -276,8 +272,7 @@ public class Applicatie extends JFrame implements ActionListener {
                                         .addComponent(StandaardC, GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE))
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(208)
-                                        .addComponent(CustomC, GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE))
-                                        .addComponent(VCT, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(CO, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(0))
         );
 
@@ -290,11 +285,10 @@ public class Applicatie extends JFrame implements ActionListener {
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(10)
                                                 .addComponent(IO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                                                .addGap(15)
+                                                .addGap(120)
                                                 .addComponent(StandaardC, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                                 .addGap(15)
-                                                .addComponent(CustomC, GroupLayout.DEFAULT_SIZE, 200, 300)
-                                                .addComponent(VCT, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                                                .addComponent(CO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                                                 .addGap(1))
                                         .addComponent(JPNL_Left, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))
         );
@@ -327,7 +321,7 @@ public class Applicatie extends JFrame implements ActionListener {
                                 .addComponent(JBTN_OpenCL, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                 .addGap(27)
-                                .addComponent(JBTN_VCT, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+                                .addComponent(JBTN_CO, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
                         .addGroup(gl_JPNL_Left.createSequentialGroup()
                                 .addGap(2)
                                 .addGroup(gl_JPNL_Left.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -403,7 +397,7 @@ public class Applicatie extends JFrame implements ActionListener {
                                 .addGap(16)
                                 .addComponent(JBTN_OpenCL, GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                                 .addGap(16)
-                                .addComponent(JBTN_VCT, GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                                .addComponent(JBTN_CO, GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
                                 .addGap(16)
                                 .addGroup(gl_JPNL_Left.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
@@ -515,9 +509,8 @@ public class Applicatie extends JFrame implements ActionListener {
 
         IO.setVisible(true);
         JBTN_IO.setBackground(Color.gray);
-        VCT.setVisible(false);
+        CO.setVisible(false);
         StandaardC.setVisible(false);
-        CustomC.setVisible(false);
         setVisible(true);
     }
 
@@ -550,11 +543,10 @@ public class Applicatie extends JFrame implements ActionListener {
         if (e.getSource() == JBTN_IO) {
             JBTN_IO.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
-            JBTN_VCT.setBackground(Color.white);
+            JBTN_CO.setBackground(Color.white);
             IO.setVisible(true);
-            VCT.setVisible(false);
+            CO.setVisible(false);
             StandaardC.setVisible(false);
-            CustomC.setVisible(false);
             JLBLIO.setText("Infrastructuur overzicht");
 
         }
@@ -562,24 +554,22 @@ public class Applicatie extends JFrame implements ActionListener {
         if (e.getSource() == JBTN_OpenCL) {
             JBTN_OpenCL.setBackground(Color.gray);
             JBTN_IO.setBackground(Color.white);
-            JBTN_VCT.setBackground(Color.white);
+            JBTN_CO.setBackground(Color.white);
             IO.setVisible(false);
-            VCT.setVisible(false);
+            CO.setVisible(false);
             StandaardC.setVisible(true);
-            CustomC.setVisible(true);
             JLBLIO.setText("Componentenlijst");
 
         }
 
-        if (e.getSource() == JBTN_VCT) {
-            JBTN_VCT.setBackground(Color.gray);
+        if (e.getSource() == JBTN_CO) {
+            JBTN_CO.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
             JBTN_IO.setBackground(Color.white);
-            VCT.setVisible(true);
+            CO.setVisible(true);
             IO.setVisible(false);
             StandaardC.setVisible(false);
-            CustomC.setVisible(false);
-            JLBLIO.setText("Componenten toevoegen");
+            JLBLIO.setText("Component overzicht");
         }
 
         if (e.getSource() == JBTN_VerwiA) {
@@ -635,9 +625,6 @@ public class Applicatie extends JFrame implements ActionListener {
             JLBL_K_Databases.setText(Double.toString(kostenDatabases));
             JLBL_K_Webs.setText(Double.toString(kostenWebservers));
 //            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
-
-
-
         }
 
 
