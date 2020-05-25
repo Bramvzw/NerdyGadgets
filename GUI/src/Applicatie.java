@@ -64,7 +64,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
         IO = new Infrastructuur_Overzicht(momenteleComponenten , this);
 
-        StandaardC = new JScrollPane(new ComponentLijst(keuzeComponenten));
+        StandaardC = new JScrollPane(new ComponentLijst(this, keuzeComponenten, momenteleComponenten));
 
 
 
@@ -583,64 +583,66 @@ public class Applicatie extends JFrame implements ActionListener {
         }
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
-            oudeMomenteleComponenten = momenteleComponenten;
-            System.out.println(momenteleComponenten);
-            IO.setcomponenten(momenteleComponenten);
-            String[] componentTypes = {"firewall", "DBserver", "webserver"};
-            double beschikbaarheid = 1;
-            double laatsteBeschikbaarheid = 1;
-            double kosten = 0;
-            int aantalFirewalls = 0;
-            int aantalDatabases = 0;
-            int aantalWebservers = 0;
-            double kostenFirewalls = 0;
-            double kostenDatabases = 0;
-            double kostenWebservers = 0;
-
-            for (String type : componentTypes) {
-                for (Componenten component : momenteleComponenten) {
-                    if (component.getType().equals(type)) {
-                        laatsteBeschikbaarheid *= (1 - component.getBeschikbaarheid());
-                        kosten += component.getPrijs();
-                        if (type.equals("firewall")) {
-                            aantalFirewalls++;
-                            kostenFirewalls += component.getPrijs();
-                        }
-                        if (type.equals("DBserver")) {
-                            aantalDatabases++;
-                            kostenDatabases += component.getPrijs();
-                        }
-                        if (type.equals("webserver")) {
-                            aantalWebservers++;
-                            kostenWebservers += component.getPrijs();
-                        }
-                    }
-                }
-                beschikbaarheid *= (1 - laatsteBeschikbaarheid);
-                laatsteBeschikbaarheid = 1;
-            }
-            beschikbaarheid *= 100;
-            DecimalFormat df = new DecimalFormat("0.000");
-            JLBL_Beschikbaarheid.setText(df.format(beschikbaarheid));
-            JLBL_TotKosten.setText(Double.toString(kosten));
-            JLBL_A_Firewall.setText(Integer.toString(aantalFirewalls));
-            JLBL_A_Databases.setText(Integer.toString(aantalDatabases));
-            JLBL_A_Webs.setText(Integer.toString(aantalWebservers));
-            JLBL_K_Firewall.setText(Double.toString(kostenFirewalls));
-            JLBL_K_Databases.setText(Double.toString(kostenDatabases));
-            JLBL_K_Webs.setText(Double.toString(kostenWebservers));
-//            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
+            updateComponenten();
         }
 
 
 
     }
 
+    public void updateComponenten(){
+        oudeMomenteleComponenten = momenteleComponenten;
+        System.out.println(momenteleComponenten);
+        IO.setcomponenten(momenteleComponenten);
+        String[] componentTypes = {"firewall", "DBserver", "webserver"};
+        double beschikbaarheid = 1;
+        double laatsteBeschikbaarheid = 1;
+        double kosten = 0;
+        int aantalFirewalls = 0;
+        int aantalDatabases = 0;
+        int aantalWebservers = 0;
+        double kostenFirewalls = 0;
+        double kostenDatabases = 0;
+        double kostenWebservers = 0;
+
+        for (String type : componentTypes) {
+            for (Componenten component : momenteleComponenten) {
+                if (component.getType().equals(type)) {
+                    laatsteBeschikbaarheid *= (1 - (component.getBeschikbaarheid() / 100));
+                    kosten += component.getPrijs();
+                    if (type.equals("firewall")) {
+                        aantalFirewalls++;
+                        kostenFirewalls += component.getPrijs();
+                    }
+                    if (type.equals("DBserver")) {
+                        aantalDatabases++;
+                        kostenDatabases += component.getPrijs();
+                    }
+                    if (type.equals("webserver")) {
+                        aantalWebservers++;
+                        kostenWebservers += component.getPrijs();
+                    }
+                }
+            }
+            beschikbaarheid *= (1 - laatsteBeschikbaarheid);
+            laatsteBeschikbaarheid = 1;
+        }
+        beschikbaarheid *= 100;
+        DecimalFormat df = new DecimalFormat("0.000");
+        JLBL_Beschikbaarheid.setText(df.format(beschikbaarheid));
+        JLBL_TotKosten.setText(Double.toString(kosten));
+        JLBL_A_Firewall.setText(Integer.toString(aantalFirewalls));
+        JLBL_A_Databases.setText(Integer.toString(aantalDatabases));
+        JLBL_A_Webs.setText(Integer.toString(aantalWebservers));
+        JLBL_K_Firewall.setText(Double.toString(kostenFirewalls));
+        JLBL_K_Databases.setText(Double.toString(kostenDatabases));
+        JLBL_K_Webs.setText(Double.toString(kostenWebservers));
+//            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
+    }
+
     public ArrayList<Componenten> getMomenteleComponenten() {
         return momenteleComponenten;
     }
-
-
 
     public void timerUpdate(){
         while(true){

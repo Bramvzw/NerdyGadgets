@@ -1,7 +1,8 @@
+import java.util.Objects;
+
 public class Componenten {
     private int ID;
     private static int teller = 1;
-    private int Type_key;
     private String Type;
     private String Naam;
     private double Beschikbaarheid;
@@ -39,12 +40,35 @@ public class Componenten {
         teller++;
     }
 
+    public Componenten(Componenten component){
+        ID = component.getID() + 0;
+        Type = component.getType() + "";
+        Naam = component.getNaam() + "";
+        Beschikbaarheid = component.getBeschikbaarheid() + 0;
+        Prijs = component.getPrijs() + 0;
+        Processorbelasting = component.getProcessorbelasting() + 0;
+        Diskruimte = component.Diskruimte + 0;
+        host = component.getHost() + "";
+    }
 
+    public int getID() {
+        return ID;
+    }
 
+    public double getProcessorbelasting() {
+        return Processorbelasting;
+    }
+
+    public double getDiskruimte() {
+        return Diskruimte;
+    }
+
+    public String getHost() {
+        return host;
+    }
 
     public Componenten(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
         this.ID = ID;
-        this.Type_key = Type_key;
         this.Type = Type;
         this.Naam = Naam;
         this.Beschikbaarheid = Beschikbaarheid;
@@ -55,7 +79,6 @@ public class Componenten {
 
     public void NewComponent(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
         this.ID = ID;
-        this.Type_key = Type_key;
         this.Type = Type;
         this.Naam = Naam;
         this.Beschikbaarheid = Beschikbaarheid;
@@ -97,6 +120,21 @@ public class Componenten {
         return Type + " " + Naam + " " + Beschikbaarheid + " " + Prijs;
     }
 
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Componenten that = (Componenten) o;
+        return ID == that.ID &&
+                Double.compare(that.Beschikbaarheid, Beschikbaarheid) == 0 &&
+                Prijs == that.Prijs &&
+                Double.compare(that.Processorbelasting, Processorbelasting) == 0 &&
+                Double.compare(that.Diskruimte, Diskruimte) == 0 &&
+                Objects.equals(Type, that.Type) &&
+                Objects.equals(Naam, that.Naam) &&
+                Objects.equals(host, that.host);
+    }
 }
+
+
 
 
