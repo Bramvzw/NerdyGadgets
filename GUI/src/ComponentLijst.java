@@ -26,6 +26,9 @@ public class ComponentLijst extends JPanel implements ActionListener {
     private Statement stmt;
     private Connection con = Connectie.getConnection();
 
+    public ArrayList<String> serverslijst = new ArrayList<String>();
+    private ArrayList<String> databaseslijst = new ArrayList<String>(100);
+    private ArrayList<String> firewalllijst = new ArrayList<String>(100);
 
     public ComponentLijst(ArrayList<Componenten> keuzeComponenten) throws SQLException {
 
@@ -1016,14 +1019,117 @@ public class ComponentLijst extends JPanel implements ActionListener {
         return string;
     }
 
+    public ArrayList<String> getDatabaseslijst() {
+        this.databaseslijst=databaseslijst;
+        return databaseslijst;
+    }
+
+    public void setDatabaseslijst(ArrayList<String> databaseslijst) {
+        this.databaseslijst = databaseslijst;
+    }
+
+    public ArrayList<String> getServerslijst() {
+        return serverslijst;
+    }
+
+    public ArrayList<String> getFirewalllijst() {
+        return firewalllijst;
+    }
+
+    public void setServerslijst(ArrayList<String> serverslijst) {
+        this.serverslijst = serverslijst;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         Object command1 = e.getSource();
         if (command1.equals(JBTN_Select)) {
-            System.out.println(JBTN_Select.getFont());
-            System.out.println("1");
-            System.out.println(JBTN_Select.getName());
+            firewalllijst.add("pfsense");
+            System.out.println("firewall is added");
+            System.out.println("webservers : "+serverslijst);
+            System.out.println("databases : "+databaseslijst);
         }
+        if (command1.equals(JBTN_Select1)){
+            System.out.println("+1 database added van type HAL9001DB");
+            databaseslijst.add("HAL9001DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Select2)){
+            System.out.println("+1 database added van type HAL9002DB");
+            databaseslijst.add("HAL9002DB");
+            System.out.println("aantaldatabases : "+ databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Select3)){
+            System.out.println("+1 database added va type HAL9003DB");
+            databaseslijst.add("HAL9003DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Select4)){
+            System.out.println("+1 WB added van type HAL9001WB");
+            serverslijst.add("HAL9001WB ");
+
+            System.out.println( "aantalwebservers : " + serverslijst.size());
+        }
+        if (command1.equals(JBTN_Select5)){
+            System.out.println("+1 WB added van type HAL9002WB");
+            serverslijst.add("HAL9002WB ");
+            System.out.println( "aantalwebservers : " + serverslijst.size());
+        }
+        if (command1.equals(JBTN_Select6)){
+            System.out.println("+1 WB added van type HAL9003WB ");
+            serverslijst.add("HAL9003WB ");
+            System.out.println( "aantalwebservers : " + serverslijst.size());
+        }
+        if (e.getSource().equals( JBTN_Unselect)){
+
+            System.out.println("firewall is verwijderd");
+            firewalllijst.remove("firewall");
+        }
+        if (e.getSource().equals( JBTN_Unselect1)){
+
+            System.out.println("-1 (een database is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9001DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+
+        }
+        if (command1.equals(JBTN_Unselect2)){
+            System.out.println("-1 (een database is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9002DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Unselect3)){
+            System.out.println("-1 (een database is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9003DB");
+            System.out.println("aantaldatabases : " + databaseslijst.size());
+        }
+        if (command1.equals(JBTN_Unselect4)){
+
+            System.out.println("-1 (een webserver is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9001WB");
+            System.out.println("aantaldatabases : " + serverslijst.size());
+
+
+
+
+        }
+        if (command1.equals(JBTN_Unselect5)){
+
+
+            System.out.println("-1 (een webserver is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9002WB");
+            System.out.println("aantaldatabases : " + serverslijst.size());
+
+        }
+        if (command1.equals(JBTN_Unselect6)){
+
+
+            System.out.println("-1 (een webserver is uit de lijst verwijderd)");
+            databaseslijst.remove("HAL9003WB");
+            System.out.println("aantaldatabases : " + serverslijst.size());
+
+
+        }
+
     }
 }
 

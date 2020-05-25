@@ -170,4 +170,9 @@ public class Optimaliseer {
 
         return gesorteerd;
     }
+
+    public ArrayList<Componenten> getBesteComponenten() {
+        return besteComponenten;
+    }
+
 }

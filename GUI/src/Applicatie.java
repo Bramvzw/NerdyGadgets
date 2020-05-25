@@ -29,7 +29,7 @@ public class Applicatie extends JFrame implements ActionListener {
     private int KostenWSs = 0;
 
     private ArrayList<Componenten> keuzeComponenten =  new ComponentArray().getComponentenArray();
-    private ArrayList<Componenten> momenteleComponenten = new ArrayList<>();
+    static ArrayList<Componenten> momenteleComponenten = new ArrayList<>();
     private ArrayList<Componenten> oudeMomenteleComponenten = new ArrayList<>();
 
 
@@ -635,6 +635,12 @@ public class Applicatie extends JFrame implements ActionListener {
 //            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
         }
     }
+
+    public ArrayList<Componenten> getMomenteleComponenten() {
+        return momenteleComponenten;
+    }
+
+
 }
 
 

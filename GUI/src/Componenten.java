@@ -26,6 +26,7 @@ public class Componenten {
 
 
 
+
     public Componenten(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
         this.ID = ID;
         this.Type_key = Type_key;
