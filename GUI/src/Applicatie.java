@@ -573,8 +573,11 @@ public class Applicatie extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == JBTN_VerwiA) {
-            Bevestiging_popup BP = new Bevestiging_popup();
+            Bevestiging_popup BP = new Bevestiging_popup(this);
             BP.setVisible(true);
+            if(BP.isBoolOk()){
+                momenteleComponenten.clear();
+            }
         }
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
@@ -628,9 +631,9 @@ public class Applicatie extends JFrame implements ActionListener {
 
     public void timerUpdate(){
         while(true){
-            if(momenteleComponenten.size() != 0){
-                for(Componenten component : momenteleComponenten){
-
+            if(keuzeComponenten.size() != 0){
+                for(Componenten component : keuzeComponenten){
+                    component.updateGegevens();
                 }
             }
 

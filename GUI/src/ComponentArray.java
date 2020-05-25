@@ -13,7 +13,7 @@ public class ComponentArray {
         for(int i = 1; i <= CountRows(con); i ++){
             gegevens = getgegevens(con,i);
             if(!gegevens[7].isEmpty() || !gegevens[8].isEmpty()) {
-                componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), Double.parseDouble(gegevens[7]), Double.parseDouble(gegevens[8]), gegevens[4]));
+                componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), (100 - Double.parseDouble(gegevens[7])), Double.parseDouble(gegevens[8]), gegevens[4]));
             }
             else{
                 componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), gegevens[4]));
@@ -67,11 +67,16 @@ public class ComponentArray {
                 gegevens[4] = rs.getString("ipadres");
                 gegevens[5] = typeOphalen(ID, con);
                 gegevens[6] = naamOphalen(ID, con);
-
-                String[] cpudisk = GegevensOphalen.start(gegevens[4]);
-                gegevens[7] = cpudisk[0];
-                gegevens[8] = cpudisk[1].replace(",",".");
-
+                String[] cpudisk;
+                if(gegevens[4] != null) {
+                    cpudisk = GegevensOphalen.start(gegevens[4]);
+                    gegevens[8] = cpudisk[1].replace(",", ".");
+                    gegevens[7] = cpudisk[0];
+                }
+                else{
+                    gegevens[7] = "";
+                    gegevens[8] = "";
+                }
             }
             rs.close();
         } catch (Exception e) {
