@@ -62,7 +62,7 @@ public class Infrastructuur_Overzicht extends JPanel {
 
                     }
                     g.drawImage(image, xDatabase, yDatabase, null);
-                    g.drawString(s.getNaam(), xDatabase + 10, yDatabase + 90);
+                    g.drawString(s.getNaam(), xDatabase + 5, yDatabase + 60);
                     yDatabase += 100;
                     dCount++;
 
@@ -75,7 +75,7 @@ public class Infrastructuur_Overzicht extends JPanel {
                     }
                     Image image2 = ImageIO.read(new File("Images/Webserver.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
                     g.drawImage(image2, xWebserver, yWebserver, null);
-                    g.drawString(s.getNaam(), xWebserver + 10, yWebserver + 90);
+                    g.drawString(s.getNaam(), xWebserver + 5, yWebserver +60);
                     yWebserver += 100;
                     wCount++;
 
