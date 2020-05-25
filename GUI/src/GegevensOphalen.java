@@ -12,7 +12,7 @@ public class GegevensOphalen {
         String user = "root";
         String password = "ictm2m2";
         int port = 22;
-        String output = "Als je dit ziet is er iets misgegaan";
+        String output = "";
 
         try{
             java.util.Properties config = new java.util.Properties();

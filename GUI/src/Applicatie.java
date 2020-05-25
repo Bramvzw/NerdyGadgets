@@ -37,6 +37,7 @@ public class Applicatie extends JFrame implements ActionListener {
         this.lijst = lijst;
         cr.registerComponent(this);
         MotionPanel mp = new MotionPanel(this);
+        new Thread(this::timerUpdate).start();
 
         setBounds(100, 100, 900, 570);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -622,6 +623,23 @@ public class Applicatie extends JFrame implements ActionListener {
             JLBL_K_Firewall.setText(Double.toString(kostenFirewalls));
             JLBL_K_Databases.setText(Double.toString(kostenDatabases));
             JLBL_K_Webs.setText(Double.toString(kostenWebservers));
+        }
+    }
+
+    public void timerUpdate(){
+        while(true){
+            if(momenteleComponenten.size() != 0){
+                for(Componenten component : momenteleComponenten){
+
+                }
+            }
+
+            try {
+                Thread.sleep(10000);
+            }
+            catch (InterruptedException ie){
+                ie.printStackTrace();
+            }
         }
     }
 }

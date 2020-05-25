@@ -1,6 +1,6 @@
 public class Componenten {
     private int ID;
-    private static int teller;
+    private static int teller = 1;
     private int Type_key;
     private String Type;
     private String Naam;
@@ -8,16 +8,31 @@ public class Componenten {
     private int Prijs;
     private double Processorbelasting;
     private double Diskruimte;
+    private String host;
 
-    public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs){
+    public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, double Processorbelasting, double Diskruimte, String host){
         this.ID = ID;
         this.Type = Type;
         this.Naam = Naam;
         this.Beschikbaarheid = Beschikbaarheid;
         this.Prijs = Prijs;
+        this.Processorbelasting = Processorbelasting;
+        this.Diskruimte = Diskruimte;
+        this.host = host;
+    }
+
+    public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, String host){
+        this.ID = ID;
+        this.Type = Type;
+        this.Naam = Naam;
+        this.Beschikbaarheid = Beschikbaarheid;
+        this.Prijs = Prijs;
+        this.host = host;
     }
 
     public Componenten(String Type, String Naam, double Beschikbaarheid, int Prijs){
+        ID = teller;
+        teller ++;
         this.Type = Type;
         this.Naam = Naam;
         this.Beschikbaarheid = Beschikbaarheid;
