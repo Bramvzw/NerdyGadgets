@@ -13,6 +13,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
     ComponentResizer cr = new ComponentResizer();
     private Infrastructuur_Overzicht IO;
+    private ComponentOverzicht CO;
     private JPanel JPNL_Top, JPNL_Left, VCT;
     private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBL_Aantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, CustomTitle, StandaardTitle;
