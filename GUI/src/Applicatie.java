@@ -16,6 +16,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
     private  ComponentOverzicht CO ;
     private Infrastructuur_Overzicht IO;
+    private Opslag OP = new Opslag();
     private JPanel JPNL_Top, JPNL_Left, VCT;
     private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBL_Aantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, CustomTitle, StandaardTitle;
@@ -239,6 +240,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_Opslaan.setMargin(new Insets(0, 0, 0, 0));
         JBTN_Opslaan.setBorderPainted(false);
         JBTN_Opslaan.setOpaque(false);
+        JBTN_Opslaan.addActionListener(this);
 
 
 
@@ -257,6 +259,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_Open.setMargin(new Insets(0, 0, 0, 0));
         JBTN_Open.setDefaultCapable(false);
         JBTN_Open.setBorderPainted(false);
+        JBTN_Open.addActionListener(this);
 
 
 // Create Overig in Jpanel in Left
@@ -590,6 +593,14 @@ public class Applicatie extends JFrame implements ActionListener {
                 momenteleComponenten.clear();
                 this.repaint();
             }
+        }
+
+        if(e.getSource() == JBTN_Opslaan){
+            OP.slaOp(momenteleComponenten,NAAM);
+        }
+
+        if(e.getSource() == JBTN_Open){
+            momenteleComponenten = OP.ophalenComponten(GROEPID);
         }
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {

@@ -9,67 +9,95 @@ public class Opslag {
         Opslag o = new Opslag();
         ArrayList<Componenten> c = new ArrayList<Componenten>();
         c.add(new Componenten("firewall","naam",99.99,1000));
-        o.slaOp(c);
+        o.slaOp(c,"groep1");
+        o.ophalenComponten(1);
     }
     private Connection con = Connectie.getConnectionLocalhost();
     private PreparedStatement pstmt;
     private Statement stmt;
 
-    public void slaOp(ArrayList<Componenten> componenten) {
-        if(checkDatabase()) {
-            for (Componenten component : componenten) {
-                try {
-                    pstmt = con.prepareStatement("INSERT INTO componenten()");
-                    ResultSet rs = pstmt.executeQuery();
+    public void slaOp(ArrayList<Componenten> componenten, String groepNaam) {
+        nieuwDatabase();
+        int groepID =  volgendeGroepID();
+        for (Componenten component : componenten) {
+            try {
+            pstmt = con.prepareStatement("INSERT INTO infrastructuur.componenten VALUES (?,?,?,?,?,?,?,?);");
+            pstmt.setInt(1, component.getID());
+            pstmt.setString(2, component.getType());
+            pstmt.setString(3, component.getNaam());
+            pstmt.setDouble(4, component.getBeschikbaarheid());
+            pstmt.setInt(5, component.getPrijs());
+            pstmt.setString(6, component.getHost());
+            pstmt.setInt(7, groepID);
+            pstmt.setString(8, groepNaam);
+            pstmt.executeUpdate();
 
-                    while (rs.next()) {
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (pstmt != null) {
+                    try {
+                        pstmt.close();
                     }
-                    rs.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    if (pstmt != null) {
-                        try {
-                            pstmt.close();
-                        } catch (SQLException SQLe) {
-                            SQLe.printStackTrace();
-                        }
+                    catch(SQLException SQLe) {
+                        SQLe.printStackTrace();
                     }
                 }
+                try{
+                    if(con!=null)
+                        con.close();
+                }
+                catch(SQLException se){
+                    se.printStackTrace();
+
+                }
             }
-        }
-        else{
-            nieuwDatabase();
-            slaOp(componenten);
         }
 
     }
 
-    public boolean checkDatabase(){
-//        try {
-//            pstmt = con.prepareStatement("IF (EXISTS (SELECT * \n" +
-//                    "                 FROM INFORMATION_SCHEMA.TABLES \n" +
-//                    "                 WHERE TABLE_SCHEMA = 'TheSchema' \n" +
-//                    "                 AND  TABLE_NAME = 'TheTable'))\n" +
-//                    "BEGIN\n" +
-//                    "    --Do Stuff\n" +
-//                    "END");
-//            ResultSet rs = pstmt.executeQuery();
-//        }
-//        catch(SQLException sqle){
-//            sqle.printStackTrace();
-//        }
-        return false;
+    public int volgendeGroepID() {
+        int id = 0;
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(GroepID) FROM infrastructuur.componenten;");
+            while(rs.next()){
+                id = rs.getInt("MAX(GroepID)");
+            }
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }// nothing we can do
+
+        }
+        return id + 1;
     }
 
     public void nieuwDatabase(){
         try{
             stmt = con.createStatement();
-            stmt.executeUpdate("Create database infrastructuur;");
-            stmt.executeQuery("CREATE TABLE componenten (Id int, Type varchar(50),Naam varchar(50), Beschikbaarheid double,Prijs int, Host varchar(50))");
-
-            System.out.println("Database created successfully...");
+            stmt.executeUpdate("CREATE DATABASE IF NOT EXISTS infrastructuur;");
+            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS infrastructuur.componenten (" +
+                    "    Id int NOT NULL," +
+                    "    Type varchar(50)," +
+                    "    Naam varchar(50)," +
+                    "    Beschikbaarheid double," +
+                    "    Prijs int," +
+                    "    Host varchar(50)," +
+                    "    GroepID int NOT NULL," +
+                    "    GroepNaam varchar(50)," +
+                    "    PRIMARY KEY (Id, GroepID));");
         }
         catch(SQLException se){
             //Handle errors for JDBC
@@ -87,14 +115,34 @@ public class Opslag {
             }
             catch(SQLException se2){
             }// nothing we can do
-            try{
-                if(con!=null)
-                    con.close();
-            }catch(SQLException se){
-                se.printStackTrace();
-
-            }
 
         }
+    }
+
+    public ArrayList<Componenten> ophalenComponten(int GroepID){
+        ArrayList<Componenten> componenten = new ArrayList<>();
+        try {
+            pstmt = con.prepareStatement("Select * FROM infrastructuur.componenten WHERE GroepID=?;");
+            pstmt.setInt(1, GroepID);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                componenten.add(new Componenten(rs.getInt("id"),rs.getString("Type"), rs.getString("Naam"), rs.getDouble("Beschikbaarheid"), rs.getInt("Prijs"),rs.getString("Host")));
+            }
+            rs.close();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        } finally {
+            if (pstmt !=
+                    null) {
+                try {
+                    pstmt.close();
+                }
+                catch(SQLException sqle){
+                    sqle.printStackTrace();
+                }
+            }
+        }
+        return componenten;
     }
 }

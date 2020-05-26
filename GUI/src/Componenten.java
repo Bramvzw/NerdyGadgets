@@ -9,7 +9,7 @@ public class Componenten {
     private int Prijs;
     private double Processorbelasting;
     private double Diskruimte;
-    private String host;
+    private String host = "";
 
     public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, double Processorbelasting, double Diskruimte, String host){
         this.ID = ID;
