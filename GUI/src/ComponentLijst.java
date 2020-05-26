@@ -63,6 +63,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
         JBTN_Unselect.setMargin(new Insets(0, 0, 1, 1));
         JBTN_Unselect.addActionListener(this);
         JBTN_Unselect.setFocusable(false);
+        JBTN_Unselect.addActionListener(this);
         PNL_Component.add(JBTN_Unselect);
 
 
