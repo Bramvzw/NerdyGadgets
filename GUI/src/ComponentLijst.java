@@ -985,19 +985,19 @@ public class ComponentLijst extends JPanel implements ActionListener {
         }
         if (command1.equals(JBTN_Select4)){
             System.out.println("+1 WB added van type HAL9001WB");
-            serverslijst.add("HAL9001WB ");
+            serverslijst.add("HAL9001WB");
             System.out.println( "aantalwebservers : " + serverslijst.size());
             momenteleComponeten.add( new Componenten(keuzeComponenten.get(4)));
         }
         if (command1.equals(JBTN_Select5)){
             System.out.println("+1 WB added van type HAL9002WB");
-            serverslijst.add("HAL9002WB ");
+            serverslijst.add("HAL9002WB");
             System.out.println( "aantalwebservers : " + serverslijst.size());
             momenteleComponeten.add( new Componenten(keuzeComponenten.get(5)));
         }
         if (command1.equals(JBTN_Select6)){
             System.out.println("+1 WB added van type HAL9003WB ");
-            serverslijst.add("HAL9003WB ");
+            serverslijst.add("HAL9003WB");
             System.out.println( "aantalwebservers : " + serverslijst.size());
             momenteleComponeten.add( new Componenten(keuzeComponenten.get(6)));
         }

@@ -41,8 +41,8 @@ public class Infrastructuur_Overzicht extends JPanel {
 
 
         int xDatabase = 50;
-       int xWebserver = 250;
-        int xFirewall = 150;
+       int xWebserver = 400;
+        int xFirewall = 250;
 
         int yDatabase = 50;
         int yWebserver = 50;
@@ -56,33 +56,41 @@ public class Infrastructuur_Overzicht extends JPanel {
             try {
                 Image image = ImageIO.read(new File("Images/Database.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
                 if (s.getType().equals("DBserver")) { // draw database
-                    if (dCount == 4) {
-                        xDatabase += 50;
-                        yDatabase = 200;
+                    if (dCount == 4 || dCount == 8) {
+                        xDatabase += 100;
+                        yDatabase = 50;
 
                     }
+
                     g.drawImage(image, xDatabase, yDatabase, null);
-                    g.drawString(s.getNaam(), xDatabase + 5, yDatabase + 60);
+                    g.drawString(s.getNaam(), xDatabase , yDatabase + 60);
+                    g.setColor(Color.BLACK);
+                    g.drawLine(225, 50, 225, 700);
+                    g.drawLine(25,50 ,600 ,50); //up
+                    g.drawLine(600 , 50,600, 700); // right
+                    g.drawLine(25 , 50,25, 700); // left
                     yDatabase += 100;
                     dCount++;
 
 
                 } else if (s.getType().equals("webserver")) {
-                    if (wCount == 4) {
+                    if (wCount == 4 || wCount == 8 ) {
                         xWebserver += 100;
-                        yWebserver = 200;
+                        yWebserver = 50;
 
                     }
                     Image image2 = ImageIO.read(new File("Images/Webserver.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
                     g.drawImage(image2, xWebserver, yWebserver, null);
-                    g.drawString(s.getNaam(), xWebserver + 5, yWebserver +60);
+                    g.drawString(s.getNaam(), xWebserver , yWebserver +60);
+                    g.setColor(Color.BLACK);
+                    g.drawLine(333, 50, 333, 700);
                     yWebserver += 100;
                     wCount++;
 
                 } else {
                     Image image3 = ImageIO.read(new File("Images/FireWall.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
                     g.drawImage(image3, xFirewall, 80, null);
-                    g.drawString(s.getNaam(), xFirewall + 30, 170);
+                    g.drawString(s.getNaam(), xFirewall , 140);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
