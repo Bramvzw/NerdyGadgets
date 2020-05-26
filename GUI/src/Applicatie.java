@@ -595,12 +595,22 @@ public class Applicatie extends JFrame implements ActionListener {
             }
         }
 
+        if (e.getSource() == JBTN_Open) {
+            Open_modal OM = new Open_modal(this);
+            OM.setVisible(true);
+        }
+
+        if (e.getSource() == JBTN_Opslaan) {
+            Opslaan_modal OM = new Opslaan_modal(this);
+            OM.setVisible(true);
+        }
+
         if(e.getSource() == JBTN_Opslaan){
-            OP.slaOp(momenteleComponenten,NAAM);
+//            OP.slaOp(momenteleComponenten,NAAM);
         }
 
         if(e.getSource() == JBTN_Open){
-            momenteleComponenten = OP.ophalenComponten(GROEPID);
+//            momenteleComponenten = OP.ophalenComponten(GROEPID);
         }
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
