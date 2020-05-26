@@ -8,14 +8,15 @@ import java.sql.*;
 import java.util.Properties;
 
 public class Connectie {
-    private static String url = "jdbc:mysql://192.168.1.102:3306/nerdygadgets";
-    private static String driverName = "mysql-connector-java-8.0.20.jar";
-    private static String username = "root";
-    private static String password = "ictm2m2";
+    private static String url, driverName, username, password;
     private static Connection con;
-    private static String urlstring;
 
     public static Connection getConnection() {
+        url = "jdbc:mysql://192.168.1.102:3306/nerdygadgets";
+        driverName = "mysql-connector-java-8.0.20.jar";
+        username = "root";
+        password = "ictm2m2";
+
 //        try {
 //            Class.forName(driverName);
         Logger LOGGER = Logger.getLogger(Connectie.class.getName());
@@ -67,7 +68,29 @@ public class Connectie {
 //        }
         return con;
     }
+
+    public static Connection getConnectionLocalhost() {
+        url = "jdbc:mysql://localhost:3306";
+        driverName = "mysql-connector-java-8.0.20.jar";
+        username = "root";
+        password = "";
+
+//        try {
+//            Class.forName(driverName);
+        try {
+            con = DriverManager.getConnection(url, username, password);
+        } catch (SQLException ex) {
+            // log an exception. fro example:
+            System.out.println("Failed to create the database connection.");
+        }
+//        } catch (ClassNotFoundException ex) {
+//            // log an exception. for example:
+//            System.out.println("Driver not found.");
+//        }
+        return con;
+    }
 }
+
 
   /*
   Om een verbinding te maken:
