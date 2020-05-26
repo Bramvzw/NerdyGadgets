@@ -69,6 +69,7 @@ public class Infrastructuur_Overzicht extends JPanel {
                     g.drawLine(25,50 ,600 ,50); //up
                     g.drawLine(600 , 50,600, 700); // right
                     g.drawLine(25 , 50,25, 700); // left
+                    g.drawLine(25,700 ,600 ,700); //up
                     yDatabase += 100;
                     dCount++;
 
