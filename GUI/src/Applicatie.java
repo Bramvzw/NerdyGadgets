@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Applicatie extends JFrame implements ActionListener {
 
 
-    private  ComponentOverzicht CO ;
+    private  ComponentOverzicht CO;
     private Infrastructuur_Overzicht IO;
     private Opslag OP = new Opslag();
     private JPanel JPNL_Top, JPNL_Left, VCT;
@@ -594,13 +594,19 @@ public class Applicatie extends JFrame implements ActionListener {
 
 
         if (e.getSource() == JBTN_Open) {
-            Open_modal OM = new Open_modal(this);
-            OM.setVisible(true);
+            Open_modal OM = new Open_modal(this,OP.ophalenGroepNamen());
+
+            if(OM.getBoolOk()){
+                veranderComponenten(momenteleComponenten, OP.ophalenComponenten(OM.getGeselecteerd()));
+            }
         }
 
         if (e.getSource() == JBTN_Opslaan) {
-            Opslaan_modal OM = new Opslaan_modal(this);
-            OM.setVisible(true);
+            Opslaan_modal OM = new Opslaan_modal(this,OP.ophalenGroepNamen());
+
+            if(OM.getBoolOk()){
+                OP.slaOp(momenteleComponenten, OM.getNaam());
+            }
         }
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {

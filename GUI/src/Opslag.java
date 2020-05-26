@@ -1,6 +1,5 @@
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.function.BinaryOperator;
 
 
 public class Opslag {
@@ -10,7 +9,7 @@ public class Opslag {
         ArrayList<Componenten> c = new ArrayList<Componenten>();
         c.add(new Componenten("firewall","naam",99.99,1000));
         o.slaOp(c,"groep1");
-        o.ophalenComponten(1);
+        o.ophalenComponenten(1);
     }
     private Connection con = Connectie.getConnectionLocalhost();
     private PreparedStatement pstmt;
@@ -21,38 +20,38 @@ public class Opslag {
         int groepID =  volgendeGroepID();
         for (Componenten component : componenten) {
             try {
-            pstmt = con.prepareStatement("INSERT INTO infrastructuur.componenten VALUES (?,?,?,?,?,?,?,?);");
-            pstmt.setInt(1, component.getID());
-            pstmt.setString(2, component.getType());
-            pstmt.setString(3, component.getNaam());
-            pstmt.setDouble(4, component.getBeschikbaarheid());
-            pstmt.setInt(5, component.getPrijs());
-            pstmt.setString(6, component.getHost());
-            pstmt.setInt(7, groepID);
-            pstmt.setString(8, groepNaam);
-            pstmt.executeUpdate();
+                pstmt = con.prepareStatement("INSERT INTO infrastructuur.componenten VALUES (?,?,?,?,?,?,?,?);");
+                pstmt.setInt(1, component.getID());
+                pstmt.setString(2, component.getType());
+                pstmt.setString(3, component.getNaam());
+                pstmt.setDouble(4, component.getBeschikbaarheid());
+                pstmt.setInt(5, component.getPrijs());
+                pstmt.setString(6, component.getHost());
+                pstmt.setInt(7, groepID);
+                pstmt.setString(8, groepNaam);
+                pstmt.executeUpdate();
 
 
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                if (pstmt != null) {
-                    try {
-                        pstmt.close();
-                    }
-                    catch(SQLException SQLe) {
-                        SQLe.printStackTrace();
-                    }
-                }
-                try{
-                    if(con!=null)
-                        con.close();
-                }
-                catch(SQLException se){
-                    se.printStackTrace();
-
-                }
             }
+        }
+
+        if (pstmt != null) {
+            try {
+            pstmt.  close();
+            }
+            catch(SQLException SQLe) {
+                SQLe.printStackTrace();
+            }
+        }
+        try{
+            if(con!=null) {
+                con.close();
+            }
+        }
+        catch(SQLException se){
+            se.printStackTrace();
         }
 
     }
@@ -119,7 +118,7 @@ public class Opslag {
         }
     }
 
-    public ArrayList<Componenten> ophalenComponten(int GroepID){
+    public ArrayList<Componenten> ophalenComponenten(int GroepID){
         ArrayList<Componenten> componenten = new ArrayList<>();
         try {
             pstmt = con.prepareStatement("Select * FROM infrastructuur.componenten WHERE GroepID=?;");
@@ -144,5 +143,33 @@ public class Opslag {
             }
         }
         return componenten;
+    }
+
+    public ArrayList<String> ophalenGroepNamen(){
+        ArrayList<String> groepNamen = new ArrayList<>();
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT DISTINCT GroepID, GroepNaam FROM infrastructuur.componenten;");
+            while(rs.next()){
+                if(rs.getString("GroepNaam") != null) {
+                    groepNamen.add(Integer.toString(rs.getInt("GroepID")));
+                    groepNamen.add(rs.getString("GroepNaam"));
+                }
+            }
+        }
+
+        catch(Exception se){
+            se.printStackTrace();
+        }
+        finally{
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }
+            catch(SQLException se2) {
+                se2.printStackTrace();
+            }
+        }
+        return groepNamen;
     }
 }
