@@ -92,7 +92,7 @@ public class Optimaliseer {
         if(beschikbaarheid > gewensteBeschikbaarheid && (kosten < besteKosten || besteKosten == 0)){
             besteComponenten.clear();
             for(Componenten component : componenten){
-                besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid() / 100) + 0, component.getPrijs() + 0));
+                besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0));
             }
             besteBeschikbaarheid = beschikbaarheid;
             besteKosten = kosten;

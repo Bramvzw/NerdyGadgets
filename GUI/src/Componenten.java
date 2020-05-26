@@ -9,7 +9,7 @@ public class Componenten {
     private int Prijs;
     private double Processorbelasting;
     private double Diskruimte;
-    private String host;
+    private String host = "";
 
     public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, double Processorbelasting, double Diskruimte, String host){
         this.ID = ID;
@@ -132,6 +132,15 @@ public class Componenten {
                 Objects.equals(Type, that.Type) &&
                 Objects.equals(Naam, that.Naam) &&
                 Objects.equals(host, that.host);
+    }
+    public boolean equalsZonderActueleGegevens(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Componenten that = (Componenten) o;
+        return  Double.compare(that.Beschikbaarheid, Beschikbaarheid) == 0 &&
+                Prijs == that.Prijs &&
+                Objects.equals(Type, that.Type) &&
+                Objects.equals(Naam, that.Naam);
     }
 }
 

@@ -16,6 +16,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
     private  ComponentOverzicht CO ;
     private Infrastructuur_Overzicht IO;
+    private Opslag OP = new Opslag();
     private JPanel JPNL_Top, JPNL_Left, VCT;
     private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBL_Aantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, CustomTitle, StandaardTitle;
@@ -533,7 +534,8 @@ public class Applicatie extends JFrame implements ActionListener {
 //                    JLBL_Beschikbaarheid.setText(" " + str);
                     JLBL_Error.setText("");
                     GewBeschik /= 100;
-                    momenteleComponenten = new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten);
+                    veranderComponenten(momenteleComponenten,new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten));
+//                    momenteleComponenten = new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten);
                 } else {
                     JLBL_Error.setText("De gewenste beschikbaarheid moet tussen 0.1% en 99.99% liggen");
                 }
@@ -605,12 +607,17 @@ public class Applicatie extends JFrame implements ActionListener {
             updateComponenten();
         }
 
+    }
 
-
+    public void veranderComponenten(ArrayList<Componenten> oudComponenten, ArrayList<Componenten> nieuwComponenten){
+        oudComponenten.clear();
+        for(Componenten component : nieuwComponenten){
+            oudComponenten.add(component);
+        }
     }
 
     public void updateComponenten(){
-        oudeMomenteleComponenten = momenteleComponenten;
+        veranderComponenten(oudeMomenteleComponenten,momenteleComponenten);
         System.out.println(momenteleComponenten);
         IO.setcomponenten(momenteleComponenten);
         String[] componentTypes = {"firewall", "DBserver", "webserver"};
