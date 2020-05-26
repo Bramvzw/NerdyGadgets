@@ -535,7 +535,8 @@ public class Applicatie extends JFrame implements ActionListener {
 //                    JLBL_Beschikbaarheid.setText(" " + str);
                     JLBL_Error.setText("");
                     GewBeschik /= 100;
-                    momenteleComponenten = new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten);
+                    veranderComponenten(momenteleComponenten,new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten));
+//                    momenteleComponenten = new Optimaliseer().optimaliseer(GewBeschik, keuzeComponenten);
                 } else {
                     JLBL_Error.setText("De gewenste beschikbaarheid moet tussen 0.1% en 99.99% liggen");
                 }
@@ -596,23 +597,28 @@ public class Applicatie extends JFrame implements ActionListener {
         }
 
         if(e.getSource() == JBTN_Opslaan){
-            OP.slaOp(momenteleComponenten,NAAM);
+//            OP.slaOp(momenteleComponenten,NAAM);
         }
 
         if(e.getSource() == JBTN_Open){
-            momenteleComponenten = OP.ophalenComponten(GROEPID);
+//            momenteleComponenten = OP.ophalenComponten(GROEPID);
         }
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
             updateComponenten();
         }
 
+    }
 
-
+    public void veranderComponenten(ArrayList<Componenten> oudComponenten, ArrayList<Componenten> nieuwComponenten){
+        oudComponenten.clear();
+        for(Componenten component : nieuwComponenten){
+            oudComponenten.add(component);
+        }
     }
 
     public void updateComponenten(){
-        oudeMomenteleComponenten = momenteleComponenten;
+        veranderComponenten(oudeMomenteleComponenten,momenteleComponenten);
         System.out.println(momenteleComponenten);
         IO.setcomponenten(momenteleComponenten);
         String[] componentTypes = {"firewall", "DBserver", "webserver"};

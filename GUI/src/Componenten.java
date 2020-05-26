@@ -133,6 +133,15 @@ public class Componenten {
                 Objects.equals(Naam, that.Naam) &&
                 Objects.equals(host, that.host);
     }
+    public boolean equalsZonderActueleGegevens(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Componenten that = (Componenten) o;
+        return  Double.compare(that.Beschikbaarheid, Beschikbaarheid) == 0 &&
+                Prijs == that.Prijs &&
+                Objects.equals(Type, that.Type) &&
+                Objects.equals(Naam, that.Naam);
+    }
 }
 
 
