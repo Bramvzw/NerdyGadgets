@@ -1,9 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -34,13 +37,14 @@ public class Applicatie extends JFrame implements ActionListener {
     private ArrayList<Componenten> oudeMomenteleComponenten = new ArrayList<>();
 
 
-    public Applicatie(Lijst lijst) throws SQLException {
+    public Applicatie(Lijst lijst) throws SQLException, IOException {
         this.lijst = lijst;
         new Thread(this::timerUpdate).start();
 
         setBounds(100, 100, 900, 570);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(1160, 750));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 // Create Border
         Border border1 = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.black, null, null, null);
@@ -57,11 +61,7 @@ public class Applicatie extends JFrame implements ActionListener {
         add(JPNL_Left);
 
         IO = new Infrastructuur_Overzicht(momenteleComponenten , this);
-
         StandaardC = new JScrollPane(new ComponentLijst(keuzeComponenten));
-
-
-
         CO = new ComponentOverzicht();
 
 
@@ -178,14 +178,17 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_OpenCL = new JButton("Open Componentenlijst");
         JBTN_OpenCL.addActionListener(this);
         JBTN_OpenCL.setFocusable(false);
+        JBTN_OpenCL.setBackground(Color.white);
 
         JBTN_CO = new JButton("Componenten overzicht");
         JBTN_CO.addActionListener(this);
         JBTN_CO.setFocusable(false);
+        JBTN_CO.setBackground(Color.white);
 
         JBTN_IO = new JButton("Infrastructuur overzicht");
         JBTN_IO.setFocusable(false);
         JBTN_IO.addActionListener(this);
+        JBTN_IO.setBackground(Color.white);
         add(JBTN_IO);
 
 
@@ -217,7 +220,12 @@ public class Applicatie extends JFrame implements ActionListener {
 // Create JButton Exit in JPanel Top
 
 
-        JBTN_Opslaan = new JButton("");
+        JBTN_Opslaan = new JButton();
+        try {
+            Image opslaan = ImageIO.read(new File("Images\\save-icon.png"));
+            JBTN_Opslaan.setIcon(new ImageIcon(opslaan));
+        } catch (IOException ex) {}
+        JBTN_Opslaan.setBackground(Color.lightGray);
         JBTN_Opslaan.setFocusable(false);
         JBTN_Opslaan.setFocusTraversalKeysEnabled(false);
         JBTN_Opslaan.setFocusPainted(false);
@@ -228,7 +236,15 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_Opslaan.setBorderPainted(false);
         JBTN_Opslaan.setOpaque(false);
 
-        JBTN_Open = new JButton("+");
+
+
+
+        JBTN_Open = new JButton();
+        try {
+            Image opslaan = ImageIO.read(new File("Images\\open-icon.png"));
+            JBTN_Open.setIcon(new ImageIcon(opslaan));
+        } catch (IOException ex) {}
+        JBTN_Open.setBackground(Color.lightGray);
         JBTN_Open.setFocusPainted(false);
         JBTN_Open.setFocusTraversalKeysEnabled(false);
         JBTN_Open.setFocusable(false);
@@ -373,17 +389,17 @@ public class Applicatie extends JFrame implements ActionListener {
                                                 .addComponent(JLBL_GWBesch, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)))
                                 .addGap(5)
-                                .addComponent(JBTN_Optimaliseer, GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+                                .addComponent(JBTN_Optimaliseer, GroupLayout.PREFERRED_SIZE, 25, 30)
                                 .addGap(4)
-                                .addComponent(JBTN_VerwiA, GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
+                                .addComponent(JBTN_VerwiA, GroupLayout.PREFERRED_SIZE, 25, 30)
                                 .addGap(11)
                                 .addComponent(SEPA_Mid1, GroupLayout.DEFAULT_SIZE, 4, Short.MAX_VALUE)
                                 .addGap(17)
-                                .addComponent(JBTN_IO, GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
-                                .addGap(16)
-                                .addComponent(JBTN_OpenCL, GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
-                                .addGap(16)
-                                .addComponent(JBTN_CO, GroupLayout.PREFERRED_SIZE, 30, Short.MAX_VALUE)
+                                .addComponent(JBTN_IO, GroupLayout.PREFERRED_SIZE, 55, 60)
+                                .addGap(40)
+                                .addComponent(JBTN_OpenCL, GroupLayout.PREFERRED_SIZE, 55, 60)
+                                .addGap(40)
+                                .addComponent(JBTN_CO, GroupLayout.PREFERRED_SIZE, 55, 60)
                                 .addGap(16)
                                 .addGroup(gl_JPNL_Left.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(gl_JPNL_Left.createSequentialGroup()
@@ -463,7 +479,7 @@ public class Applicatie extends JFrame implements ActionListener {
                         .addGroup(gl_JPNL_Top.createSequentialGroup()
                                 .addGap(10)
                                 .addComponent(JLBL_Error, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 200, 600)
                                 .addComponent(JLBLIO, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
                                 .addGap(300))
         );
@@ -507,7 +523,7 @@ public class Applicatie extends JFrame implements ActionListener {
         if (e.getSource() == JBTN_Optimaliseer) {
             try {
                 double GewBeschik = Double.parseDouble(JTXTF_GWBesch.getText());
-                if (GewBeschik > 0.1 && GewBeschik < 100.0) {
+                if (GewBeschik > 0.0 && GewBeschik < 100.0) {
                     String str = JTXTF_GWBesch.getText();
 //                    JLBL_Beschikbaarheid.setText(" " + str);
                     JLBL_Error.setText("");
@@ -521,11 +537,6 @@ public class Applicatie extends JFrame implements ActionListener {
             }
         }
 
-
-        if (e.getSource() == JBTN_VerwiA) {
-
-        }
-
         if (e.getSource() == JBTN_IO) {
             JBTN_IO.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
@@ -534,10 +545,6 @@ public class Applicatie extends JFrame implements ActionListener {
             CO.setVisible(false);
             StandaardC.setVisible(false);
             JLBLIO.setText("Infrastructuur overzicht");
-
-
-
-
 
 
 
@@ -567,8 +574,17 @@ public class Applicatie extends JFrame implements ActionListener {
         if (e.getSource() == JBTN_VerwiA) {
             Bevestiging_popup BP = new Bevestiging_popup(this);
             BP.setVisible(true);
+            JLBL_K_Databases.setText("");
+            JLBL_A_Databases.setText("");
+            JLBL_A_Webs.setText("");
+            JLBL_K_Webs.setText("");
+            JLBL_A_Firewall.setText("");
+            JLBL_K_Firewall.setText("");
+            JLBL_TotKosten.setText("");
+            JLBL_Beschikbaarheid.setText("");
             if(BP.isBoolOk()){
                 momenteleComponenten.clear();
+                this.repaint();
             }
         }
 
@@ -656,15 +672,4 @@ public class Applicatie extends JFrame implements ActionListener {
  * Exit-button highlight
  * Infrastructuur overzicht kunnen selecteren
  * Webserver icon goed zetten
-
-
-
-/** DONE:
- * Minimum size zetten
- * Kruisje werkend met maken met Actionlistener
- * Type omhoog zetten
- *Resize Type ComboBox
- * OOV knoppen goed zetten
- * GUI veranderen naar undecorated
- * Icons zetten bij new button (Standaard Componenten)
- */
+**/
