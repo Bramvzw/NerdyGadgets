@@ -64,11 +64,16 @@ public class ComponentArray {
                 gegevens[1] = Integer.toString(rs.getInt("apparaatID"));
                 gegevens[2] = rs.getString("beschikbaarheidspercentage");
                 gegevens[3] = Integer.toString(rs.getInt("prijs"));
-                gegevens[4] = rs.getString("ipadres");
+                if(!(rs.getString("ipadres") == null)) {
+                    gegevens[4] = rs.getString("ipadres");
+                }
+                else{
+                    gegevens[4] = "";
+                }
                 gegevens[5] = typeOphalen(ID, con);
                 gegevens[6] = naamOphalen(ID, con);
                 String[] cpudisk;
-                if(gegevens[4] != null) {
+                if(!(gegevens[4].equals(""))) {
                     cpudisk = GegevensOphalen.start(gegevens[4]);
                     gegevens[8] = cpudisk[1].replace(",", ".");
                     gegevens[7] = cpudisk[0];
