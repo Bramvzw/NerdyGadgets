@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Applicatie extends JFrame implements ActionListener {
 
 
-    private  ComponentOverzicht CO;
+    private ComponentOverzicht CO;
     private Infrastructuur_Overzicht IO;
     private Opslag OP = new Opslag();
     private JPanel JPNL_Top, JPNL_Left, VCT;
@@ -32,15 +32,19 @@ public class Applicatie extends JFrame implements ActionListener {
     private int KostenFirewalls = 0;
     private int KostenDBs = 0;
     private int KostenWSs = 0;
+    private Boolean boolConnectie = false;
 
-    private ArrayList<Componenten> keuzeComponenten =  new ComponentArray().getComponentenArray();
+    private ArrayList<Componenten> keuzeComponenten =  new ComponentArray(this).getComponentenArray();
     static ArrayList<Componenten> momenteleComponenten = new ArrayList<>();
     private ArrayList<Componenten> oudeMomenteleComponenten = new ArrayList<>();
 
 
     public Applicatie(Lijst lijst) throws SQLException, IOException {
+
         this.lijst = lijst;
-        new Thread(this::timerUpdate).start();
+        if(boolConnectie) {
+            new Thread(this::timerUpdate).start();
+        }
 
         setBounds(100, 100, 900, 570);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +68,6 @@ public class Applicatie extends JFrame implements ActionListener {
         IO = new Infrastructuur_Overzicht(momenteleComponenten , this);
 
         StandaardC = new JScrollPane(new ComponentLijst(this, keuzeComponenten, momenteleComponenten));
-
 
 
         CO = new ComponentOverzicht();
@@ -692,6 +695,20 @@ public class Applicatie extends JFrame implements ActionListener {
             }
         }
     }
+
+    public void waarschuwingConnectie(){
+        new JOptionPane().showMessageDialog(this,"Waarschuwing! U heeft geen connectie met de database");
+        keuzeComponenten = new ArrayList<>();
+    }
+
+    public void setBoolConnectie(Boolean boolConnectie) {
+        this.boolConnectie = boolConnectie;
+    }
+
+    public boolean getBoolConnectie() {
+        return boolConnectie;
+    }
+
 }
 
 

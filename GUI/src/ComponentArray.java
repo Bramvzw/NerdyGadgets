@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -5,19 +6,26 @@ public class ComponentArray {
     private ArrayList<Componenten> componentenArray;
     private PreparedStatement pstmt;
     private Statement stmt;
-    private Connection con = Connectie.getConnection();
+    private Boolean boolConnectie = false;
+    private Connection con = Connectie.getConnection(this);
 
-    public ComponentArray(){
-        componentenArray = new ArrayList<>();
-        String[] gegevens;
-        for(int i = 1; i <= CountRows(con); i ++){
-            gegevens = getgegevens(con,i);
-            if(!gegevens[7].isEmpty() || !gegevens[8].isEmpty()) {
-                componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), (100 - Double.parseDouble(gegevens[7])), Double.parseDouble(gegevens[8]), gegevens[4]));
+
+    public ComponentArray(Applicatie app){
+        if(boolConnectie) {
+            componentenArray = new ArrayList<>();
+            String[] gegevens;
+            for (int i = 1; i <= CountRows(con); i++) {
+                gegevens = getgegevens(con, i);
+                if (!gegevens[7].isEmpty() || !gegevens[8].isEmpty()) {
+                    componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), (100 - Double.parseDouble(gegevens[7])), Double.parseDouble(gegevens[8]), gegevens[4]));
+                } else {
+                    componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), gegevens[4]));
+                }
             }
-            else{
-                componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), gegevens[4]));
-            }
+            app.setBoolConnectie(true);
+        }
+        else{
+            app.waarschuwingConnectie();
         }
     }
 
@@ -163,5 +171,9 @@ public class ComponentArray {
         }
 
         return string;
+    }
+
+    public void setBoolConnectie(Boolean boolConnectie) {
+        this.boolConnectie = boolConnectie;
     }
 }
