@@ -239,6 +239,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_Opslaan.setMargin(new Insets(0, 0, 0, 0));
         JBTN_Opslaan.setBorderPainted(false);
         JBTN_Opslaan.setOpaque(false);
+        JBTN_Opslaan.addActionListener(this);
 
 
 
@@ -257,7 +258,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_Open.setMargin(new Insets(0, 0, 0, 0));
         JBTN_Open.setDefaultCapable(false);
         JBTN_Open.setBorderPainted(false);
-
+        JBTN_Open.addActionListener(this);
 
 // Create Overig in Jpanel in Left
         /**
@@ -549,9 +550,6 @@ public class Applicatie extends JFrame implements ActionListener {
             CO.setVisible(false);
             StandaardC.setVisible(false);
             JLBLIO.setText("Infrastructuur overzicht");
-
-
-
         }
 
         if (e.getSource() == JBTN_OpenCL) {
@@ -590,6 +588,17 @@ public class Applicatie extends JFrame implements ActionListener {
                 momenteleComponenten.clear();
                 this.repaint();
             }
+        }
+
+
+        if (e.getSource() == JBTN_Open) {
+            Open_modal OM = new Open_modal(this);
+            OM.setVisible(true);
+        }
+
+        if (e.getSource() == JBTN_Opslaan) {
+            Opslaan_modal OM = new Opslaan_modal(this);
+            OM.setVisible(true);
         }
 
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
