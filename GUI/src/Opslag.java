@@ -4,13 +4,6 @@ import java.util.ArrayList;
 
 public class Opslag {
 
-    public static void main(String[] args) {
-        Opslag o = new Opslag();
-        ArrayList<Componenten> c = new ArrayList<Componenten>();
-        c.add(new Componenten("firewall","naam",99.99,1000));
-        o.slaOp(c,"groep1");
-        o.ophalenComponenten(1);
-    }
     private Connection con = Connectie.getConnectionLocalhost();
     private PreparedStatement pstmt;
     private Statement stmt;

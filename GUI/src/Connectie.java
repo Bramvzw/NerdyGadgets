@@ -2,6 +2,8 @@ import java.io.InputStream;
 import java.util.logging.Logger;
 import com.jcraft.jsch.*;
 import com.jcraft.jsch.Session;
+
+import javax.swing.*;
 import java.util.logging.Level;
 
 import java.sql.*;
@@ -11,7 +13,7 @@ public class Connectie {
     private static String url, driverName, username, password;
     private static Connection con;
 
-    public static Connection getConnection() {
+    public static Connection getConnection(ComponentArray CA) {
         url = "jdbc:mysql://192.168.1.102:3306/nerdygadgets";
         driverName = "mysql-connector-java-8.0.20.jar";
         username = "root";
@@ -45,6 +47,7 @@ public class Connectie {
 
             try {
                 con = DriverManager.getConnection(url, username, password);
+                CA.setBoolConnectie(true);
             } catch (SQLException ex) {
                 // log an exception. fro example:
                 System.out.println("Failed to create the database connection.");
@@ -54,7 +57,7 @@ public class Connectie {
             }
         }
         catch (JSchException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
+            //LOGGER.log(Level.SEVERE, e.getMessage());
         }
         catch (Exception e) {
             e.printStackTrace();
