@@ -65,6 +65,7 @@ public class GegevensOphalen {
             }
             channel.disconnect();
             session.disconnect();
+            if(host.equals("192.168.1.104")){for(int i = 0; i < substring.length; i ++){substring[i] += 5;}}
             if(host.equals("192.168.1.106")){for(int i = 0; i < substring.length; i ++){substring[i] += 7;}}
             if(host.equals("192.168.1.11") || host.equals("192.168.1.12")){for(int i = 0; i < substring.length; i ++){substring[i] += 3;}}
 
