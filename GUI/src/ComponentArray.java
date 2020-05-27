@@ -17,8 +17,13 @@ public class ComponentArray {
             for (int i = 1; i <= CountRows(con); i++) {
                 gegevens = getgegevens(con, i);
                 if (!gegevens[7].isEmpty() || !gegevens[8].isEmpty()) {
-                    componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), (100 - Double.parseDouble(gegevens[7])), Double.parseDouble(gegevens[8]), gegevens[4]));
-                } else {
+                    componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), (100 - Double.parseDouble(gegevens[7])), Double.parseDouble(gegevens[8]), gegevens[4], Boolean.parseBoolean(gegevens[9])));
+                }
+                else if(gegevens[4] != null && !gegevens[4].isEmpty()){
+                    componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), gegevens[4], Boolean.parseBoolean(gegevens[9])));
+                }
+
+                else {
                     componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), gegevens[4]));
                 }
             }
@@ -60,7 +65,7 @@ public class ComponentArray {
     }
 
     public String[] getgegevens(Connection con, int ID){
-        String[] gegevens = new String[9];
+        String[] gegevens = new String[10];
 
         try {
             pstmt = con.prepareStatement("Select * FROM component WHERE componentID=?;");
@@ -85,6 +90,7 @@ public class ComponentArray {
                     cpudisk = GegevensOphalen.start(gegevens[4]);
                     gegevens[8] = cpudisk[1].replace(",", ".");
                     gegevens[7] = cpudisk[0];
+                    gegevens[9] = Boolean.toString(GegevensOphalen.testConnectie(gegevens[4]));
                 }
                 else{
                     gegevens[7] = "";

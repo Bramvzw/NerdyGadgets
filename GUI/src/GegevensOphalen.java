@@ -3,7 +3,10 @@ import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 
 public class GegevensOphalen {
@@ -77,5 +80,25 @@ public class GegevensOphalen {
 
 
         return string;
+    }
+
+    public static boolean testConnectie(String host) {
+        try {
+            InetAddress address = InetAddress.getByName(host);
+            if (address.isReachable(5000)) {
+                System.out.println("werkt " + host);
+                return true;
+            } else {
+                return false;
+            }
+        }
+        catch (UnknownHostException uhe){
+            return false;
+        }
+
+        catch (IOException ioe){
+            return false;
+        }
+
     }
 }

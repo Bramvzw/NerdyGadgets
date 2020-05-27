@@ -684,6 +684,7 @@ public class Applicatie extends JFrame implements ActionListener {
             if(keuzeComponenten.size() != 0){
                 for(Componenten component : keuzeComponenten){
                     component.updateGegevens();
+                    component.testConnectie();
                 }
             }
 
