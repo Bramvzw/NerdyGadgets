@@ -32,7 +32,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
     private ArrayList<Componenten> keuzeComponenten, momenteleComponenten;
     private Applicatie applicatie;
 
-    public ComponentLijst(Applicatie applicatie, ArrayList<Componenten> keuzeComponenten,ArrayList<Componenten> momenteleComponenten) throws SQLException {
+    public ComponentLijst(Applicatie applicatie, ArrayList<Componenten> keuzeComponenten,ArrayList<Componenten> momenteleComponenten) {
         if (applicatie.getBoolConnectie()) {
             this.applicatie = applicatie;
             this.keuzeComponenten = keuzeComponenten;
@@ -965,6 +965,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             System.out.println("webservers : "+serverslijst);
             System.out.println("databases : "+databaseslijst);
             momenteleComponenten.add( new Componenten(keuzeComponenten.get(0)));
+
         }
         if (command1.equals(JBTN_Select1)){
             System.out.println("+1 database added van type HAL9001DB");
@@ -995,6 +996,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             serverslijst.add("HAL9002WB");
             System.out.println( "aantalwebservers : " + serverslijst.size());
             momenteleComponenten.add( new Componenten(keuzeComponenten.get(5)));
+
         }
         if (command1.equals(JBTN_Select6)){
             System.out.println("+1 WB added van type HAL9003WB ");
