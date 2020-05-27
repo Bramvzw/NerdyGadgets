@@ -86,7 +86,6 @@ public class GegevensOphalen {
         try {
             InetAddress address = InetAddress.getByName(host);
             if (address.isReachable(5000)) {
-                System.out.println("werkt " + host);
                 return true;
             } else {
                 return false;
