@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class Applicatie extends JFrame implements ActionListener {
 
 
-    private ComponentOverzicht CO;
     private Infrastructuur_Overzicht IO;
     private Opslag OP = new Opslag();
     private JPanel JPNL_Top, JPNL_Left, VCT;
@@ -23,7 +22,7 @@ public class Applicatie extends JFrame implements ActionListener {
     private JTextField JTXTF_GWBesch;
     private JButton JBTN_Optimaliseer, JBTN_VerwiA, JBTN_OpenCL, JBTN_CO, JBTN_Opslaan, JBTN_Open, JBTN_IO;
     private JSeparator SEPA_Top, SEPA_Stat1, SEPA_Stat2, SEPA_Mid1, SEPA_Mid2, SEPA_Bottom;
-    private JScrollPane StandaardC;
+    private JScrollPane StandaardC, CO;
 
     private Lijst lijst;
     private static int AantalFirewalls = 0;
@@ -69,8 +68,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
         StandaardC = new JScrollPane(new ComponentLijst(this, keuzeComponenten, momenteleComponenten));
 
-
-        CO = new ComponentOverzicht();
+        CO = new JScrollPane(new ComponentOverzicht(this, keuzeComponenten, momenteleComponenten));
 
 
 
@@ -713,9 +711,3 @@ public class Applicatie extends JFrame implements ActionListener {
 }
 
 
-/** TO DO:
- * verticaal schalen buttons veranderen?
- * Exit-button highlight
- * Infrastructuur overzicht kunnen selecteren
- * Webserver icon goed zetten
-**/
