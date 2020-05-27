@@ -10,10 +10,12 @@ public class Opslaan_modal extends JDialog implements ActionListener {
     private Boolean boolOk = false;
     private JLabel Placeholder;
     private JPanel panel, panel1, panel2;
+    private ArrayList<Componenten> momenteleComponenten;
 
 
-    public Opslaan_modal(JFrame frame, ArrayList<String> groep) {
+    public Opslaan_modal(JFrame frame, ArrayList<Componenten> momenteleComponenten) {
         super(frame, true);
+        this.momenteleComponenten = momenteleComponenten;
         setSize(400, 200);
         setLocation(900, 420);
         setLayout(new BorderLayout());
@@ -53,6 +55,9 @@ public class Opslaan_modal extends JDialog implements ActionListener {
         if(e.getSource() == JBTN_Ok){
             if(JTXTF_Naam.getText().isEmpty()){
                 new JOptionPane().showMessageDialog(this,"Voer een naam in");
+            }
+            else if(momenteleComponenten.size() <= 0){
+                new JOptionPane().showMessageDialog(this,"Voer een component in");
             }
             else {
                 boolOk = true;

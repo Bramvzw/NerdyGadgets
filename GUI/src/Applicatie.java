@@ -605,7 +605,7 @@ public class Applicatie extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == JBTN_Opslaan) {
-            Opslaan_modal OM = new Opslaan_modal(this,OP.ophalenGroepNamen());
+            Opslaan_modal OM = new Opslaan_modal(this,momenteleComponenten);
 
             if(OM.getBoolOk()){
                 OP.slaOp(momenteleComponenten, OM.getNaam());
