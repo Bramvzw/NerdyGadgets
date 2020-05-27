@@ -84,7 +84,7 @@ public class Connectie {
             con = DriverManager.getConnection(url, username, password);
         } catch (SQLException ex) {
             // log an exception. fro example:
-            System.out.println("Failed to create the database connection.");
+            System.out.println("Let op! U heeft geen connectie met de lokale database (Zet XAMPP & MySQL aan)");
         }
 //        } catch (ClassNotFoundException ex) {
 //            // log an exception. for example:
