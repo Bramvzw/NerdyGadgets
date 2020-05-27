@@ -964,7 +964,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             System.out.println("firewall is added");
             System.out.println("webservers : "+serverslijst);
             System.out.println("databases : "+databaseslijst);
-            momenteleComponenten.add( new Componenten(keuzeComponenten.get(0)));
+            momenteleComponenten.add(new Componenten(keuzeComponenten.get(0)));
 
         }
         if (command1.equals(JBTN_Select1)){

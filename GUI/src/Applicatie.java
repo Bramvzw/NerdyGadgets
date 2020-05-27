@@ -22,7 +22,8 @@ public class Applicatie extends JFrame implements ActionListener {
     private JTextField JTXTF_GWBesch;
     private JButton JBTN_Optimaliseer, JBTN_VerwiA, JBTN_OpenCL, JBTN_CO, JBTN_Opslaan, JBTN_Open, JBTN_IO;
     private JSeparator SEPA_Top, SEPA_Stat1, SEPA_Stat2, SEPA_Mid1, SEPA_Mid2, SEPA_Bottom;
-    private JScrollPane StandaardC, CO;
+    private JScrollPane StandaardC, COJ;
+    private ComponentOverzicht CO;
 
     private Lijst lijst;
     private static int AantalFirewalls = 0;
@@ -67,8 +68,8 @@ public class Applicatie extends JFrame implements ActionListener {
         IO = new Infrastructuur_Overzicht(momenteleComponenten , this);
 
         StandaardC = new JScrollPane(new ComponentLijst(this, keuzeComponenten, momenteleComponenten));
-
-        CO = new JScrollPane(new ComponentOverzicht(this, keuzeComponenten, momenteleComponenten));
+        CO = new ComponentOverzicht(this, keuzeComponenten, momenteleComponenten);
+        COJ = new JScrollPane(CO);
 
 
 
@@ -280,7 +281,7 @@ public class Applicatie extends JFrame implements ActionListener {
                                         .addComponent(StandaardC, GroupLayout.PREFERRED_SIZE, 600, Short.MAX_VALUE))
                                         .addGroup(groupLayout.createSequentialGroup()
                                                 .addGap(208)
-                                        .addComponent(CO, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(COJ, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGap(0))
         );
 
@@ -297,7 +298,7 @@ public class Applicatie extends JFrame implements ActionListener {
                                                         .addGap(200)
                                                         .addComponent(StandaardC, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                                                 .addGap(15)
-                                                .addComponent(CO, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                                                .addComponent(COJ, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                                                 .addGap(1))
                                         .addComponent(JPNL_Left, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))
         );
@@ -518,7 +519,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
         IO.setVisible(true);
         JBTN_IO.setBackground(Color.gray);
-        CO.setVisible(false);
+        COJ.setVisible(false);
         StandaardC.setVisible(false);
         setVisible(true);
     }
@@ -550,7 +551,7 @@ public class Applicatie extends JFrame implements ActionListener {
             JBTN_OpenCL.setBackground(Color.white);
             JBTN_CO.setBackground(Color.white);
             IO.setVisible(true);
-            CO.setVisible(false);
+            COJ.setVisible(false);
             StandaardC.setVisible(false);
             JLBLIO.setText("Infrastructuur overzicht");
         }
@@ -560,7 +561,7 @@ public class Applicatie extends JFrame implements ActionListener {
             JBTN_IO.setBackground(Color.white);
             JBTN_CO.setBackground(Color.white);
             IO.setVisible(false);
-            CO.setVisible(false);
+            COJ.setVisible(false);
             StandaardC.setVisible(true);
             JLBLIO.setText("Componentenlijst");
 
@@ -570,7 +571,7 @@ public class Applicatie extends JFrame implements ActionListener {
             JBTN_CO.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
             JBTN_IO.setBackground(Color.white);
-            CO.setVisible(true);
+            COJ.setVisible(true);
             IO.setVisible(false);
             StandaardC.setVisible(false);
             JLBLIO.setText("Component overzicht");
@@ -671,6 +672,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JLBL_K_Databases.setText(Double.toString(kostenDatabases));
         JLBL_K_Webs.setText(Double.toString(kostenWebservers));
 //            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
+        CO.getComponent();
     }
 
     public ArrayList<Componenten> getMomenteleComponenten() {
@@ -679,10 +681,11 @@ public class Applicatie extends JFrame implements ActionListener {
 
     public void timerUpdate(){
         while(true){
-            if(keuzeComponenten.size() != 0){
-                for(Componenten component : keuzeComponenten){
+            if(momenteleComponenten.size() != 0){
+                for(Componenten component : momenteleComponenten){
                     component.updateGegevens();
                     component.testConnectie();
+                    CO.getComponent();
                 }
             }
 

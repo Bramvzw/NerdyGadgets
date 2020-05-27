@@ -15,6 +15,7 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
     private JSeparator SEPA_Bottom;
     private JButton test;
     private ArrayList<Componenten> database = new ArrayList<>();
+    private ArrayList<JPanel> panels = new ArrayList<>();
 
 
     Border border1 = BorderFactory.createLineBorder(Color.black);
@@ -33,6 +34,10 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
 
 
     public void getComponent() {
+        for (JPanel panel : panels){
+            this.remove(panel);
+            panels.remove(panel);
+        }
 
         for (Componenten comp : database) {
             PNL_Component = new JPanel();
@@ -54,7 +59,7 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
             JLBL_Processorb = new JLabel("Processorbelasting ");
             PNL_Component.add(JLBL_Processorb);
 
-            JLBL_I_Proccesb = new JLabel(GegevensOphalen.start("192.168.1.1")[0]);
+            JLBL_I_Proccesb = new JLabel(Double.toString(comp.getProcessorbelasting()));
             JLBL_I_Proccesb.setBorder(border1);
             JLBL_I_Proccesb.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Proccesb);
@@ -70,7 +75,7 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Diskruimte = new JLabel(GegevensOphalen.start("192.168.1.1")[1]);
+            JLBL_I_Diskruimte = new JLabel(Double.toString(comp.getDiskruimte()));
             JLBL_I_Diskruimte.setBorder(border1);
             JLBL_I_Diskruimte.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Diskruimte);
@@ -85,7 +90,7 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
             PNL_Component.add(JLBL_Placeholder);
 
             JLBL_I_OnOff_Line = new JLabel();
-            if (GegevensOphalen.testConnectie("192.168.1.102")) {
+            if (comp.isBeschikbaar()) {
                 JLBL_I_OnOff_Line = new JLabel("Online");
             } else {
                 JLBL_I_OnOff_Line = new JLabel("Offline");
@@ -95,6 +100,8 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
             PNL_Component.add(JLBL_I_OnOff_Line);
 
             Index++;
+
+            panels.add(PNL_Component);
 
         }
 

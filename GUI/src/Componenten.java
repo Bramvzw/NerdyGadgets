@@ -61,6 +61,8 @@ public class Componenten {
         Processorbelasting = component.getProcessorbelasting() + 0;
         Diskruimte = component.Diskruimte + 0;
         host = component.getHost() + "";
+        beschikbaar = component.isBeschikbaar();
+
     }
 
     public int getID() {
@@ -115,7 +117,11 @@ public class Componenten {
         return Prijs;
     }
 
-   public void testConnectie(){
+    public boolean isBeschikbaar() {
+        return beschikbaar;
+    }
+
+    public void testConnectie(){
         if(host!= null && !host.isEmpty()){
             beschikbaar = GegevensOphalen.testConnectie(host);
         }
