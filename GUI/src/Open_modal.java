@@ -12,7 +12,8 @@ public class Open_modal extends JDialog implements ActionListener {
     private Boolean boolOk = false;
     private int geselecteerd;
     private JLabel Placeholder;
-    private JPanel panel, panel1, panel2;
+    private JPanel panel, panel2;
+    private JScrollPane SPanel;
 
     public Open_modal(JFrame frame, ArrayList<String> groep) {
         super(frame, true);
@@ -46,15 +47,15 @@ public class Open_modal extends JDialog implements ActionListener {
         Placeholder.setFont(new Font("", Font.PLAIN, 20));
         panel2.add(Placeholder);
 
-        panel1 = new JPanel();
-        add(panel1, BorderLayout.CENTER);
+        SPanel = new JScrollPane(groepLijst);
+        this.add(SPanel);
 
         panel = new JPanel();
         add(panel,BorderLayout.SOUTH);
 
         panel.setLayout(new FlowLayout());
 
-        panel1.add(groepLijst);
+//        panel1.add(groepLijst);
 
 
         JBTN_Ok = new JButton("Ok");
@@ -82,7 +83,6 @@ public class Open_modal extends JDialog implements ActionListener {
         if(e.getSource() == JBTN_Ok){
             boolOk = true;
         }
-
         setVisible(false);
     }
 }
