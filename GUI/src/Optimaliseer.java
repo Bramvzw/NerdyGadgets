@@ -92,7 +92,33 @@ public class Optimaliseer {
         if(beschikbaarheid > gewensteBeschikbaarheid && (kosten < besteKosten || besteKosten == 0)){
             besteComponenten.clear();
             for(Componenten component : componenten){
-                besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0));
+                if(component.getType().equals("firewall")){
+                    besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0, keuzeComponenten.get(0).getHost(),keuzeComponenten.get(0).isBeschikbaar(),keuzeComponenten.get(0).getProcessorbelasting(),keuzeComponenten.get(0).getDiskruimte()));
+                }
+
+                if(component.getType().equals("DBserver") && component.getNaam().equals("HAL9001DB")){
+                    besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0, keuzeComponenten.get(1).getHost(),keuzeComponenten.get(1).isBeschikbaar(),keuzeComponenten.get(1).getProcessorbelasting(),keuzeComponenten.get(1).getDiskruimte()));
+                }
+
+                if(component.getType().equals("DBserver") && component.getNaam().equals("HAL9002DB")){
+                    besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0, keuzeComponenten.get(2).getHost(),keuzeComponenten.get(2).isBeschikbaar(),keuzeComponenten.get(2).getProcessorbelasting(),keuzeComponenten.get(2).getDiskruimte()));
+                }
+
+                if(component.getType().equals("DBserver") && component.getNaam().equals("HAL9003DB")){
+                    besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0, keuzeComponenten.get(3).getHost(),keuzeComponenten.get(3).isBeschikbaar(),keuzeComponenten.get(3).getProcessorbelasting(),keuzeComponenten.get(3).getDiskruimte()));
+                }
+
+                if(component.getType().equals("webserver") && component.getNaam().equals("HAL9001W")){
+                    besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0, keuzeComponenten.get(4).getHost(),keuzeComponenten.get(4).isBeschikbaar(),keuzeComponenten.get(4).getProcessorbelasting(),keuzeComponenten.get(4).getDiskruimte()));
+                }
+
+                if(component.getType().equals("webserver") && component.getNaam().equals("HAL9002W")){
+                    besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0, keuzeComponenten.get(5).getHost(),keuzeComponenten.get(5).isBeschikbaar(),keuzeComponenten.get(5).getProcessorbelasting(),keuzeComponenten.get(5).getDiskruimte()));
+                }
+
+                if(component.getType().equals("webserver") && component.getNaam().equals("HAL9003W")){
+                    besteComponenten.add(new Componenten(component.getType() + "",component.getNaam() + "", (component.getBeschikbaarheid()) + 0, component.getPrijs() + 0, keuzeComponenten.get(6).getHost(),keuzeComponenten.get(6).isBeschikbaar(),keuzeComponenten.get(6).getProcessorbelasting(),keuzeComponenten.get(6).getDiskruimte()));
+                }
             }
             besteBeschikbaarheid = beschikbaarheid;
             besteKosten = kosten;
