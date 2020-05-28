@@ -12,6 +12,7 @@ public class Componenten {
     private String host = "";
     private boolean beschikbaar = false;
 
+    //Component constructor voor toevoegen van component uit database
     public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, double Processorbelasting, double Diskruimte, String host, Boolean beschikbaar){
         this.ID = ID;
         this.Type = Type;
@@ -24,6 +25,7 @@ public class Componenten {
         this.beschikbaar = beschikbaar;
     }
 
+    //Component constructor voor ophalen van component uit database met IP zonder actuele gegegevens maar wel met werkende connectie
     public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, String host, Boolean beschikbaar){
         this.ID = ID;
         this.Type = Type;
@@ -34,6 +36,7 @@ public class Componenten {
         this.beschikbaar = beschikbaar;
     }
 
+    //Component constructor voor opslaan van component met IP
     public Componenten(int ID, String Type, String Naam, double Beschikbaarheid, int Prijs, String host){
         this.ID = ID;
         this.Type = Type;
@@ -43,6 +46,7 @@ public class Componenten {
         this.host = host;
     }
 
+    //Component constructor voor opslaan van component zonder actuele gegevens en IP
     public Componenten(String Type, String Naam, double Beschikbaarheid, int Prijs){
         ID=teller;
         this.Type = Type;
@@ -52,6 +56,7 @@ public class Componenten {
         teller++;
     }
 
+    //Component constructor voor op
     public Componenten(Componenten component){
         ID = component.getID() + 0;
         Type = component.getType() + "";
@@ -81,25 +86,6 @@ public class Componenten {
         return host;
     }
 
-    public Componenten(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
-        this.ID = ID;
-        this.Type = Type;
-        this.Naam = Naam;
-        this.Beschikbaarheid = Beschikbaarheid;
-        this.Prijs = Prijs;
-        this.Processorbelasting = Proccesorbelasting;
-        this.Diskruimte = Diskruimte;
-    }
-
-    public void NewComponent(int ID, int Type_key, String Type, String Naam, double Beschikbaarheid, int Prijs, double Proccesorbelasting, double Diskruimte) {
-        this.ID = ID;
-        this.Type = Type;
-        this.Naam = Naam;
-        this.Beschikbaarheid = Beschikbaarheid;
-        this.Prijs = Prijs;
-        this.Processorbelasting = Proccesorbelasting;
-        this.Diskruimte = Diskruimte;
-    }
 
     public String getNaam() {
         return Naam;

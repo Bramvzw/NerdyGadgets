@@ -51,6 +51,25 @@ public class Opslag {
         return id + 1;
     }
 
+    public int volgendeComponentID() {
+        int id = 0;
+        try {
+            stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(id) FROM infrastructuur.componenten;");
+            while(rs.next()){
+                id = rs.getInt("MAX(GroepID)");
+            }
+
+        } catch (SQLException se) {
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch (Exception e) {
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }
+        return id + 1;
+    }
+
     public void nieuwDatabase(){
         try{
             stmt = con.createStatement();
