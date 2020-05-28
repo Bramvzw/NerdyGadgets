@@ -12,10 +12,17 @@ import java.util.ArrayList;
 
 public class Applicatie extends JFrame implements ActionListener {
 
-
+    public static void main(String[] args) {
+        try {
+            new Applicatie();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     private Infrastructuur_Overzicht IO;
     private Opslag OP = new Opslag();
-    private JPanel JPNL_Top, JPNL_Left, VCT;
+    private JPanel JPNL_Top, JPNL_Left;
     private JLabel JLBLTitle, JLBLIO, JLBL_A_Firewall, JLBL_K_Firewall, JLBL_A_Databases, JLBL_K_Databases, JLBL_A_Webs, JLBL_K_Webs, JLBL_TotKosten, JLBL_Error, JLBL_Beschikbaarheid, JLBLStat, JLBLFirewall, JLBLWebs, JLBLDatabases,
             JLBL_Aantal, JLBLKosten, JLBL_GWBesch, JLBL_TotK, JLBL_Beschi, JLBL_Euro, JLBL_Procent, CustomTitle, StandaardTitle;
     private JTextField JTXTF_GWBesch;
@@ -23,13 +30,6 @@ public class Applicatie extends JFrame implements ActionListener {
     private JSeparator SEPA_Top, SEPA_Stat1, SEPA_Stat2, SEPA_Mid1, SEPA_Mid2, SEPA_Bottom;
     private JScrollPane StandaardC, COJ;
     private ComponentOverzicht CO;
-
-    private static int AantalFirewalls = 0;
-    private static int AantalDBs = 0;
-    private static int AantalWSs = 0;
-    private int KostenFirewalls = 0;
-    private int KostenDBs = 0;
-    private int KostenWSs = 0;
     private Boolean boolConnectie = false;
 
     private ArrayList<Componenten> keuzeComponenten =  new ComponentArray(this).getComponentenArray();
@@ -37,8 +37,7 @@ public class Applicatie extends JFrame implements ActionListener {
     private ArrayList<Componenten> oudeMomenteleComponenten = new ArrayList<>();
 
 
-    public Applicatie() {
-
+    public Applicatie() throws SQLException, IOException {
         if(boolConnectie) {
             new Thread(this::timerUpdate).start();
         }
@@ -48,10 +47,10 @@ public class Applicatie extends JFrame implements ActionListener {
         setMinimumSize(new Dimension(1160, 750));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-// Create Border
+        // Create Border
         Border border1 = BorderFactory.createBevelBorder(BevelBorder.RAISED, Color.black, null, null, null);
 
-// Create JPanels
+        // Create JPanels
         JPNL_Top = new JPanel();
         JPNL_Top.setBorder(new BevelBorder(BevelBorder.RAISED, Color.BLACK, null, null, null));
         JPNL_Top.setBackground(new Color(169, 169, 169));
@@ -71,7 +70,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
 
 
-// Create JLabel in JPanel Top
+        // Create JLabel in JPanel Top
         JLBLTitle = new JLabel("Monitoring Tool");
         JLBLTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
 
@@ -85,7 +84,7 @@ public class Applicatie extends JFrame implements ActionListener {
         StandaardTitle.setFont(new Font("", Font.PLAIN, 16));
 
 
-// Create JLabels in JPanel_Left
+        // Create JLabels in JPanel_Left
         JLBL_A_Firewall = new JLabel();
         JLBL_A_Firewall.setBorder(border1);
 
@@ -150,25 +149,25 @@ public class Applicatie extends JFrame implements ActionListener {
         JLBL_Error.setForeground(Color.red);
         add(JLBL_Error);
 
-// Create JTextField in Jpanel Top
+        // Create JTextField in Jpanel Top
         /**
          * None
          */
 
 
-// Create JTextFields in JPanel_Left
+        // Create JTextFields in JPanel_Left
         JTXTF_GWBesch = new JTextField();
         JTXTF_GWBesch.setColumns(10);
         JTXTF_GWBesch.addActionListener(this);
         add(JTXTF_GWBesch);
 
-// Create JButtons in JPanel Top
+        // Create JButtons in JPanel Top
         /**
          * none
          */
 
 
-// Create JButtons in JPanel Left
+        // Create JButtons in JPanel Left
         JBTN_Optimaliseer = new JButton("Optimaliseer");
         JBTN_Optimaliseer.setFocusable(false);
         JBTN_Optimaliseer.addActionListener(this);
@@ -197,13 +196,13 @@ public class Applicatie extends JFrame implements ActionListener {
 
 
 
-// Create Separator in Jpanel Top
+        // Create Separator in Jpanel Top
         SEPA_Top = new JSeparator();
         SEPA_Top.setForeground(Color.BLACK);
         add(SEPA_Top);
 
 
-// Create Seperators in JPanel_Left
+        // Create Seperators in JPanel_Left
         SEPA_Stat1 = new JSeparator();
         SEPA_Stat2 = new JSeparator();
         add(SEPA_Stat2);
@@ -218,12 +217,7 @@ public class Applicatie extends JFrame implements ActionListener {
         SEPA_Bottom.setForeground(Color.BLACK);
         add(SEPA_Bottom);
 
-
-// Overig:
-
-// Create JButton Exit in JPanel Top
-
-
+        //Opslaan button
         JBTN_Opslaan = new JButton();
         try {
             Image opslaan = ImageIO.read(new File("Images\\save-icon.png"));
@@ -243,7 +237,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
 
 
-
+        //Openen button
         JBTN_Open = new JButton();
         try {
             Image opslaan = ImageIO.read(new File("Images\\open-icon.png"));
@@ -260,11 +254,11 @@ public class Applicatie extends JFrame implements ActionListener {
         JBTN_Open.setBorderPainted(false);
         JBTN_Open.addActionListener(this);
 
-// Create Overig in Jpanel in Left
+        // Create Overig in Jpanel in Left
         /**
          * none
          */
-// Group Jpanel JPNL_Top
+        // Group Jpanel JPNL_Top
         GroupLayout groupLayout = new GroupLayout(this.getContentPane());
         groupLayout.setHorizontalGroup(
                 groupLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -513,7 +507,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JPNL_Top.setLayout(gl_JPNL_Top);
         this.getContentPane().setLayout(groupLayout);
 
-
+        //Panels zichtbaar maken
         IO.setVisible(true);
         JBTN_IO.setBackground(Color.gray);
         COJ.setVisible(false);
@@ -524,7 +518,7 @@ public class Applicatie extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         this.repaint();
 
-
+        //Optimaliseer knop activeer proces
         if (e.getSource() == JBTN_Optimaliseer) {
             try {
                 double GewBeschik = Double.parseDouble(JTXTF_GWBesch.getText());
@@ -543,6 +537,7 @@ public class Applicatie extends JFrame implements ActionListener {
             }
         }
 
+        //Infrastructuur overzicht knop activeer proces
         if (e.getSource() == JBTN_IO) {
             JBTN_IO.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
@@ -553,6 +548,7 @@ public class Applicatie extends JFrame implements ActionListener {
             JLBLIO.setText("Infrastructuur overzicht");
         }
 
+        //Componentlijst knop activeer proces
         if (e.getSource() == JBTN_OpenCL) {
             JBTN_OpenCL.setBackground(Color.gray);
             JBTN_IO.setBackground(Color.white);
@@ -564,6 +560,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
         }
 
+        //Component overzicht knop activeer proces
         if (e.getSource() == JBTN_CO) {
             JBTN_CO.setBackground(Color.gray);
             JBTN_OpenCL.setBackground(Color.white);
@@ -574,6 +571,7 @@ public class Applicatie extends JFrame implements ActionListener {
             JLBLIO.setText("Component overzicht");
         }
 
+        //Verwijder alles knop activeer proces
         if (e.getSource() == JBTN_VerwiA) {
             Bevestiging_popup BP = new Bevestiging_popup(this);
             BP.setVisible(true);
@@ -591,7 +589,7 @@ public class Applicatie extends JFrame implements ActionListener {
             }
         }
 
-
+        //Open opgeslagen infrastructuren knop activeer proces
         if (e.getSource() == JBTN_Open) {
             Open_modal OM = new Open_modal(this,OP.ophalenGroepNamen());
 
@@ -600,6 +598,7 @@ public class Applicatie extends JFrame implements ActionListener {
             }
         }
 
+        //Opslaan infrastructuur knop activeer proces
         if (e.getSource() == JBTN_Opslaan) {
             Opslaan_modal OM = new Opslaan_modal(this,momenteleComponenten);
 
@@ -608,12 +607,14 @@ public class Applicatie extends JFrame implements ActionListener {
             }
         }
 
+        //Bijwerk activeer proces
         if (!momenteleComponenten.equals(oudeMomenteleComponenten)) {
             updateComponenten();
         }
 
     }
 
+    //Componentenlijst veranderen methode
     public void veranderComponenten(ArrayList<Componenten> oudComponenten, ArrayList<Componenten> nieuwComponenten){
         oudComponenten.clear();
         for(Componenten component : nieuwComponenten){
@@ -621,10 +622,10 @@ public class Applicatie extends JFrame implements ActionListener {
         }
     }
 
+    //Momentele componeten update methode
     public void updateComponenten(){
         veranderComponenten(momenteleComponenten,Optimaliseer.sorteer(momenteleComponenten));
         veranderComponenten(oudeMomenteleComponenten,momenteleComponenten);
-        System.out.println(momenteleComponenten);
         IO.setcomponenten(momenteleComponenten);
         String[] componentTypes = {"firewall", "DBserver", "webserver"};
         double beschikbaarheid = 1;
@@ -669,7 +670,6 @@ public class Applicatie extends JFrame implements ActionListener {
         JLBL_K_Firewall.setText(Double.toString(kostenFirewalls));
         JLBL_K_Databases.setText(Double.toString(kostenDatabases));
         JLBL_K_Webs.setText(Double.toString(kostenWebservers));
-//            JLBL_Beschikbaarheid.setText(Double.toString(beschikbaarheid));
         CO.getComponent();
     }
 
@@ -677,6 +677,7 @@ public class Applicatie extends JFrame implements ActionListener {
         return momenteleComponenten;
     }
 
+    //Update timer methode
     public void timerUpdate(){
         while(true){
             if(momenteleComponenten.size() != 0){

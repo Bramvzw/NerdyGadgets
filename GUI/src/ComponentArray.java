@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,13 +8,13 @@ public class ComponentArray {
     private Boolean boolConnectie = false;
     private Connection con = Connectie.getConnection(this);
 
-
+    //CompononentArray constructor
     public ComponentArray(Applicatie app){
         if(boolConnectie) {
             componentenArray = new ArrayList<>();
             String[] gegevens;
             for (int i = 1; i <= CountRows(con); i++) {
-                gegevens = getgegevens(con, i);
+                gegevens = getgegevens(con, i); //Ophalen gegevens component
                 if (!gegevens[7].isEmpty() || !gegevens[8].isEmpty()) {
                     componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), (100 - Double.parseDouble(gegevens[7])), Double.parseDouble(gegevens[8]), gegevens[4], Boolean.parseBoolean(gegevens[9])));
                 }
@@ -27,10 +26,10 @@ public class ComponentArray {
                     componentenArray.add(new Componenten(Integer.parseInt(gegevens[0]), gegevens[5], gegevens[6], Double.parseDouble(gegevens[2]), Integer.parseInt(gegevens[3]), gegevens[4]));
                 }
             }
-            app.setBoolConnectie(true);
+            app.setBoolConnectie(true); //Aangeven werkende connectie
         }
         else{
-            app.waarschuwingConnectie();
+            app.waarschuwingConnectie(); //Aangeven foute connectie
         }
     }
 
@@ -38,7 +37,7 @@ public class ComponentArray {
         return componentenArray;
     }
 
-    public int CountRows(Connection con) {
+    public int CountRows(Connection con) { //Methode voor tellen van alle rows in database component
         int rows = 0;
         try {
             stmt = con.createStatement();
@@ -64,7 +63,7 @@ public class ComponentArray {
         return rows;
     }
 
-    public String[] getgegevens(Connection con, int ID){
+    public String[] getgegevens(Connection con, int ID){ //Ophalen gegevens van component
         String[] gegevens = new String[10];
 
         try {
@@ -87,10 +86,10 @@ public class ComponentArray {
                 gegevens[6] = naamOphalen(ID, con);
                 String[] cpudisk;
                 if(!(gegevens[4].equals(""))) {
-                    cpudisk = GegevensOphalen.start(gegevens[4]);
+                    cpudisk = GegevensOphalen.start(gegevens[4]); //Ophalen actuele gegevens van component
                     gegevens[8] = cpudisk[1].replace(",", ".");
                     gegevens[7] = cpudisk[0];
-                    gegevens[9] = Boolean.toString(GegevensOphalen.testConnectie(gegevens[4]));
+                    gegevens[9] = Boolean.toString(GegevensOphalen.testConnectie(gegevens[4])); //Ophalen connectie status component
                 }
                 else{
                     gegevens[7] = "";
@@ -113,7 +112,7 @@ public class ComponentArray {
         return gegevens;
     }
 
-    public String typeOphalen(int apparaatID, Connection con) throws SQLException {
+    public String typeOphalen(int apparaatID, Connection con) throws SQLException { //Methode voor ophalen van type van component
         String string = "";
         try {
             pstmt = con.prepareStatement("Select * FROM firewall WHERE apparaatID=?;");
@@ -154,7 +153,7 @@ public class ComponentArray {
         return string;
     }
 
-    public String naamOphalen(int apparaatID, Connection con) throws SQLException {
+    public String naamOphalen(int apparaatID, Connection con) throws SQLException { //Methode voor ophalen van naam van component
         String string = "";
         try {
             pstmt = con.prepareStatement("Select * FROM hardware WHERE apparaatID=?;");
