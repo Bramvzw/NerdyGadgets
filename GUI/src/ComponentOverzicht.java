@@ -2,14 +2,12 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
-public class ComponentOverzicht extends JPanel implements ActionListener {
+public class ComponentOverzicht extends JPanel {
     private static int Index = 0;
+    Border border1 = BorderFactory.createLineBorder(Color.black);
+    Border border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.black, null, null, null);
     private JPanel PNL_Component;
     private JLabel JLBL_Processorb, JLBL_Diskruimte, JLBL_Placeholder, JLBL_I_Proccesb, JLBL_I_Diskruimte, JLBL_NetworkLoad, JLBL_I_OnOff_Line, JLBL_Naam;
     private JSeparator SEPA_Bottom;
@@ -17,28 +15,19 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
     private ArrayList<Componenten> database = new ArrayList<>();
     private ArrayList<JPanel> panels = new ArrayList<>();
 
-
-    Border border1 = BorderFactory.createLineBorder(Color.black);
-    Border border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.black, null, null, null);
-
-
-
-    public ComponentOverzicht(Applicatie applicatie, ArrayList<Componenten> keuzeComponenten,ArrayList<Componenten> momentelecomponenten) {
+    // ArrayList database vullen met de momentele componeten
+    public ComponentOverzicht(Applicatie applicatie, ArrayList<Componenten> keuzeComponenten, ArrayList<Componenten> momentelecomponenten) {
         database = applicatie.getMomenteleComponenten();
-
-        test = new JButton("test");
-        test.addActionListener(this);
-        add(test);
-
     }
 
-
+    // Arraylist panels legen
     public void getComponent() {
-        for (int i = 0; i<panels.size(); i ++){
+        for (int i = 0; i < panels.size(); i++) {
             this.remove(panels.get(i));
         }
         panels.clear();
 
+        // Panels aanmaken voor momentele componenten
         for (Componenten comp : database) {
             PNL_Component = new JPanel();
             PNL_Component.setLayout(new BoxLayout(PNL_Component, BoxLayout.Y_AXIS));
@@ -85,13 +74,12 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
             SEPA_Bottom.setForeground(Color.darkGray);
             PNL_Component.add(SEPA_Bottom);
 
-
             JLBL_Placeholder = new JLabel("        ");
             PNL_Component.add(JLBL_Placeholder);
 
             JLBL_I_OnOff_Line = new JLabel();
             if (comp.isBeschikbaar()) {
-                JLBL_I_OnOff_Line = new JLabel("Online");
+                JLBL_I_OnOff_Line = new JLabel("Online"); // controle of het component offline of online is
             } else {
                 JLBL_I_OnOff_Line = new JLabel("Offline");
             }
@@ -100,23 +88,7 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
             PNL_Component.add(JLBL_I_OnOff_Line);
 
             Index++;
-
-            panels.add(PNL_Component);
-
+            panels.add(PNL_Component); // toevoegen aan ArrayList panels met het net aangemaakte panel en daarop de gegevens van het component
         }
-
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == test) {
-            System.out.println(database);
-            getComponent();
-            this.revalidate();
-
-        }
-
-
     }
 }

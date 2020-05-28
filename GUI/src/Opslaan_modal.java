@@ -52,6 +52,7 @@ public class Opslaan_modal extends JDialog implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        // wanneer naam-veld of geen componenten in infrastructuur staan foutmedling geven
         if(e.getSource() == JBTN_Ok){
             if(JTXTF_Naam.getText().isEmpty()){
                 new JOptionPane().showMessageDialog(this,"Voer een naam in");
@@ -67,7 +68,6 @@ public class Opslaan_modal extends JDialog implements ActionListener {
         if(e.getSource() == JBTN_Cancel){
             setVisible(false);
         }
-
     }
 
     public Boolean getBoolOk() {

@@ -8,6 +8,7 @@ public class Opslag {
     private PreparedStatement pstmt;
     private Statement stmt;
 
+    // Opslaan van de componenten uit een infrastructuur in de databases
     public void slaOp(ArrayList<Componenten> componenten, String groepNaam) {
         nieuwDatabase();
         int groepID =  volgendeGroepID();
@@ -29,9 +30,10 @@ public class Opslag {
                 e.printStackTrace();
             }
         }
-
     }
 
+
+    // GroepID meegeven aan een opgeslagen infrastructuur
     public int volgendeGroepID() {
         int id = 0;
         try {
@@ -51,6 +53,7 @@ public class Opslag {
         return id + 1;
     }
 
+    // nieuwe database aanmaken op de localhost wanneer deze nog niet bestaat
     public void nieuwDatabase(){
         try{
             stmt = con.createStatement();
@@ -65,17 +68,13 @@ public class Opslag {
                     "    GroepID int NOT NULL," +
                     "    GroepNaam varchar(50)," +
                     "    PRIMARY KEY (Id, GroepID));");
-        }
-        catch(SQLException se){
+        } catch(Exception se){
             //Handle errors for JDBC
             se.printStackTrace();
-        }
-        catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        }
+        }//Handle errors for Class.forName
     }
 
+    // Ophalen van de componenten uit de database
     public ArrayList<Componenten> ophalenComponenten(int GroepID){
         ArrayList<Componenten> componenten = new ArrayList<>();
         try {
@@ -93,6 +92,7 @@ public class Opslag {
         return componenten;
     }
 
+    // Ophalen van namen van alle opgeslagen infrastrucuten
     public ArrayList<String> ophalenGroepNamen(){
         ArrayList<String> groepNamen = new ArrayList<>();
         try {
@@ -105,25 +105,9 @@ public class Opslag {
                 }
             }
         }
-
         catch(Exception se){
             se.printStackTrace();
         }
         return groepNamen;
-    }
-
-    public void openCon(){
-        con = Connectie.getConnectionLocalhost();
-    }
-
-    public void sluitCon(){
-        try{
-            if(con!=null) {
-                con.close();
-            }
-        }
-        catch(SQLException se){
-            se.printStackTrace();
-        }
     }
 }
