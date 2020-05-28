@@ -80,7 +80,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("     ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(0).getBeschikbaarheid()));
+            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(0).getBeschikbaarheid()) + " %");
             JLBL_I_Beschikbaarheid.setBorder(border1);
             JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -96,7 +96,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("                            ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(0).getPrijs()));
+            JLBL_I_Prijs = new JLabel("€ " + Integer.toString(  + keuzeComponenten.get(0).getPrijs()));
             JLBL_I_Prijs.setBorder(border1);
             JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Prijs);
@@ -161,7 +161,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("     ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(1).getBeschikbaarheid()));
+            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(1).getBeschikbaarheid()) + " %");
             JLBL_I_Beschikbaarheid.setBorder(border1);
             JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -177,7 +177,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("                            ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(1).getPrijs()));
+            JLBL_I_Prijs = new JLabel( "€ " +Integer.toString(keuzeComponenten.get(1).getPrijs()));
             JLBL_I_Prijs.setBorder(border1);
             JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Prijs);
@@ -242,7 +242,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("     ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(2).getBeschikbaarheid()));
+            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(2).getBeschikbaarheid()) + " %");
             JLBL_I_Beschikbaarheid.setBorder(border1);
             JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -258,7 +258,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("                            ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(2).getPrijs()));
+            JLBL_I_Prijs = new JLabel("€ " +Integer.toString(keuzeComponenten.get(2).getPrijs()));
             JLBL_I_Prijs.setBorder(border1);
             JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Prijs);
@@ -323,7 +323,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("     ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(3).getBeschikbaarheid()));
+            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(3).getBeschikbaarheid()) + " %");
             JLBL_I_Beschikbaarheid.setBorder(border1);
             JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -339,7 +339,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("                            ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(3).getPrijs()));
+            JLBL_I_Prijs = new JLabel("€ " + Integer.toString(keuzeComponenten.get(3).getPrijs()));
             JLBL_I_Prijs.setBorder(border1);
             JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Prijs);
@@ -404,7 +404,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("     ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(4).getBeschikbaarheid()));
+            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(4).getBeschikbaarheid()) + " %");
             JLBL_I_Beschikbaarheid.setBorder(border1);
             JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -420,7 +420,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("                            ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(4).getPrijs()));
+            JLBL_I_Prijs = new JLabel("€ " + Integer.toString(keuzeComponenten.get(4).getPrijs()));
             JLBL_I_Prijs.setBorder(border1);
             JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Prijs);
@@ -485,7 +485,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("     ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(5).getBeschikbaarheid()));
+            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(5).getBeschikbaarheid()) + " %");
             JLBL_I_Beschikbaarheid.setBorder(border1);
             JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -501,7 +501,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("                            ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(5).getPrijs()));
+            JLBL_I_Prijs = new JLabel("€ " + Integer.toString(keuzeComponenten.get(5).getPrijs()));
             JLBL_I_Prijs.setBorder(border1);
             JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Prijs);
@@ -566,7 +566,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("     ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(6).getBeschikbaarheid()));
+            JLBL_I_Beschikbaarheid = new JLabel(Double.toString(keuzeComponenten.get(6).getBeschikbaarheid()) + " %");
             JLBL_I_Beschikbaarheid.setBorder(border1);
             JLBL_I_Beschikbaarheid.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Beschikbaarheid);
@@ -582,7 +582,7 @@ public class ComponentLijst extends JPanel implements ActionListener {
             JLBL_Placeholder = new JLabel("                            ");
             PNL_Component.add(JLBL_Placeholder);
 
-            JLBL_I_Prijs = new JLabel(Integer.toString(keuzeComponenten.get(6).getPrijs()));
+            JLBL_I_Prijs = new JLabel("€ " + Integer.toString(keuzeComponenten.get(6).getPrijs()));
             JLBL_I_Prijs.setBorder(border1);
             JLBL_I_Prijs.setPreferredSize(new Dimension(70, 15));
             PNL_Component.add(JLBL_I_Prijs);
