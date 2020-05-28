@@ -36,8 +36,8 @@ public class ComponentOverzicht extends JPanel implements ActionListener {
     public void getComponent() {
         for (int i = 0; i<panels.size(); i ++){
             this.remove(panels.get(i));
-            panels.remove(panels.get(i));
         }
+        panels.clear();
 
         for (Componenten comp : database) {
             PNL_Component = new JPanel();

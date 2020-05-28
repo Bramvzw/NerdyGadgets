@@ -625,6 +625,7 @@ public class Applicatie extends JFrame implements ActionListener {
     }
 
     public void updateComponenten(){
+        veranderComponenten(momenteleComponenten,Optimaliseer.sorteer(momenteleComponenten));
         veranderComponenten(oudeMomenteleComponenten,momenteleComponenten);
         System.out.println(momenteleComponenten);
         IO.setcomponenten(momenteleComponenten);

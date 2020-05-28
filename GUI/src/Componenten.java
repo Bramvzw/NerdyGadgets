@@ -138,7 +138,7 @@ public class Componenten {
                 cpudisk = GegevensOphalen.start(host);
                 if(!cpudisk[0].equals("") && !cpudisk[1].equals("")) {
                     Diskruimte = Double.parseDouble(cpudisk[1].replace(",", "."));
-                    Processorbelasting = 100 - Double.parseDouble(cpudisk[0]);
+                    Processorbelasting = Double.parseDouble(String.format("%.02f", 100 - Double.parseDouble(cpudisk[0])));
                 }
             }
         }

@@ -30,23 +30,6 @@ public class Opslag {
             }
         }
 
-        if (pstmt != null) {
-            try {
-            pstmt.  close();
-            }
-            catch(SQLException SQLe) {
-                SQLe.printStackTrace();
-            }
-        }
-        try{
-            if(con!=null) {
-                con.close();
-            }
-        }
-        catch(SQLException se){
-            se.printStackTrace();
-        }
-
     }
 
     public int volgendeGroepID() {
@@ -64,14 +47,6 @@ public class Opslag {
         } catch (Exception e) {
             //Handle errors for Class.forName
             e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-
         }
         return id + 1;
     }
@@ -99,16 +74,6 @@ public class Opslag {
             //Handle errors for Class.forName
             e.printStackTrace();
         }
-        finally{
-            //finally block used to close resources
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }
-            catch(SQLException se2){
-            }// nothing we can do
-
-        }
     }
 
     public ArrayList<Componenten> ophalenComponenten(int GroepID){
@@ -124,16 +89,6 @@ public class Opslag {
             rs.close();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-        } finally {
-            if (pstmt !=
-                    null) {
-                try {
-                    pstmt.close();
-                }
-                catch(SQLException sqle){
-                    sqle.printStackTrace();
-                }
-            }
         }
         return componenten;
     }
@@ -154,15 +109,21 @@ public class Opslag {
         catch(Exception se){
             se.printStackTrace();
         }
-        finally{
-            try{
-                if(stmt!=null)
-                    stmt.close();
-            }
-            catch(SQLException se2) {
-                se2.printStackTrace();
+        return groepNamen;
+    }
+
+    public void openCon(){
+        con = Connectie.getConnectionLocalhost();
+    }
+
+    public void sluitCon(){
+        try{
+            if(con!=null) {
+                con.close();
             }
         }
-        return groepNamen;
+        catch(SQLException se){
+            se.printStackTrace();
+        }
     }
 }

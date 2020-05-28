@@ -124,7 +124,7 @@ public class Optimaliseer {
     }
 
 
-    public ArrayList<Componenten> sorteer(ArrayList<Componenten> componenten){
+    public static ArrayList<Componenten> sorteer(ArrayList<Componenten> componenten){
         ArrayList<Componenten> gesorteerd = new ArrayList<>();
         for(Componenten component : componenten){
             if(component.getType().equals("firewall")){
