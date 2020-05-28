@@ -47,12 +47,16 @@ public class Componenten {
     }
 
     //Component constructor voor opslaan van component zonder actuele gegevens en IP
-    public Componenten(String Type, String Naam, double Beschikbaarheid, int Prijs){
+    public Componenten(String Type, String Naam, double Beschikbaarheid, int Prijs, String host, boolean beschikbaar, Double processorbelasting, Double diskruimte){
         ID=teller;
         this.Type = Type;
         this.Naam = Naam;
         this.Beschikbaarheid = Beschikbaarheid;
         this.Prijs = Prijs;
+        this.host = host;
+        this.beschikbaar = beschikbaar;
+        this.Processorbelasting = processorbelasting;
+        this.Diskruimte = diskruimte;
         teller++;
     }
 
