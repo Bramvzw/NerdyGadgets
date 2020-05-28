@@ -31,7 +31,7 @@ public class ComponentOverzicht extends JPanel {
             this.remove(panels.get(i));
         }
         panels.clear();
-
+        
         // Panels aanmaken voor momentele componenten
         for (Componenten comp : database) {
             PNL_Component = new JPanel();

@@ -1,4 +1,5 @@
 import java.util.Objects;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Componenten {
     private int ID;
@@ -122,16 +123,15 @@ public class Componenten {
 
     public void updateGegevens(){
         if(host != null) {
-            String[] gegevens = new String[2];
             String[] cpudisk;
 
-                cpudisk = GegevensOphalen.start(host);
-                if(!cpudisk[0].equals("") && !cpudisk[1].equals("")) {
-                    Diskruimte = Double.parseDouble(cpudisk[1].replace(",", "."));
-                    Processorbelasting = Double.parseDouble(String.format("%.02f", 100 - Double.parseDouble(cpudisk[0])));
-                }
+            cpudisk = GegevensOphalen.start(host);
+            if(!cpudisk[0].equals("") && !cpudisk[1].equals("")) {
+                Diskruimte = Double.parseDouble(cpudisk[1].replace(",", "."));
+                Processorbelasting = (100 - Double.parseDouble(cpudisk[0]));
             }
         }
+    }
 
     public String toString() {
         return Type + " " + Naam + " " + Beschikbaarheid + " " + Prijs;

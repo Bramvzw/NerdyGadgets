@@ -39,6 +39,7 @@ public class Applicatie extends JFrame implements ActionListener {
 
 
     public Applicatie() throws SQLException, IOException {
+        //Update timer starten
         if(boolConnectie) {
             new Thread(this::timerUpdate).start();
         }
@@ -682,13 +683,17 @@ public class Applicatie extends JFrame implements ActionListener {
     public void timerUpdate(){
         while(true){
             if(momenteleComponenten.size() != 0){
-                for(Componenten component : momenteleComponenten){
-                    component.updateGegevens();
-                    component.testConnectie();
-                    CO.getComponent();
+                try {
+                    for (Componenten component : momenteleComponenten) {
+                        component.updateGegevens();
+                        component.testConnectie();
+                        CO.getComponent();
+                    }
+                }
+                catch (Exception e){
+
                 }
             }
-
             try {
                 Thread.sleep(10000);
             }
