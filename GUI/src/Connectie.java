@@ -14,13 +14,14 @@ public class Connectie {
     private static Connection con;
 
     public static Connection getConnection(ComponentArray CA) {
+        // gegevens van een gebruiker aangeven
         url = "jdbc:mysql://192.168.1.102:3306/nerdygadgets";
         driverName = "mysql-connector-java-8.0.20.jar";
         username = "root";
         password = "ictm2m2";
 
-//        try {
-//            Class.forName(driverName);
+
+        // Opzetten van de SSH connectie
         Logger LOGGER = Logger.getLogger(Connectie.class.getName());
         int assigned_port = 1;
         try {
@@ -28,7 +29,6 @@ public class Connectie {
             String SshUser = "root";            // SSH loging username
             String SshPassword = "ictm2m2";     // SSH login password
             String SshHost = "192.168.1.102";   // hostname or ip or SSH server
-            int nSshPort = 22;                  // remote SSH host port number
             String RemoteHost = "192.168.1.102";
 
             JSch jsch = new JSch();
@@ -42,9 +42,7 @@ public class Connectie {
 
             session.connect();
             assigned_port = session.setPortForwardingL(3306, RemoteHost, 3306);
-
-//            Class.forName("com.mysql.jdbc.Driver");
-
+            // Connectie aanmaken met de gegevens van de gebruiker
             try {
                 con = DriverManager.getConnection(url, username, password);
                 CA.setBoolConnectie(true);
@@ -57,7 +55,7 @@ public class Connectie {
             }
         }
         catch (JSchException e) {
-            //LOGGER.log(Level.SEVERE, e.getMessage());
+
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -65,10 +63,6 @@ public class Connectie {
         if (assigned_port == 0) {
             LOGGER.log(Level.SEVERE, "Port forwarding failed !");
         }
-//        } catch (ClassNotFoundException ex) {
-//            // log an exception. for example:
-//            System.out.println("Driver not found.");
-//        }
         return con;
     }
 
@@ -78,31 +72,13 @@ public class Connectie {
         username = "root";
         password = "";
 
-//        try {
-//            Class.forName(driverName);
+
         try {
             con = DriverManager.getConnection(url, username, password);
         } catch (SQLException ex) {
-            // log an exception. fro example:
+            // Foutmelding printen wanneer er geen connectie is met de localdatabase
             System.out.println("Let op! U heeft geen connectie met de lokale database (Zet XAMPP & MySQL aan)");
         }
-//        } catch (ClassNotFoundException ex) {
-//            // log an exception. for example:
-//            System.out.println("Driver not found.");
-//        }
         return con;
     }
 }
-
-
-  /*
-  Om een verbinding te maken:
-
-    private Connection con = null;
-    private Statement stmt = null;
-    private ResultSet rs = null;
-
-    con = Connectie.getConnection();
-    stmt = con.createStatement();
-    rs = stmt.executeQuery(sql);
-   */

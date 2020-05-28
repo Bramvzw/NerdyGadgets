@@ -18,7 +18,8 @@ public class Open_modal extends JDialog implements ActionListener {
     public Open_modal(JFrame frame, ArrayList<String> groep) {
         super(frame, true);
         ArrayList<String> groepNamen = new ArrayList<>();
-        for(int i = 1; i < groep.size(); i += 2){
+        // namen van opgeslagen infrastructen in een ArrayList zetten
+        for (int i = 1; i < groep.size(); i += 2) {
             groepNamen.add(groep.get(i));
         }
         setSize(400, 200);
@@ -27,13 +28,12 @@ public class Open_modal extends JDialog implements ActionListener {
 
         groepLijst = new JList(groepNamen.toArray());
         groepLijst.addListSelectionListener(new ListSelectionListener() {
-
+            // Controle of er een andere naam is geselecteerd dan voorheen
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
-                    if(groepLijst.getSelectedIndex() == 0){
+                    if (groepLijst.getSelectedIndex() == 0) {
                         geselecteerd = Integer.parseInt(groep.get(0));
-                    }
-                    else{
+                    } else {
                         geselecteerd = Integer.parseInt(groep.get(groepLijst.getSelectedIndex() * 2));
                     }
                 }
@@ -51,12 +51,9 @@ public class Open_modal extends JDialog implements ActionListener {
         this.add(SPanel);
 
         panel = new JPanel();
-        add(panel,BorderLayout.SOUTH);
+        add(panel, BorderLayout.SOUTH);
 
         panel.setLayout(new FlowLayout());
-
-//        panel1.add(groepLijst);
-
 
         JBTN_Ok = new JButton("Ok");
         JBTN_Ok.addActionListener(this);
@@ -80,7 +77,7 @@ public class Open_modal extends JDialog implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == JBTN_Ok){
+        if (e.getSource() == JBTN_Ok) {
             boolOk = true;
         }
         setVisible(false);

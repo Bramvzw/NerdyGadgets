@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -62,7 +61,7 @@ public class Applicatie extends JFrame implements ActionListener {
         JPNL_Left.setBackground(new Color(169, 169, 169));
         add(JPNL_Left);
 
-        IO = new Infrastructuur_Overzicht(momenteleComponenten , this);
+        IO = new Infrastructuur_Overzicht(momenteleComponenten);
 
         StandaardC = new JScrollPane(new ComponentLijst(this, keuzeComponenten, momenteleComponenten));
         CO = new ComponentOverzicht(this, keuzeComponenten, momenteleComponenten);
@@ -712,5 +711,7 @@ public class Applicatie extends JFrame implements ActionListener {
     }
 
 }
+
+
 
 

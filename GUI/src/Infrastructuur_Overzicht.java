@@ -7,20 +7,14 @@ import java.util.ArrayList;
 
 public class Infrastructuur_Overzicht extends JPanel {
     private ArrayList<Componenten> database = new ArrayList<>();
-
-    public Infrastructuur_Overzicht(ArrayList<Componenten> component , Applicatie app)  {
-        setBackground(Color.lightGray);
-        database= app.getMomenteleComponenten();
-        System.out.println(database.size());
-        System.out.println();
-
+    public Infrastructuur_Overzicht(ArrayList<Componenten> component)  {
     }
+
+    // Momentele componenten worden opgeslagen in Arraylist
     public void setcomponenten(ArrayList<Componenten> a){
         this.database= a;
-        System.out.println(database.size());
-     repaint();
     }
-
+    // Neerzetten van de momentele componenten in infrastructuur overzicht
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
@@ -33,12 +27,9 @@ public class Infrastructuur_Overzicht extends JPanel {
         int dCount = 0;
         int wCount = 0;
 
-
-
-
         for (Componenten s : database) {
             try {
-                Image image = ImageIO.read(new File("Images/Database.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                Image image = ImageIO.read(new File("Images/Database.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH); //  DBserver-image
                 if (s.getType().equals("DBserver")) { // draw database
                     if (dCount == 7 || dCount == 14) {
                         xDatabase += 100;
@@ -46,7 +37,7 @@ public class Infrastructuur_Overzicht extends JPanel {
 
                     }
 
-                    g.drawImage(image, xDatabase, yDatabase, null);
+                    g.drawImage(image, xDatabase, yDatabase, null); // neerzetten van de lijnen in IO
                     g.drawString(s.getNaam(), xDatabase , yDatabase + 60);
                     g.setColor(Color.BLACK);
                     g.drawLine(225, 50, 225, 700);
@@ -64,7 +55,7 @@ public class Infrastructuur_Overzicht extends JPanel {
                         yWebserver = 50;
 
                     }
-                    Image image2 = ImageIO.read(new File("Images/Webserver.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                    Image image2 = ImageIO.read(new File("Images/Webserver.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);//  webserver image
                     g.drawImage(image2, xWebserver, yWebserver, null);
                     g.drawString(s.getNaam(), xWebserver , yWebserver +60);
                     g.setColor(Color.BLACK);
@@ -73,21 +64,16 @@ public class Infrastructuur_Overzicht extends JPanel {
                     wCount++;
 
                 } else {
-                    Image image3 = ImageIO.read(new File("Images/FireWall.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+                    Image image3 = ImageIO.read(new File("Images/FireWall.png")).getScaledInstance(50, 50, Image.SCALE_SMOOTH);//  Firewall image
                     g.drawImage(image3, xFirewall, 80, null);
-                    g.drawString(s.getNaam(), xFirewall , 140);
+                    g.drawString(s.getNaam(), xFirewall, 140);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
-
-
     }
-
-
-    }
+}
 
 
 
