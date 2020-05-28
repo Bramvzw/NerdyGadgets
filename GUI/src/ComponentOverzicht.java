@@ -31,7 +31,7 @@ public class ComponentOverzicht extends JPanel {
             this.remove(panels.get(i));
         }
         panels.clear();
-        
+
         // Panels aanmaken voor momentele componenten
         for (Componenten comp : database) {
             PNL_Component = new JPanel();
@@ -145,5 +145,6 @@ public class ComponentOverzicht extends JPanel {
             Index++;
             panels.add(PNL_Component); // toevoegen aan ArrayList panels met het net aangemaakte panel en daarop de gegevens van het component
         }
+        this.revalidate();
     }
 }
